@@ -140,6 +140,10 @@ builtInPacks.push(
     }
 );
 
+builtInPacks.forEach(pack => {
+    pack.subject = "CTDL&GT";
+});
+
 const STORAGE_STATS_KEY = "ctdlgt_quiz_stats_v2";
 const STORAGE_PROGRESS_PREFIX = "ctdlgt_progress_";
 const STORAGE_IMPORTED_KEY = "ctdlgt_imported_packs_v1";
@@ -298,21 +302,21 @@ function bindEvents() {
 
 function rebuildPackList() {
     availablePacks = [...builtInPacks, ...importedPacks];
-    els.packCount.textContent = `${availablePacks.length} gói`;
+    els.packCount.textContent = `${availablePacks.length} bộ đề`;
     renderPacks();
 }
 
 function renderPacks() {
     const query = els.packSearch.value.trim().toLowerCase();
     const packs = availablePacks.filter(pack => {
-        const haystack = `${pack.title} ${pack.desc} ${pack.source} ${(pack.tags || []).join(" ")}`.toLowerCase();
+        const haystack = `${pack.title} ${pack.desc} ${pack.source} ${pack.subject || ""} ${(pack.tags || []).join(" ")}`.toLowerCase();
         return haystack.includes(query);
     });
 
     els.packList.innerHTML = "";
 
     if (packs.length === 0) {
-        els.packList.innerHTML = '<p class="muted-empty">Không tìm thấy gói phù hợp.</p>';
+        els.packList.innerHTML = '<p class="muted-empty">Không tìm thấy bộ đề phù hợp.</p>';
         return;
     }
 
@@ -321,12 +325,13 @@ function renderPacks() {
         item.type = "button";
         item.className = `pack-item ${selectedPack?.id === pack.id ? "active" : ""}`;
         const tagMarkup = renderPackTags(pack.tags);
+        const source = [pack.source || "Tự thêm", pack.subject].filter(Boolean).join(" · ");
         item.innerHTML = `
             <div class="pack-topline">
                 <h3>${escapeHtml(pack.title)}</h3>
-                <span class="pack-source">${escapeHtml(pack.source || "Import")}</span>
+                <span class="pack-source">${escapeHtml(source)}</span>
             </div>
-            <p>${escapeHtml(pack.desc || "Gói câu hỏi đã import.")}</p>
+            <p>${escapeHtml(pack.desc || "Bộ đề đã được thêm.")}</p>
             ${tagMarkup}
             <div class="pack-meta">
                 <span>${pack.count ? `${pack.count} câu` : "Sẵn sàng tải"}</span>
@@ -377,10 +382,10 @@ function updateSelectedPackSummary(pack) {
     const packStats = getPackStats(pack.id);
     const wrongCount = packStats.wrongQuestionIds.length;
     els.selectedPackSummary.innerHTML = `
-        <span>Gói đang chọn</span>
+        <span>Bộ đề đang chọn</span>
         <strong>${escapeHtml(pack.title)}</strong>
-        <small>${escapeHtml(pack.desc || "Gói câu hỏi đã import.")}</small>
-        <small>${wrongCount > 0 ? `${wrongCount} câu sai có thể luyện lại` : "Chưa có câu sai trong gói này"}</small>
+        <small>${escapeHtml(pack.desc || "Bộ đề đã được thêm.")}</small>
+        <small>${wrongCount > 0 ? `${wrongCount} câu sai có thể ôn lại` : "Chưa có câu sai trong bộ đề này"}</small>
     `;
 
     animate(
@@ -392,7 +397,7 @@ function updateSelectedPackSummary(pack) {
 
 async function openQuizFromSelection(wrongPractice) {
     if (!selectedPack) {
-        setImportStatus("Chọn một gói câu hỏi trước khi vào quiz.", "error");
+        setImportStatus("Chọn một bộ đề trước khi vào quiz.", "error");
         return;
     }
     await loadPack(selectedPack, wrongPractice);
@@ -412,7 +417,7 @@ async function loadPack(pack, wrongPractice = false) {
             const wrongIds = new Set(getPackStats(currentPackId).wrongQuestionIds || []);
             sessionQuestions = baseQuestions.filter(question => wrongIds.has(question.__originalIndex));
             if (sessionQuestions.length === 0) {
-                setImportStatus("Gói này chưa có câu sai để luyện lại.", "success");
+                setImportStatus("Bộ đề này chưa có câu sai để ôn lại.", "success");
                 return;
             }
             studyMode = "practice";
@@ -424,8 +429,8 @@ async function loadPack(pack, wrongPractice = false) {
         renderPacks();
         updateStatsDisplay(pack.id);
     } catch (error) {
-        console.error("Không thể tải gói câu hỏi:", error);
-        setImportStatus("Không thể tải gói câu hỏi. Kiểm tra lại file dữ liệu.", "error");
+        console.error("Không thể tải bộ đề:", error);
+        setImportStatus("Không thể tải bộ đề. Kiểm tra lại file dữ liệu.", "error");
     }
 }
 
@@ -552,7 +557,7 @@ function startSession(questions, wrongPractice) {
         loadProgress(currentPackId);
     }
 
-    els.activePackLabel.textContent = wrongPractice ? "Luyện lại câu sai" : activePack.source || "Gói câu hỏi";
+    els.activePackLabel.textContent = wrongPractice ? "Ôn lại câu sai" : activePack.source || "Bộ đề";
     els.quizTitle.textContent = `${activePack.title}${wrongPractice ? " - câu sai" : ""}`;
     els.emptyState.hidden = true;
     els.quizContainer.hidden = false;
@@ -1475,9 +1480,9 @@ function removeImportedPack(packId) {
         selectedPack = null;
         els.btnOpenQuiz.disabled = true;
         els.selectedPackSummary.innerHTML = `
-            <span>Gói đang chọn</span>
-            <strong>Chưa chọn gói</strong>
-            <small>Chọn một chủ đề bên dưới để tiếp tục.</small>
+            <span>Bộ đề đang chọn</span>
+            <strong>Chưa chọn bộ đề</strong>
+            <small>Chọn một môn học hoặc bộ đề để tiếp tục.</small>
         `;
     }
 
@@ -1491,8 +1496,8 @@ function removeImportedPack(packId) {
         score = 0;
         els.quizContainer.hidden = true;
         els.emptyState.hidden = false;
-        els.quizTitle.textContent = "Chọn một gói câu hỏi để bắt đầu";
-        els.activePackLabel.textContent = "Chưa chọn gói";
+        els.quizTitle.textContent = "Chọn một bộ đề để bắt đầu";
+        els.activePackLabel.textContent = "Chưa chọn bộ đề";
         els.btnResetSession.disabled = true;
         showSetupView();
         updateOverallProgress();
@@ -1500,7 +1505,7 @@ function removeImportedPack(packId) {
     }
 
     rebuildPackList();
-    setImportStatus("Đã gỡ gói import khỏi trình duyệt.", "success");
+    setImportStatus("Đã gỡ bộ đề khỏi trình duyệt.", "success");
 }
 
 function setImportStatus(message, type) {
