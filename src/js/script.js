@@ -137,11 +137,121 @@ builtInPacks.push(
         source: "Built-in",
         count: 50,
         tags: ["Hard", "50 questions", "Advanced"]
+    },
+    {
+        id: "coa_ch01",
+        title: "COA · Chương 1: Khái niệm cơ bản",
+        desc: "Kiến trúc, tổ chức máy tính và quá trình phát triển máy tính.",
+        file: "./src/data/CH01-Basic_Concepts_and_Computer_Evolution.json",
+        source: "Có sẵn",
+        subject: "Tổ chức & kiến trúc máy tính",
+        count: 30,
+        tags: ["COA", "Chương 1"]
+    },
+    {
+        id: "coa_ch02",
+        title: "COA · Chương 2: Hiệu năng",
+        desc: "Các thước đo, công thức và yếu tố ảnh hưởng đến hiệu năng máy tính.",
+        file: "./src/data/CH02-Performance_Issues.json",
+        source: "Có sẵn",
+        subject: "Tổ chức & kiến trúc máy tính",
+        count: 30,
+        tags: ["COA", "Chương 2"]
+    },
+    {
+        id: "coa_ch03",
+        title: "COA · Chương 3: Chức năng & liên kết",
+        desc: "Chu kỳ lệnh, bus hệ thống và sự liên kết giữa các thành phần máy tính.",
+        file: "./src/data/CH03-Computer_Function_and_Interconnection.json",
+        source: "Có sẵn",
+        subject: "Tổ chức & kiến trúc máy tính",
+        count: 30,
+        tags: ["COA", "Chương 3"]
+    },
+    {
+        id: "coa_ch04",
+        title: "COA · Chương 4: Bộ nhớ đệm",
+        desc: "Cache memory, ánh xạ cache và các chính sách thay thế.",
+        file: "./src/data/CH04-Cache_Memory.json",
+        source: "Có sẵn",
+        subject: "Tổ chức & kiến trúc máy tính",
+        count: 30,
+        tags: ["COA", "Chương 4"]
+    },
+    {
+        id: "coa_ch05",
+        title: "COA · Chương 5: Bộ nhớ trong",
+        desc: "Bộ nhớ bán dẫn, mã sửa lỗi và tổ chức bộ nhớ trong.",
+        file: "./src/data/CH05-Internal_Memory.json",
+        source: "Có sẵn",
+        subject: "Tổ chức & kiến trúc máy tính",
+        count: 30,
+        tags: ["COA", "Chương 5"]
+    },
+    {
+        id: "coa_cache_40",
+        title: "COA · Chương 4: Cache nâng cao",
+        desc: "Phân cấp bộ nhớ, locality và các kỹ thuật tối ưu cache.",
+        file: "./src/data/coa_chapter4_cache_mcq_40_questions.json",
+        source: "Có sẵn",
+        subject: "Tổ chức & kiến trúc máy tính",
+        count: 40,
+        tags: ["COA", "Cache"]
+    },
+    {
+        id: "os_ch01",
+        title: "Hệ điều hành · Chương 1: Tổng quan",
+        desc: "Vai trò, cấu trúc và các khái niệm nền tảng của hệ điều hành.",
+        file: "./src/data/chapter1_mcq_40_questions.json",
+        source: "Có sẵn",
+        subject: "Hệ điều hành",
+        count: 40,
+        tags: ["OS", "Chương 1"]
+    },
+    {
+        id: "os_ch02",
+        title: "Hệ điều hành · Chương 2: Tiến trình",
+        desc: "Tiến trình, luồng, lập lịch và đồng bộ hóa.",
+        file: "./src/data/chapter2_mcq_40_questions.json",
+        source: "Có sẵn",
+        subject: "Hệ điều hành",
+        count: 40,
+        tags: ["OS", "Chương 2"]
+    },
+    {
+        id: "os_ch03",
+        title: "Hệ điều hành · Chương 3: Quản lý bộ nhớ",
+        desc: "Không gian địa chỉ, phân trang và bộ nhớ ảo.",
+        file: "./src/data/chapter3_mcq_40_questions.json",
+        source: "Có sẵn",
+        subject: "Hệ điều hành",
+        count: 40,
+        tags: ["OS", "Chương 3"]
+    },
+    {
+        id: "os_ch04",
+        title: "Hệ điều hành · Chương 4: Hệ thống tệp",
+        desc: "Tệp, thư mục, lưu trữ lâu dài và các hệ thống tệp.",
+        file: "./src/data/chapter4_mcq_40_questions.json",
+        source: "Có sẵn",
+        subject: "Hệ điều hành",
+        count: 40,
+        tags: ["OS", "Chương 4"]
+    },
+    {
+        id: "os_advanced_tanenbaum",
+        title: "Hệ điều hành nâng cao · Tanenbaum",
+        desc: "MINIX, bảo vệ hệ thống, real-time và các chủ đề hệ điều hành nâng cao.",
+        file: "./src/data/tanenbaum_advanced_os_mcq_40_questions.json",
+        source: "Có sẵn",
+        subject: "Hệ điều hành",
+        count: 40,
+        tags: ["OS", "Nâng cao"]
     }
 );
 
 builtInPacks.forEach(pack => {
-    pack.subject = "CTDL&GT";
+    pack.subject ||= "CTDL&GT";
 });
 
 const STORAGE_STATS_KEY = "ctdlgt_quiz_stats_v2";

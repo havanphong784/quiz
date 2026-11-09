@@ -1,0 +1,442 @@
+[
+  {
+    "question": "What is the primary motivation for implementing a memory hierarchy in modern computer systems?",
+    "options": [
+      "A. To eliminate the need for main memory (DRAM)",
+      "B. To bridge the performance gap between fast CPUs and slower main memory at an affordable cost",
+      "C. To replace volatile registers with non-volatile optical storage",
+      "D. To simplify the instruction set architecture of the processor"
+    ],
+    "answer": "B",
+    "explanation": "Memory hierarchy balances speed, capacity, and cost per bit by placing small, fast memory near the CPU and larger, slower memory further away."
+  },
+  {
+    "question": "Which of the following trade-offs is fundamental to computer memory design?",
+    "options": [
+      "A. Faster access time requires higher cost per bit and typically yields smaller capacity",
+      "B. Larger capacity directly leads to faster access times",
+      "C. Cheaper memory always provides lower latency than expensive memory",
+      "D. Higher density decreases access time while increasing cost per bit"
+    ],
+    "answer": "A",
+    "explanation": "As you move up the memory hierarchy, cost per bit increases, access speed increases, and total capacity decreases."
+  },
+  {
+    "question": "What principle states that memory references made by a processor tend to cluster over short periods of time?",
+    "options": [
+      "A. Principle of Amdahl's Law",
+      "B. Principle of Locality",
+      "C. Principle of Polling",
+      "D. Principle of Coherency"
+    ],
+    "answer": "B",
+    "explanation": "The Principle of Locality (both temporal and spatial) is the key property that allows cache memory to be highly effective."
+  },
+  {
+    "question": "Which type of locality refers to the tendency of a program to access memory locations near locations that were recently accessed?",
+    "options": [
+      "A. Temporal locality",
+      "B. Spatial locality",
+      "C. Sequential locality",
+      "D. Virtual locality"
+    ],
+    "answer": "B",
+    "explanation": "Spatial locality occurs when execution references memory locations physically adjacent or close to recently accessed locations (e.g., array traversal)."
+  },
+  {
+    "question": "If a program repeatedly executes code inside a small loop, which form of locality is primarily demonstrated?",
+    "options": [
+      "A. Spatial locality",
+      "B. Temporal locality",
+      "C. Associative locality",
+      "D. Random locality"
+    ],
+    "answer": "B",
+    "explanation": "Temporal locality refers to accessing the exact same memory location repeatedly within a short timeframe, such as loop instructions."
+  },
+  {
+    "question": "What happens during a 'Cache Hit'?",
+    "options": [
+      "A. The requested memory block is not found in cache, forcing a main memory read",
+      "B. The CPU accesses the requested data directly from the cache without accessing main memory",
+      "C. Data in the cache is corrupted and must be reloaded",
+      "D. The cache controller writes all blocks back to the hard disk drive"
+    ],
+    "answer": "B",
+    "explanation": "A cache hit occurs when the CPU requests data that is currently present in the cache, enabling fast access."
+  },
+  {
+    "question": "What term describes the ratio of memory accesses satisfied by the cache to total memory accesses?",
+    "options": [
+      "A. Miss penalty",
+      "B. Hit ratio",
+      "C. Access latency",
+      "D. Transfer rate"
+    ],
+    "answer": "B",
+    "explanation": "The hit ratio (or hit rate) is the fraction of all memory references found in the cache."
+  },
+  {
+    "question": "What is meant by 'Miss Penalty' in cache performance evaluation?",
+    "options": [
+      "A. The financial cost of replacing a damaged cache module",
+      "B. The extra time required to retrieve a block from main memory and load it into cache upon a cache miss",
+      "C. The power consumed during a write-through operation",
+      "D. The reduction in clock frequency caused by pipeline stalls"
+    ],
+    "answer": "B",
+    "explanation": "Miss penalty is the additional delay spent transferring data from lower levels of memory to the cache when a cache miss occurs."
+  },
+  {
+    "question": "Where is the cache logically positioned in relation to the CPU and Main Memory?",
+    "options": [
+      "A. Between the CPU registers/ALU and Main Memory",
+      "B. Between Main Memory and Secondary Disk Storage",
+      "C. Inside the Disk Controller",
+      "D. Parallel to the System Bus on an expansion card"
+    ],
+    "answer": "A",
+    "explanation": "Cache memory acts as a high-speed buffer positioned between the CPU processor registers and slower Main Memory (DRAM)."
+  },
+  {
+    "question": "What is a 'Cache Line' (or Cache Block)?",
+    "options": [
+      "A. A physical wire connecting CPU to DRAM",
+      "B. The unit of data transfer and storage within a cache, containing data words plus control bits like Tag and Valid bits",
+      "C. A single byte of data inside the instruction register",
+      "D. The bus width of the system data bus"
+    ],
+    "answer": "B",
+    "explanation": "Cache is partitioned into fixed-size lines (blocks), each holding multiple data bytes alongside tag and state bits."
+  },
+  {
+    "question": "In Direct Mapping, how is the cache line index calculated for a main memory block number j?",
+    "options": [
+      "A. i = j mod (number of cache lines m)",
+      "B. i = j * (number of cache lines m)",
+      "C. i = j + Tag",
+      "D. i = random(0, m-1)"
+    ],
+    "answer": "A",
+    "explanation": "Direct mapping maps each main memory block j to cache line i according to the formula i = j mod m."
+  },
+  {
+    "question": "How is a main memory address partitioned in a Direct Mapped cache scheme?",
+    "options": [
+      "A. Tag and Word fields only",
+      "B. Tag, Line (Slot), and Word (Offset) fields",
+      "C. Set and Word fields only",
+      "D. Page and Frame fields"
+    ],
+    "answer": "B",
+    "explanation": "Direct mapping memory addresses are split into: Tag (to identify block), Line/Slot index (to locate cache line), and Word offset (to locate byte/word in block)."
+  },
+  {
+    "question": "What is the main advantage of Direct Mapping?",
+    "options": [
+      "A. It completely eliminates conflict misses",
+      "B. It is simple and inexpensive to implement in hardware",
+      "C. Any memory block can be placed in any cache line",
+      "D. It requires no tag comparison"
+    ],
+    "answer": "B",
+    "explanation": "Direct mapping is hardware-simple and low-cost because each main memory address maps to exactly one specific cache line."
+  },
+  {
+    "question": "What is the major disadvantage of Direct Mapping?",
+    "options": [
+      "A. High hardware search complexity",
+      "B. Conflict thrashing when two frequently accessed memory blocks map to the exact same cache line",
+      "C. Inability to support temporal locality",
+      "D. Slow tag lookup compared to set-associative cache"
+    ],
+    "answer": "B",
+    "explanation": "If a program repeatedly accesses two blocks that map to the same line i, they repeatedly displace each other (thrashing), resulting in low hit rates."
+  },
+  {
+    "question": "What is a 'Victim Cache' designed to mitigate in Direct Mapped caches?",
+    "options": [
+      "A. Read errors in DRAM",
+      "B. Conflict misses caused by thrashing in direct-mapped caches",
+      "C. Write-back latency during dirty block eviction",
+      "D. TLB misses in virtual memory"
+    ],
+    "answer": "B",
+    "explanation": "A victim cache is a small fully associative cache placed between L1 direct-mapped cache and L2 to hold blocks evicted by conflict misses."
+  },
+  {
+    "question": "How does Fully Associative Mapping place main memory blocks into the cache?",
+    "options": [
+      "A. Each block maps strictly to line (j mod m)",
+      "B. A main memory block can be loaded into any arbitrary line of the cache",
+      "C. Blocks are stored only in odd-numbered cache lines",
+      "D. Blocks are mapped depending on their word offset"
+    ],
+    "answer": "B",
+    "explanation": "Fully associative mapping allows any main memory block to reside in any available cache line."
+  },
+  {
+    "question": "How is a physical address partitioned in Fully Associative Mapping?",
+    "options": [
+      "A. Tag and Word (Offset) fields only",
+      "B. Tag, Line, and Word fields",
+      "C. Set, Line, and Tag fields",
+      "D. Index and Offset fields"
+    ],
+    "answer": "A",
+    "explanation": "Since a block can go anywhere, there is no Line/Slot index field. The address consists only of a Tag (identifying the block) and a Word offset."
+  },
+  {
+    "question": "Why is Fully Associative Mapping rarely used for large caches?",
+    "options": [
+      "A. It suffers from severe conflict misses",
+      "B. It requires expensive parallel comparator logic to search all cache line tags simultaneously",
+      "C. It cannot implement the LRU replacement policy",
+      "D. It restricts cache block sizes to 4 bytes"
+    ],
+    "answer": "B",
+    "explanation": "Fully associative lookup requires comparing the address tag against every line tag in parallel, demanding complex and costly hardware circuits."
+  },
+  {
+    "question": "In a k-way Set Associative Cache, how is the cache organized?",
+    "options": [
+      "A. The cache is divided into sets, where each set contains k cache lines",
+      "B. The cache contains k total lines split across k sets",
+      "C. Each main memory block maps to k different sets simultaneously",
+      "D. The tag size is reduced by k bits"
+    ],
+    "answer": "A",
+    "explanation": "A k-way set associative cache groups cache lines into sets of size k. A block maps to a specific set, but can occupy any of the k lines within that set."
+  },
+  {
+    "question": "How is a main memory address interpreted in Set Associative Mapping?",
+    "options": [
+      "A. Tag and Word fields only",
+      "B. Tag, Set Index, and Word (Offset) fields",
+      "C. Line Index, Set Index, and Word fields",
+      "D. Block Number and Byte Offset fields only"
+    ],
+    "answer": "B",
+    "explanation": "The address is divided into a Tag (to identify the block in the set), a Set Index (to choose the target set), and a Word offset."
+  },
+  {
+    "question": "When a cache miss occurs in a fully filled set of a set-associative cache, what mechanism determines which block is evicted?",
+    "options": [
+      "A. Write-through policy",
+      "B. Replacement algorithm",
+      "C. Mapping function",
+      "D. Coherency protocol"
+    ],
+    "answer": "B",
+    "explanation": "A replacement algorithm decides which existing block in a full cache set or line to overwrite when new data must be loaded."
+  },
+  {
+    "question": "Which replacement algorithm replaces the block in the set that has been in the cache longest without being referenced?",
+    "options": [
+      "A. First-In, First-Out (FIFO)",
+      "B. Least Recently Used (LRU)",
+      "C. Least Frequently Used (LFU)",
+      "D. Random"
+    ],
+    "answer": "B",
+    "explanation": "LRU tracks reference history and evicts the block that has gone the longest time without any CPU access."
+  },
+  {
+    "question": "How does the First-In, First-Out (FIFO) cache replacement policy select a block for eviction?",
+    "options": [
+      "A. It replaces the block that experienced the most cache hits",
+      "B. It replaces the block that has resided in the set for the longest elapsed time, regardless of recent accesses",
+      "C. It selects a block purely based on a pseudo-random number generator",
+      "D. It evicts the block with the smallest tag value"
+    ],
+    "answer": "B",
+    "explanation": "FIFO replaces the block that was loaded earliest into the cache set, ignoring how recently or frequently it was accessed."
+  },
+  {
+    "question": "Which replacement algorithm replaces the block that has experienced the fewest cumulative references over time?",
+    "options": [
+      "A. LRU",
+      "B. LFU (Least Frequently Used)",
+      "C. Optimal (OPT)",
+      "D. Round Robin"
+    ],
+    "answer": "B",
+    "explanation": "LFU maintains a counter for each block counting references and evicts the block with the smallest access count."
+  },
+  {
+    "question": "Why is a replacement algorithm NOT necessary for Direct Mapping?",
+    "options": [
+      "A. Direct mapping never suffers from cache misses",
+      "B. Each main memory block maps to only one specific line, so there is no choice of which line to evict",
+      "C. Direct mapped caches use hardware queues automatically",
+      "D. All lines in direct mapping are non-volatile"
+    ],
+    "answer": "B",
+    "explanation": "In direct mapping, a block location is strictly dictated by its address mod m; if that line is occupied, it is unconditionally overwritten."
+  },
+  {
+    "question": "What is the core operation of the 'Write Through' cache write policy?",
+    "options": [
+      "A. All write operations update both the cache line and the underlying main memory block simultaneously",
+      "B. Writes update only the cache, deferring main memory updates until eviction",
+      "C. Writes bypass the cache entirely and go directly to secondary disk storage",
+      "D. Write operations are blocked until a read miss occurs"
+    ],
+    "answer": "A",
+    "explanation": "Write Through guarantees that main memory always contains up-to-date data by writing updates to both cache and RAM synchronously."
+  },
+  {
+    "question": "What is the primary drawback of the Write Through policy?",
+    "options": [
+      "A. Inconsistent data between cache and RAM",
+      "B. High memory bus write traffic that can degrade overall system performance",
+      "C. Complex dirty-bit hardware tracking per cache line",
+      "D. Incompatibility with multi-core processors"
+    ],
+    "answer": "B",
+    "explanation": "Because every write generates a main memory bus access, Write Through can create severe bus bottlenecks."
+  },
+  {
+    "question": "How does the 'Write Back' (or Copy Back) policy manage memory writes?",
+    "options": [
+      "A. Updates are written only to the cache line; main memory is updated only when the dirty block is evicted",
+      "B. Updates are written to RAM first, then copied back into cache",
+      "C. Writes are buffered in secondary storage until reboot",
+      "D. Writes are discarded if a cache miss occurs"
+    ],
+    "answer": "A",
+    "explanation": "Write Back minimizes memory writes by updating only the cache. The modified block is written back to RAM only when it is displaced by a new block."
+  },
+  {
+    "question": "What is the role of a 'Dirty Bit' (or Modify Bit) in a Write Back cache?",
+    "options": [
+      "A. To indicate whether the cache line contains invalid parity bits",
+      "B. To flag whether a cache line has been modified by a write operation while residing in cache",
+      "C. To prevent read accesses to private data",
+      "D. To trigger an immediate interrupt to the operating system"
+    ],
+    "answer": "B",
+    "explanation": "The dirty bit tracks whether a cache line has been modified. If dirty=1 upon eviction, the block must be written back to RAM; if dirty=0, it can be discarded."
+  },
+  {
+    "question": "In multiprocessor systems with private caches, what problem arises when multiple processors cache and modify the same memory location?",
+    "options": [
+      "A. Belady's Anomaly",
+      "B. Cache Coherency problem",
+      "C. Internal fragmentation",
+      "D. Priority inversion"
+    ],
+    "answer": "B",
+    "explanation": "Cache coherency ensures that all processors in a multiprocessor system see a consistent view of shared memory when local caches hold copies of the same data."
+  },
+  {
+    "question": "What is the architecture of a Multilevel Cache system (e.g., L1, L2, L3)?",
+    "options": [
+      "A. L1 is smallest and fastest on-chip; L2/L3 are progressively larger, slightly slower, and serve as backup levels",
+      "B. L1 is main memory, L2 is disk cache, L3 is tape backup",
+      "C. L1 handles writes, L2 handles reads, L3 handles instructions",
+      "D. All levels have identical capacity and latency"
+    ],
+    "answer": "A",
+    "explanation": "Multilevel caching uses a tiny super-fast L1 cache closest to the CPU core, backed by larger L2 and L3 caches to catch L1 misses before going to DRAM."
+  },
+  {
+    "question": "What is the key difference between a Unified Cache and a Split Cache?",
+    "options": [
+      "A. Unified cache combines SRAM and DRAM; split cache uses ROM",
+      "B. Unified cache stores both instructions and data in one cache structure; split cache uses separate L1 caches for instructions and data",
+      "C. Unified cache uses direct mapping; split cache uses set associative mapping",
+      "D. Split cache requires write-through; unified cache requires write-back"
+    ],
+    "answer": "B",
+    "explanation": "A unified cache holds both instructions and data in a shared buffer. A split cache separates L1 into an Instruction Cache (I-cache) and Data Cache (D-cache)."
+  },
+  {
+    "question": "What is the main architectural benefit of using a Split L1 Cache (I-Cache and D-Cache) in modern pipelined processors?",
+    "options": [
+      "A. It reduces the cost per bit of the cache chips",
+      "B. It eliminates structural contention between instruction fetch and data operand access stages in the CPU pipeline",
+      "C. It doubles the total physical storage capacity of DRAM",
+      "D. It eliminates the need for tag comparison hardware"
+    ],
+    "answer": "B",
+    "explanation": "In a CPU pipeline, fetching an instruction and reading/writing a data operand occur in parallel. Split caches allow simultaneous instruction fetch and data memory access without bus contention."
+  },
+  {
+    "question": "What is an advantage of a Unified Cache over a Split Cache?",
+    "options": [
+      "A. Higher bandwidth for simultaneous instruction/data fetch",
+      "B. Higher hit rate because it automatically balances the allocation of cache lines between instruction and data workloads",
+      "C. Hardware simplicity in pipeline hazard control",
+      "D. Faster execution of write-through requests"
+    ],
+    "answer": "B",
+    "explanation": "A unified cache dynamically adapts to varying workloads—if a program requires more data than code, data can take up more lines in the unified cache."
+  },
+  {
+    "question": "What physical memory technology is almost universally used to construct CPU Cache memory due to its high speed?",
+    "options": [
+      "A. Dynamic RAM (DRAM)",
+      "B. Static RAM (SRAM)",
+      "C. NAND Flash",
+      "D. EEPROM"
+    ],
+    "answer": "B",
+    "explanation": "SRAM uses flip-flop circuitry that retains data without refresh cycles, delivering the nanosecond response times needed for cache memory."
+  },
+  {
+    "question": "How does increasing the Cache Line Size (block size) affect cache performance?",
+    "options": [
+      "A. It initially improves hit rates due to spatial locality, but excessively large block sizes reduce the total number of blocks and increase miss penalty",
+      "B. It continuously improves hit rates indefinitely without any penalty",
+      "C. It converts temporal locality into spatial locality",
+      "D. It eliminates the need for tag bits completely"
+    ],
+    "answer": "A",
+    "explanation": "Larger line sizes exploit spatial locality. However, if line size gets too large, fewer blocks fit in cache (increasing conflict misses) and the time to transfer large blocks increases miss penalty."
+  },
+  {
+    "question": "Given an 8-bit memory address in a direct-mapped cache with 4 cache lines and block size of 4 bytes, how many bits are assigned to Tag, Line Index, and Word Offset?",
+    "options": [
+      "A. Tag: 4 bits, Line Index: 2 bits, Word Offset: 2 bits",
+      "B. Tag: 3 bits, Line Index: 3 bits, Word Offset: 2 bits",
+      "C. Tag: 2 bits, Line Index: 4 bits, Word Offset: 2 bits",
+      "D. Tag: 5 bits, Line Index: 1 bit, Word Offset: 2 bits"
+    ],
+    "answer": "A",
+    "explanation": "Offset = log2(4 bytes) = 2 bits. Line Index = log2(4 lines) = 2 bits. Tag = 8 total bits - 2 (Index) - 2 (Offset) = 4 bits."
+  },
+  {
+    "question": "If a system has a cache hit time of 2 ns, a main memory access time of 50 ns, and a hit ratio of 90% (0.90), what is the Average Memory Access Time (AMAT)?",
+    "options": [
+      "A. 7.0 ns",
+      "B. 5.2 ns",
+      "C. 12.0 ns",
+      "D. 47.0 ns"
+    ],
+    "answer": "A",
+    "explanation": "AMAT = Hit Time + (Miss Rate * Miss Penalty) = 2 ns + (0.10 * 50 ns) = 2 ns + 5 ns = 7.0 ns."
+  },
+  {
+    "question": "What is the purpose of the 'Valid Bit' associated with each line in a cache?",
+    "options": [
+      "A. To indicate whether the cache line currently contains valid, initialized data from main memory",
+      "B. To check if the CPU has permission to write to the line",
+      "C. To determine whether the block should be written to optical disk",
+      "D. To store the lower order bits of the program counter"
+    ],
+    "answer": "A",
+    "explanation": "Upon system boot or flush, valid bits are set to 0. When a block is loaded, its valid bit is set to 1 to signal that the stored tag and data are valid."
+  },
+  {
+    "question": "Which type of cache miss occurs when a block is accessed for the very first time after system initialization?",
+    "options": [
+      "A. Conflict miss",
+      "B. Capacity miss",
+      "C. Compulsory miss (Cold miss)",
+      "D. Coherency miss"
+    ],
+    "answer": "C",
+    "explanation": "Compulsory misses (or cold misses) occur on the initial reference to a block of memory because it has never been loaded into cache before."
+  }
+]

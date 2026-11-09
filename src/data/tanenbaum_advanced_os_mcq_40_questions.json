@@ -1,0 +1,442 @@
+[
+  {
+    "question": "In the Tanenbaum MINIX 3 microkernel architecture, what is the primary role of the 'reincarnation server'?",
+    "options": [
+      "A. To allocate physical memory frames to user processes",
+      "B. To monitor and automatically restart crashed device drivers and servers",
+      "C. To translate user virtual addresses into physical addresses",
+      "D. To handle hardware interrupts directly in kernel mode"
+    ],
+    "answer": "B",
+    "explanation": "In MINIX 3, the reincarnation server periodically checks the health of device drivers and system servers, transparently restarting them if they fail or crash."
+  },
+  {
+    "question": "What is the fundamental design principle of an Exokernel operating system architecture?",
+    "options": [
+      "A. Emulating hardware interfaces entirely through a high-level Virtual Machine",
+      "B. Hiding all physical resources behind an abstracted file system API",
+      "C. Partitioning physical resources directly to user application libraries with minimal abstraction",
+      "D. Running all system services inside a single privileged kernel address space"
+    ],
+    "answer": "C",
+    "explanation": "An exokernel allocates raw physical hardware resources directly to user-level library operating systems (LibOSes), removing traditional OS abstraction layers."
+  },
+  {
+    "question": "Which of the following advantages is specifically achieved by a Microkernel design over a Monolithic OS kernel?",
+    "options": [
+      "A. Zero IPC overhead between system components",
+      "B. High fault isolation, as driver crashes do not bring down the whole kernel",
+      "C. Faster execution of system calls due to fewer context switches",
+      "D. Elimination of user-mode memory allocation overhead"
+    ],
+    "answer": "B",
+    "explanation": "Microkernels move services like device drivers and file systems to user space, isolating faults so a driver crash does not crash the entire operating system."
+  },
+  {
+    "question": "In Tanenbaum's classification of OS structures, how does a Client-Server model operating system communicate between user processes and system servers?",
+    "options": [
+      "A. Via shared global memory arrays in kernel space",
+      "B. Via Message Passing primitives managed by a minimal kernel",
+      "C. Via direct hardware interrupt vectors",
+      "D. Via static function calls compiled into a single executable"
+    ],
+    "answer": "B",
+    "explanation": "In a client-server OS model, client processes request services by sending messages to user-space server processes through minimal kernel message passing."
+  },
+  {
+    "question": "What distinguishes a Type-1 (Bare-Metal) Hypervisor from a Type-2 (Hosted) Hypervisor?",
+    "options": [
+      "A. Type-1 runs directly on the host hardware, while Type-2 runs on top of a conventional host operating system",
+      "B. Type-1 only supports Linux guest OSes, while Type-2 only supports Windows",
+      "C. Type-1 relies on binary translation, while Type-2 uses direct hardware execution",
+      "D. Type-1 cannot support multi-core CPUs, while Type-2 requires multi-core CPUs"
+    ],
+    "answer": "A",
+    "explanation": "Type-1 hypervisors (e.g., VMware ESXi, Xen) run directly on physical hardware. Type-2 hypervisors (e.g., VirtualBox) run as software applications inside a host OS."
+  },
+  {
+    "question": "According to Popek-Goldberg virtualization requirements, a hardware architecture is sensitive and virtualizable if and only if:",
+    "options": [
+      "A. All non-privileged instructions generate hardware traps",
+      "B. All sensitive instructions are a subset of privileged instructions",
+      "C. The CPU supports unlimited virtual address registers",
+      "D. Interrupt vectors can be edited directly by user applications"
+    ],
+    "answer": "B",
+    "explanation": "Popek-Goldberg theorem states that a machine is virtualizable if all sensitive instructions (those that expose or modify hardware state) trap when executed in unprivileged mode."
+  },
+  {
+    "question": "What is 'Paravirtualization' as described in modern virtualization systems?",
+    "options": [
+      "A. Running guest operating systems completely unmodified via full hardware emulation",
+      "B. Modifying the guest OS source code so it uses explicit hypercalls instead of sensitive instructions",
+      "C. Executing guest code entirely within the CPU L1 cache",
+      "D. Simulating a virtual CPU using a just-in-time (JIT) compiler"
+    ],
+    "answer": "B",
+    "explanation": "Paravirtualization modifies the guest OS kernel to call the hypervisor directly (hypercalls), eliminating the need to emulate complex hardware traps."
+  },
+  {
+    "question": "Which CPU feature was introduced in Intel VT-x / AMD-V hardware to eliminate the need for software binary translation in virtualization?",
+    "options": [
+      "A. Dual-core execution units",
+      "B. Root and Non-Root execution modes (VMX Root / Non-Root)",
+      "C. Integrated Graphics Processing Units",
+      "D. Static Random Access Memory"
+    ],
+    "answer": "B",
+    "explanation": "Intel VT-x introduced VMX Root operation (for hypervisor) and VMX Non-Root operation (for guest OS), allowing privileged guest instructions to trap automatically to the hypervisor."
+  },
+  {
+    "question": "What is a 'Futex' (Fast User-space Mutex) in the Linux kernel?",
+    "options": [
+      "A. A hardware-level atomic lock used exclusively by CPU microcode",
+      "B. A synchronization mechanism that acquires uncontended locks in user space without entering the kernel",
+      "C. A file-system lock used to prevent race conditions during write operations",
+      "D. A network protocol for remote process synchronization"
+    ],
+    "answer": "B",
+    "explanation": "A futex performs lock acquisition and release in user space via atomic instructions when there is no contention, trapping into the kernel only when thread blocking or waking is required."
+  },
+  {
+    "question": "In Read-Copy-Update (RCU) synchronization mechanism, how do reader threads access shared data structures?",
+    "options": [
+      "A. By acquiring an exclusive spinlock before reading",
+      "B. By disabling hardware interrupts on all CPU cores",
+      "C. Concurrently without acquiring any locks or overhead while writers modify a copy",
+      "D. By queuing requests in a first-in-first-out memory buffer"
+    ],
+    "answer": "C",
+    "explanation": "RCU allows readers to access shared data concurrently without locks. Writers update data by creating a new copy, updating pointers, and freeing the old copy after a grace period."
+  },
+  {
+    "question": "What is a major advantage of 'Scheduler Activations' compared to pure User-Level Threads (ULT)?",
+    "options": [
+      "A. It completely eliminates the need for thread stacks",
+      "B. It provides kernel notifications (upcalls) to user-space thread schedulers when a thread blocks on I/O",
+      "C. It bypasses CPU cache hierarchy for faster context switching",
+      "D. It restricts all thread scheduling strictly to hardware interrupts"
+    ],
+    "answer": "B",
+    "explanation": "Scheduler Activations combine ULT efficiency with KLT functionality by having the kernel notify the user-space thread scheduler via upcalls whenever a thread blocks or unblocks."
+  },
+  {
+    "question": "What is a 'Pop-up Thread' in distributed or network operating systems?",
+    "options": [
+      "A. A thread created dynamically by the OS to handle an incoming network message",
+      "B. A thread that automatically terminates after executing a single assembly instruction",
+      "C. A background process that regularly cleans temporary memory caches",
+      "D. A thread that migrates physically between different CPU sockets"
+    ],
+    "answer": "A",
+    "explanation": "A pop-up thread is created on-the-fly by the OS to process an incoming message or packet immediately, eliminating traditional thread context switch latencies."
+  },
+  {
+    "question": "In the Dining Philosophers synchronization problem, how can deadlock be strictly prevented without limiting concurrency?",
+    "options": [
+      "A. By making all philosophers pick up the left fork first unconditionally",
+      "B. By introducing an asymmetric rule where odd-numbered philosophers pick left first and even-numbered pick right first",
+      "C. By allowing only one philosopher to eat per hour",
+      "D. By removing half of the available forks from the table"
+    ],
+    "answer": "B",
+    "explanation": "An asymmetric strategy breaks the circular wait condition: even philosophers pick up the right fork first while odd philosophers pick up the left fork first."
+  },
+  {
+    "question": "In the Readers-Writers synchronization problem, what does a 'Writer-Preference' solution guarantee?",
+    "options": [
+      "A. Readers can continuously enter the critical section even if a writer is waiting",
+      "B. Once a writer requests access, no new readers are admitted until the writer executes",
+      "C. Readers and writers execute simultaneously in the same memory block",
+      "D. Writers are permanently blocked if more than two readers exist"
+    ],
+    "answer": "B",
+    "explanation": "Writer preference prevents writer starvation by blocking new readers from entering the critical section as soon as a writer signals intent to write."
+  },
+  {
+    "question": "How does the WSClock (Working-Set Clock) page replacement algorithm operate?",
+    "options": [
+      "A. It arranges pages in a linear array and evicts the page with the highest virtual address",
+      "B. It combines a circular list of page frames (clock) with working-set age inspection and referenced bits",
+      "C. It uses a random number generator to pick an evicted page every clock cycle",
+      "D. It counts the total number of reads per second and evicts the most read page"
+    ],
+    "answer": "B",
+    "explanation": "WSClock maintains a circular clock ring of physical pages. When evicting, it checks the Referenced bit and age against the working-set window, combining Clock simplicity with Working-Set accuracy."
+  },
+  {
+    "question": "What is the primary motivation for implementing an 'Inverted Page Table' in 64-bit architecture operating systems?",
+    "options": [
+      "A. To eliminate the use of Translation Lookaside Buffers (TLBs)",
+      "B. To scale memory table size proportionally to physical memory size rather than virtual address space size",
+      "C. To prevent page faults from ever occurring during system execution",
+      "D. To double the execution speed of mathematical algorithms"
+    ],
+    "answer": "B",
+    "explanation": "In 64-bit systems, traditional multi-level page tables become huge. Inverted Page Tables maintain one entry per physical frame, vastly reducing page table memory footprint."
+  },
+  {
+    "question": "How does an Inverted Page Table quickly locate a virtual page number without scanning the entire physical table?",
+    "options": [
+      "A. By using a hash table on the Virtual Page Number and Process ID",
+      "B. By reading the CPU clock counter register",
+      "C. By executing a sequential binary search across all physical frames",
+      "D. By storing all entries in the CPU L1 data cache"
+    ],
+    "answer": "A",
+    "explanation": "An Inverted Page Table uses a hash anchor table to map (PID, Virtual Page Number) to a hash chain, quickly finding the physical frame without linear scans."
+  },
+  {
+    "question": "What is 'Position-Independent Code' (PIC) and why is it essential for Shared Libraries (DLLs / .so)?",
+    "options": [
+      "A. Code that runs exclusively inside CPU registers without using main memory",
+      "B. Machine code that uses relative addressing so it can be loaded at any virtual memory address without relocation changes",
+      "C. Source code written in high-level interpreted script languages",
+      "D. Code that automatically recompiles itself during system reboot"
+    ],
+    "answer": "B",
+    "explanation": "PIC uses relative jump and data references (e.g. via GOT/PLT) so a single shared library binary image can be mapped into different address spaces at arbitrary virtual locations."
+  },
+  {
+    "question": "What mechanism does `mmap()` system call provide in modern Unix-like operating systems?",
+    "options": [
+      "A. It maps a file or hardware device directly into a process's virtual address space",
+      "B. It format-clears physical RAM modules upon system shutdown",
+      "C. It measures CPU pipeline clock cycle latency",
+      "D. It converts TCP network sockets into serial port drivers"
+    ],
+    "answer": "A",
+    "explanation": "`mmap()` binds a file descriptor directly into virtual memory pages, allowing processes to read/write file data via direct memory access instructions."
+  },
+  {
+    "question": "In a 32-bit x86 virtual memory system with 2-level paging (10-bit Page Directory, 10-bit Page Table, 12-bit Offset), how many entries exist per Page Table?",
+    "options": [
+      "A. 256 entries",
+      "B. 512 entries",
+      "C. 1024 entries",
+      "D. 4096 entries"
+    ],
+    "answer": "C",
+    "explanation": "With 10 bits dedicated to the Page Table index, 2^10 = 1024 entries exist per Page Table."
+  },
+  {
+    "question": "What is the primary design strategy of a Log-structured File System (LFS)?",
+    "options": [
+      "A. Writing all file updates and metadata sequentially in a continuous log-like buffer on disk to maximize write throughput",
+      "B. Storing all files inside a single relational SQL database table",
+      "C. Disabling all disk write caching to guarantee immediate power failure recovery",
+      "D. Allocating physical disk sectors strictly in contiguous 1GB chunks"
+    ],
+    "answer": "A",
+    "explanation": "LFS buffers all updates (data and metadata) in memory and writes them sequentially to disk as a continuous log, turning random writes into fast sequential writes."
+  },
+  {
+    "question": "In a Log-structured File System (LFS), what is the function of the background 'Cleaner' thread?",
+    "options": [
+      "A. Scanning files for computer viruses and unauthorized access",
+      "B. Reading the log, identifying obsolete (dead) blocks, and compacting valid blocks to free up continuous log segments",
+      "C. Formatting unallocated hard drive partitions",
+      "D. Encrypting file headers using AES keys"
+    ],
+    "answer": "B",
+    "explanation": "Because LFS writes new versions of data down the log, old versions become obsolete. The Cleaner thread reclaims space by garbage-collecting valid blocks into fresh segments."
+  },
+  {
+    "question": "How does a Journaling File System (e.g., ext4, NTFS) prevent file system corruption during a sudden power loss?",
+    "options": [
+      "A. By storing two complete copies of the entire hard drive",
+      "B. By logging metadata changes to a dedicated transaction journal before applying them to main disk structures",
+      "C. By using uninterruptible battery power supplies on every hard drive PCB",
+      "D. By restricting file access to read-only operations during boot"
+    ],
+    "answer": "B",
+    "explanation": "Journaling logs atomic transactions (intent) to a journal first. If power fails mid-operation, the OS replays or aborts partial transactions during reboot without full disk scans (`fsck`)."
+  },
+  {
+    "question": "In the Unix Virtual File System (VFS) abstraction layer, what is the role of the `dentry` (Directory Entry) object?",
+    "options": [
+      "A. Storing physical raw sector addresses on the disk platter",
+      "B. Representing a specific directory component in a path name and linking it to its corresponding inode",
+      "C. Managing CPU cache coherence across multi-threaded applications",
+      "D. Executing raw I/O instructions to SCSI controller hardware"
+    ],
+    "answer": "B",
+    "explanation": "VFS dentries cache directory path components in memory, mapping human-readable string names to inode numbers to speed up path resolution."
+  },
+  {
+    "question": "During a file system consistency check (`fsck`), what error is detected when two different inodes point to the exact same physical data block?",
+    "options": [
+      "A. Missing superblock error",
+      "B. Duplicate block error (Double-allocated block)",
+      "C. Bad CRC checksum error",
+      "D. Orphaned directory error"
+    ],
+    "answer": "B",
+    "explanation": "If a data block number appears in the free list or in two distinct inodes, `fsck` flags it as a double-allocated / duplicate block error, fixing it by copying data to a new block."
+  },
+  {
+    "question": "In Operating System Protection models, what is the difference between an Access Control List (ACL) and a Capability List?",
+    "options": [
+      "A. An ACL is attached to the domain, whereas a Capability List is attached to the physical CPU core",
+      "B. An ACL associates each object with a list of domains and allowed operations; a Capability List associates each domain with a list of objects and rights",
+      "C. ACLs are used only in Windows, while Capability Lists are used only in Linux",
+      "D. ACLs apply to memory pages, while Capability Lists apply to network sockets"
+    ],
+    "answer": "B",
+    "explanation": "In an Access Matrix: ACL corresponds to columns (attached to objects, listing access rights per domain/user). Capability List corresponds to rows (attached to domains/users, listing accessible objects and rights)."
+  },
+  {
+    "question": "How does Address Space Layout Randomization (ASLR) mitigate buffer overflow exploit attacks?",
+    "options": [
+      "A. By encrypting all user strings with 256-bit AES keys",
+      "B. By randomizing the memory locations of the stack, heap, and library base addresses upon execution",
+      "C. By making all memory pages read-only by default",
+      "D. By terminating processes that exceed 50% CPU usage"
+    ],
+    "answer": "B",
+    "explanation": "ASLR randomizes the target memory addresses of executable code, stack, heap, and libraries, preventing attackers from reliably predicting target addresses for shellcode/ROP exploits."
+  },
+  {
+    "question": "What is a 'Stack Canary' (or Stack Guard) in OS memory security?",
+    "options": [
+      "A. A hardware sensor measuring CPU temperature",
+      "B. A secret random value placed on the stack before the return address to detect buffer overflow attempts before function return",
+      "C. A software driver that encrypts network packets",
+      "D. A memory page allocated exclusively for system log files"
+    ],
+    "answer": "B",
+    "explanation": "A stack canary is inserted right before the saved return address. If a buffer overflow overwrites the canary, the function detects the corruption and aborts before jumping to malicious code."
+  },
+  {
+    "question": "What does the 'NX bit' (No-Execute) / 'DEP' (Data Execution Prevention) flag enforce in hardware-assisted OS security?",
+    "options": [
+      "A. Prevents instructions from executing in data memory regions like the Stack and Heap",
+      "B. Prevents CPU cores from accessing external network hardware",
+      "C. Blocks user applications from making any system calls",
+      "D. Restricts file creation to read-only partitions"
+    ],
+    "answer": "A",
+    "explanation": "The NX bit marks memory pages (such as stack and heap) as non-executable, preventing code injected into data buffers from being executed by the CPU."
+  },
+  {
+    "question": "In Linux Android internals, what is 'Binder'?",
+    "options": [
+      "A. A garbage collection algorithm for Java virtual machines",
+      "B. An efficient inter-process communication (IPC) mechanism and RPC framework tailored for Android applications",
+      "C. A physical battery management chip driver",
+      "D. A display rendering engine for 3D graphics"
+    ],
+    "answer": "B",
+    "explanation": "Binder is Android's primary IPC/RPC mechanism, implemented as a custom Linux kernel driver that provides light-weight, object-oriented IPC between Android apps and services."
+  },
+  {
+    "question": "What is the key characteristic of a Non-Uniform Memory Access (NUMA) architecture?",
+    "options": [
+      "A. Memory access times are identical for all CPUs regardless of which RAM module is accessed",
+      "B. Memory access time depends on the spatial location of the memory relative to the processor core",
+      "C. CPU cores do not possess any local L1 or L2 caches",
+      "D. All RAM modules are connected via USB interfaces"
+    ],
+    "answer": "B",
+    "explanation": "In NUMA multiprocessor systems, physical memory is divided into local nodes per CPU socket. Accessing local node RAM is significantly faster than accessing remote node RAM over interconnects."
+  },
+  {
+    "question": "How does NUMA-aware CPU scheduling in an operating system optimize performance?",
+    "options": [
+      "A. By moving threads continuously between different CPU sockets every millisecond",
+      "B. By prioritizing thread execution on CPU cores that are local to the thread's allocated physical memory frames",
+      "C. By disabling hardware multi-threading on all remote nodes",
+      "D. By converting physical NUMA nodes into virtual disk swap partitions"
+    ],
+    "answer": "B",
+    "explanation": "NUMA-aware schedulers bind threads and their memory allocations to the same NUMA node to maximize fast local memory access and minimize interconnect traffic."
+  },
+  {
+    "question": "In cache coherence protocols like MESI (Modified, Exclusive, Shared, Invalid), what occurs when a core writes to a block marked as 'Shared'?",
+    "options": [
+      "A. It broadcasts an invalidation or write-update signal to all other cores sharing that block",
+      "B. It immediately powers down all other CPU cores",
+      "C. It writes the data directly to disk without updating cache",
+      "D. It generates a hardware kernel panic fault"
+    ],
+    "answer": "A",
+    "explanation": "In MESI, writing to a Shared block causes the core to broadcast an invalidation (or update) request to set that cache block state to Invalid in all other CPU caches."
+  },
+  {
+    "question": "What is the strict definition of a 'Hard Real-Time' operating system?",
+    "options": [
+      "A. A system that executes tasks faster than standard desktop PCs on average",
+      "B. A system where missing a single task deadline results in catastrophic system failure",
+      "C. A system built using heavy metal hardware enclosures",
+      "D. A system that runs without any operating system kernel"
+    ],
+    "answer": "B",
+    "explanation": "Hard Real-Time OSes guarantee absolute deterministic response times; missing a deadline is considered total system failure (e.g. pacemakers, automotive flight controls)."
+  },
+  {
+    "question": "In Rate-Monotonic Scheduling (RMS) for real-time operating systems, how are static task priorities assigned?",
+    "options": [
+      "A. Tasks with shorter periods (higher frequencies) are assigned higher priorities",
+      "B. Tasks with larger execution times are assigned higher priorities",
+      "C. Priorities are assigned randomly using a uniform distribution",
+      "D. Tasks with the longest deadlines are assigned higher priorities"
+    ],
+    "answer": "A",
+    "explanation": "RMS is an optimal static priority real-time algorithm that assigns higher priorities to periodic tasks with shorter execution periods."
+  },
+  {
+    "question": "What phenomenon occurs in 'Priority Inversion' in real-time systems?",
+    "options": [
+      "A. A low-priority task holds a resource needed by a high-priority task, while a medium-priority task preempts the low-priority task",
+      "B. High-priority tasks execute infinitely faster than low-priority tasks",
+      "C. The OS scheduler inverts all user priority levels during system shutdown",
+      "D. CPU clock frequency is inverted to reduce power consumption"
+    ],
+    "answer": "A",
+    "explanation": "Priority Inversion happens when a high-priority task is blocked waiting for a lock held by a low-priority task, and a medium-priority task (not needing the lock) preempts the low-priority task, delaying the high-priority task."
+  },
+  {
+    "question": "How does the 'Priority Inheritance Protocol' resolve the Priority Inversion problem?",
+    "options": [
+      "A. It temporarily elevates the priority of the lock-holding low-priority task to match that of the waiting high-priority task",
+      "B. It terminates the low-priority task immediately upon lock contention",
+      "C. It lowers the priority of all tasks in the system to zero",
+      "D. It disables thread scheduling completely until the lock is released"
+    ],
+    "answer": "A",
+    "explanation": "Priority Inheritance temporarily boosts the priority of the low-priority process holding the lock to the highest priority of any waiting task, preventing medium-priority tasks from preempting it."
+  },
+  {
+    "question": "In Linux process scheduling, what is the 'Completely Fair Scheduler' (CFS) virtual runtime (`vruntime`) concept?",
+    "options": [
+      "A. The total physical clock time spent by a task in kernel mode",
+      "B. A normalized measure of CPU time spent by a task, weighted by its nice priority value",
+      "C. The time remaining before a task's disk I/O request completes",
+      "D. The number of system calls executed by a process per second"
+    ],
+    "answer": "B",
+    "explanation": "CFS tracks `vruntime` (virtual runtime) for each process on a red-black tree. `vruntime` advances slower for high-priority (low nice) tasks, ensuring fair CPU time distribution."
+  },
+  {
+    "question": "What is the primary function of the Linux `epoll` system call compared to traditional `select` or `poll`?",
+    "options": [
+      "A. It scales I/O event notification in O(1) time complexity regardless of the number of monitored file descriptors",
+      "B. It encrypts all network socket data streams using hardware instructions",
+      "C. It forces all network packets to be processed in user space",
+      "D. It restricts network socket creation to root users"
+    ],
+    "answer": "A",
+    "explanation": "`epoll` uses an in-kernel event callback mechanism, returning active descriptors in O(1) time, avoiding the O(N) linear scanning required by `select` and `poll`."
+  },
+  {
+    "question": "Which system call in Linux is used to create a new process/thread by selectively sharing execution context (memory space, file descriptors, signal handlers) with the parent?",
+    "options": [
+      "A. `fork()`",
+      "B. `vfork()`",
+      "C. `clone()`",
+      "D. `execve()`"
+    ],
+    "answer": "C",
+    "explanation": "The Linux `clone()` system call accepts flags (`CLONE_VM`, `CLONE_FILES`, `CLONE_SIGHAND`) allowing precise control over what is shared between parent and child, forming the basis for both `pthread_create` and `fork`."
+  }
+]

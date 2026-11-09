@@ -1,0 +1,442 @@
+[
+  {
+    "question": "What is the primary abstraction provided by a file system to users for long-term storage?",
+    "options": [
+      "A. A sequence of raw physical disk sectors",
+      "B. A logical collection of related information stored on non-volatile memory",
+      "C. A temporary RAM buffer for CPU registers",
+      "D. A set of hardware device drivers"
+    ],
+    "answer": "B",
+    "explanation": "A file is a logical colection of related information defined by the user and stored on secondary/non-volatile storage."
+  },
+  {
+    "question": "Which file attribute uniquely identifies a file within a specific file system at the operating system level?",
+    "options": [
+      "A. File Name",
+      "B. File Type",
+      "C. File Identifier (or Inode Number)",
+      "D. File Protection Flags"
+    ],
+    "answer": "C",
+    "explanation": "The file identifier (e.g., inode number) is a unique tag/number that identifies the file within the file system."
+  },
+  {
+    "question": "What information is typically contained within a File Control Block (FCB) or Unix Inode?",
+    "options": [
+      "A. File ownership, permissions, size, and pointers to data blocks",
+      "B. The source code of the application accessing the file",
+      "C. The full contents of the user's RAM",
+      "D. The hardware serial number of the hard drive"
+    ],
+    "answer": "A",
+    "explanation": "An FCB/Inode stores metadata such as ownership, permissions, file size, timestamps, and block pointers."
+  },
+  {
+    "question": "Why do operating systems use an 'open' system call before reading or writing to a file?",
+    "options": [
+      "A. To format the entire disk drive",
+      "B. To copy the entire file into CPU cache memory",
+      "C. To load file metadata into the system's open-file table for fast access",
+      "D. To encrypt the file permanently on disk"
+    ],
+    "answer": "C",
+    "explanation": "The open call searches the directory for the file metadata and loads it into the open-file table to avoid searching directories on every subsequent operation."
+  },
+  {
+    "question": "Which access method reads information in the file sequentially, one record after another?",
+    "options": [
+      "A. Direct Access",
+      "B. Sequential Access",
+      "C. Indexed Access",
+      "D. Random Access"
+    ],
+    "answer": "B",
+    "explanation": "Sequential access processes file records in order, from start to end, which is the most common access method."
+  },
+  {
+    "question": "In direct (random) access files, how are records accessed by programs?",
+    "options": [
+      "A. By rewinding from the end of the file",
+      "B. In fixed logical block numbers in any arbitrary order",
+      "C. By scanning every block from block 0",
+      "D. Only through external network streams"
+    ],
+    "answer": "B",
+    "explanation": "Direct access allows programs to read or write blocks rapidly in any order using block numbers as relative positions."
+  },
+  {
+    "question": "What type of directory structure allows files to be organized into a tree where every directory can contain files and subdirectories?",
+    "options": [
+      "A. Single-level Directory",
+      "B. Two-level Directory",
+      "C. Tree-Structured Directory",
+      "D. Linear Flat Directory"
+    ],
+    "answer": "C",
+    "explanation": "A tree-structured directory has a root directory, and every entry can be a file or a subdirectory, forming a hierarchy."
+  },
+  {
+    "question": "What is an absolute path name in a hierarchical file system?",
+    "options": [
+      "A. A path specified relative to the current working directory",
+      "B. A path starting from the root directory all the way to the target file",
+      "C. A path that contains only the filename without directories",
+      "D. A temporary path created in RAM"
+    ],
+    "answer": "B",
+    "explanation": "An absolute path name begins at the root directory (e.g., /usr/bin/python) and specifies the complete path to the file."
+  },
+  {
+    "question": "What is a relative path name?",
+    "options": [
+      "A. A path defined starting from the root directory",
+      "B. A path defined relative to the current working directory",
+      "C. A path stored on an external USB flash drive",
+      "D. A hardware device address"
+    ],
+    "answer": "B",
+    "explanation": "A relative path name defines a path starting from the current working directory (e.g., ./docs/file.txt)."
+  },
+  {
+    "question": "What is a key difference between a hard link and a symbolic (soft) link in Unix-like file systems?",
+    "options": [
+      "A. Hard links store file contents inside the link; soft links do not",
+      "B. Hard links point directly to the file's inode; soft links store the path string of the target file",
+      "C. Soft links cannot be deleted; hard links are deleted automatically",
+      "D. Hard links work across different file systems; soft links only work on the local file system"
+    ],
+    "answer": "B",
+    "explanation": "A hard link points directly to the inode of a file, whereas a symbolic link is a separate file containing a pathname string to another file."
+  },
+  {
+    "question": "What happens when the target file of a symbolic (soft) link is deleted?",
+    "options": [
+      "A. The symbolic link is automatically converted into a hard link",
+      "B. The symbolic link becomes a dangling link that points to a non-existent file",
+      "C. The operating system crashes immediately",
+      "D. All copies of the soft link are permanently erased"
+    ],
+    "answer": "B",
+    "explanation": "Deleting the target of a soft link leaves the link intact but pointing to a path that no longer exists (dangling pointer)."
+  },
+  {
+    "question": "What happens to a file's data when one hard link is removed, but other hard links to the same inode still exist?",
+    "options": [
+      "A. The data blocks are deleted immediately",
+      "B. The data remains intact until all hard links (link count reaches 0) are deleted",
+      "C. The remaining hard links become corrupted soft links",
+      "D. The file is moved to the root directory"
+    ],
+    "answer": "B",
+    "explanation": "An inode tracks the reference count (link count). Deleting one hard link decrements the count; data is freed only when the link count reaches 0."
+  },
+  {
+    "question": "Which file allocation method requires each file to occupy a set of contiguous blocks on the disk?",
+    "options": [
+      "A. Contiguous Allocation",
+      "B. Linked Allocation",
+      "C. Indexed Allocation",
+      "D. Inode-based Allocation"
+    ],
+    "answer": "A",
+    "explanation": "Contiguous allocation assigns a contiguous set of disk blocks to a file, defined by starting block number and length."
+  },
+  {
+    "question": "What is a major advantage of contiguous file allocation?",
+    "options": [
+      "A. It completely eliminates external fragmentation",
+      "B. It offers excellent sequential and direct (random) access performance",
+      "C. Files can grow indefinitely without pre-allocation",
+      "D. It eliminates the need for directory entries"
+    ],
+    "answer": "B",
+    "explanation": "Because contiguous blocks are physically adjacent, head movement is minimized, yielding fast sequential and direct access."
+  },
+  {
+    "question": "What is a primary disadvantage of contiguous file allocation?",
+    "options": [
+      "A. Excessive internal fragmentation inside directory structures",
+      "B. External fragmentation and difficulty predicting growing file sizes",
+      "C. Inability to support direct access",
+      "D. Requirement for complex double indirect pointers"
+    ],
+    "answer": "B",
+    "explanation": "As files are created and deleted, free space breaks into small holes (external fragmentation), making it hard to allocate contiguous space for new/growing files."
+  },
+  {
+    "question": "How does Linked File Allocation store a file on disk?",
+    "options": [
+      "A. Each file occupies contiguous blocks on disk",
+      "B. Each file is a linked list of disk blocks where each block contains a pointer to the next block",
+      "C. All block pointers are stored in a single index block",
+      "D. Files are stored entirely inside RAM tables"
+    ],
+    "answer": "B",
+    "explanation": "In linked allocation, disk blocks can be scattered anywhere, and each block contains a pointer to the next disk block of the file."
+  },
+  {
+    "question": "What is a major disadvantage of Linked Allocation regarding direct (random) access?",
+    "options": [
+      "A. Severe external fragmentation",
+      "B. Slow direct access because finding block N requires traversing N-1 previous pointers",
+      "C. Files are limited to a maximum size of 1 KB",
+      "D. Inability to store text files"
+    ],
+    "answer": "B",
+    "explanation": "To access the i-th block of a file in linked allocation, the system must follow pointers through the preceding i-1 blocks, making random access slow."
+  },
+  {
+    "question": "How does the File Allocation Table (FAT) scheme improve upon standard linked allocation?",
+    "options": [
+      "A. By storing all block pointers in a centralized table in memory rather than inside data blocks",
+      "B. By forcing all files to be contiguous",
+      "C. By eliminating the need for directory structures",
+      "D. By restricting file access to root users only"
+    ],
+    "answer": "A",
+    "explanation": "FAT stores block pointers in a centralized table kept in memory, allowing random access by traversing pointers in RAM rather than reading disk blocks."
+  },
+  {
+    "question": "How does Indexed Allocation organize block pointers for a file?",
+    "options": [
+      "A. It puts a pointer in every data block pointing to the next block",
+      "B. It brings all block pointers together into a dedicated index block for each file",
+      "C. It stores all data blocks in sequential physical disk sectors",
+      "D. It uses a single global bit vector for all file data"
+    ],
+    "answer": "B",
+    "explanation": "Indexed allocation brings all pointers for a file together into an index block (e.g. Inode), supporting direct access without external fragmentation."
+  },
+  {
+    "question": "In a classic Unix Inode structure, what are indirect blocks used for?",
+    "options": [
+      "A. Storing user passwords and login credentials",
+      "B. Pointing to additional index blocks to support very large files that exceed direct block limit",
+      "C. Storing temporary swap space for CPU registers",
+      "D. Managing hardware device interrupts"
+    ],
+    "answer": "B",
+    "explanation": "Unix inodes contain direct block pointers for small files, plus single, double, and triple indirect block pointers to support larger files."
+  },
+  {
+    "question": "If a Unix inode has 12 direct block pointers and a block size of 4 KB, what is the maximum file size that can be addressed using ONLY direct pointers?",
+    "options": [
+      "A. 12 KB",
+      "B. 48 KB",
+      "C. 512 KB",
+      "D. 4 MB"
+    ],
+    "answer": "B",
+    "explanation": "12 direct pointers * 4 KB block size = 48 KB max file size using only direct pointers."
+  },
+  {
+    "question": "Assuming a 4 KB block size and 4-byte block pointers (1024 pointers per index block), how much file data can a SINGLE indirect block address?",
+    "options": [
+      "A. 4 KB",
+      "B. 1024 KB (1 MB)",
+      "C. 4096 KB (4 MB)",
+      "D. 16 MB"
+    ],
+    "answer": "C",
+    "explanation": "A 4 KB index block holding 4-byte pointers can store 1024 pointers. 1024 pointers * 4 KB per data block = 4096 KB (4 MB)."
+  },
+  {
+    "question": "What free-space management technique represents each disk block with a single bit (0 for allocated, 1 for free)?",
+    "options": [
+      "A. Bit Vector (or Bitmap)",
+      "B. Linked List",
+      "C. Grouping",
+      "D. Index Table"
+    ],
+    "answer": "A",
+    "explanation": "A Bit Vector/Bitmap uses 1 bit per disk block (e.g., 0 = allocated, 1 = free), enabling fast searching for contiguous free blocks."
+  },
+  {
+    "question": "What is a main advantage of using a Bit Vector for free-space management?",
+    "options": [
+      "A. It requires zero memory regardless of disk size",
+      "B. It is simple and highly efficient in finding first or n contiguous free blocks using CPU bit instructions",
+      "C. It prevents users from deleting files",
+      "D. It eliminates the need for file protection permissions"
+    ],
+    "answer": "B",
+    "explanation": "Bit vectors allow hardware/CPU bit-manipulation instructions to quickly locate the first free block or a sequence of free blocks."
+  },
+  {
+    "question": "How does the Linked List method manage free disk space?",
+    "options": [
+      "A. By storing all free block addresses in a central SQL database",
+      "B. By keeping a linked list of all free disk blocks, with a pointer to the first free block stored on disk",
+      "C. By reserving half of the hard drive for free blocks",
+      "D. By storing free block numbers inside CPU registers"
+    ],
+    "answer": "B",
+    "explanation": "The free-space linked list links all unused disk blocks together; the OS keeps a pointer to the head of the list."
+  },
+  {
+    "question": "What is the primary trade-off of using a small disk block size (e.g., 512 bytes vs. 64 KB)?",
+    "options": [
+      "A. Smaller blocks reduce internal fragmentation but increase block allocation overhead and metadata size",
+      "B. Smaller blocks increase internal fragmentation and decrease disk transfer speed",
+      "C. Smaller blocks eliminate the need for directories",
+      "D. Smaller blocks cannot store text files"
+    ],
+    "answer": "A",
+    "explanation": "Smaller blocks reduce wasted space inside the last block (internal fragmentation) but require larger index tables and more I/O operations."
+  },
+  {
+    "question": "What is internal fragmentation in a file system?",
+    "options": [
+      "A. Unused space outside of allocated disk blocks",
+      "B. Unused space inside the last allocated block of a file when the file size is not an exact multiple of the block size",
+      "C. Wasted space caused by symbolic links",
+      "D. Corrupted inode pointers in memory"
+    ],
+    "answer": "B",
+    "explanation": "Internal fragmentation occurs when a file's last portion does not completely fill its final block, leaving unused space within that block."
+  },
+  {
+    "question": "What is the role of a Virtual File System (VFS) in modern operating systems like Linux?",
+    "options": [
+      "A. To convert hard disk drives into solid-state drives",
+      "B. To provide a uniform, object-oriented interface for different file systems (ext4, NTFS, NFS)",
+      "C. To automatically format corrupt disk partitions",
+      "D. To execute user application programs"
+    ],
+    "answer": "B",
+    "explanation": "VFS provides an abstract abstraction layer, allowing system calls (open, read, write) to work seamlessly across diverse file systems."
+  },
+  {
+    "question": "In Unix-like systems, what access permission bits are used to control file protection for Owner, Group, and Others?",
+    "options": [
+      "A. Read (r), Write (w), Execute (x)",
+      "B. Open (o), Close (c), Save (s)",
+      "C. Create (c), Delete (d), Rename (r)",
+      "D. Load (l), Store (s), Run (r)"
+    ],
+    "answer": "A",
+    "explanation": "Unix file protection uses 9 permission bits grouped into 3 classes (Owner, Group, Others), each specifying Read (r), Write (w), and Execute (x)."
+  },
+  {
+    "question": "If a file has file permissions `rwxr-xr--` (octal 754), what permissions does the Group have?",
+    "options": [
+      "A. Read, Write, and Execute",
+      "B. Read and Execute only",
+      "C. Read only",
+      "D. Write and Execute only"
+    ],
+    "answer": "B",
+    "explanation": "`rwx` = Owner (7), `r-x` = Group (5 = Read + Execute), `r--` = Others (4 = Read only)."
+  },
+  {
+    "question": "What is an Access Control List (ACL) in file protection?",
+    "options": [
+      "A. A list of all files stored on a specific disk sector",
+      "B. A list associated with a file specifying exactly which users/groups have what permissions",
+      "C. A list of bad sectors on a hard drive",
+      "D. A cache buffer for disk block writes"
+    ],
+    "answer": "B",
+    "explanation": "An ACL specifies detailed permissions for individual users and groups attached to a specific file or directory."
+  },
+  {
+    "question": "What is the purpose of mounting a file system?",
+    "options": [
+      "A. To make a file system on a storage device available at a specific directory location (mount point) in the file system hierarchy",
+      "B. To compile the operating system kernel",
+      "C. To physically attach a hard drive to the motherboard",
+      "D. To erase all contents on the disk partition"
+    ],
+    "answer": "A",
+    "explanation": "Mounting attaches a storage device's file system structure to a designated directory (mount point) within the system's global directory tree."
+  },
+  {
+    "question": "What disk directory organization technique reduces directory lookup time from linear time O(N) to average constant time O(1)?",
+    "options": [
+      "A. Linear List",
+      "B. Hash Table",
+      "C. Sequential Pointer Array",
+      "D. Stack Allocation"
+    ],
+    "answer": "B",
+    "explanation": "A hash table uses a hash function on the filename to directly index the directory entry, giving O(1) average lookup time."
+  },
+  {
+    "question": "What is a major challenge when using Hash Tables for directory implementation?",
+    "options": [
+      "A. Hash tables cannot store filenames longer than 4 characters",
+      "B. Hash collisions (two filenames hashing to the same location) must be handled",
+      "C. Hash tables cannot be stored on disk",
+      "D. Hash tables require contiguous allocation of all file blocks"
+    ],
+    "answer": "B",
+    "explanation": "Different filenames may hash to the same table entry (collision), requiring collision-resolution mechanisms like chaining or open addressing."
+  },
+  {
+    "question": "What technique does an operating system use to improve disk read/write performance by keeping frequently accessed disk blocks in main memory?",
+    "options": [
+      "A. Disk Caching (Buffer Cache)",
+      "B. Paging File Swap",
+      "C. Virtual Memory Paging",
+      "D. Disk Partitioning"
+    ],
+    "answer": "A",
+    "explanation": "Disk cache (or buffer cache) holds copies of disk blocks in RAM, servicing repeated reads/writes at memory speeds rather than disk speeds."
+  },
+  {
+    "question": "What is the purpose of Log-Structured (or Journaling) File Systems?",
+    "options": [
+      "A. To log all user keyboard inputs for security auditing",
+      "B. To record file system metadata updates in a journal before committing them to disk, ensuring quick crash recovery",
+      "C. To compress all stored files automatically",
+      "D. To execute files directly inside RAM"
+    ],
+    "answer": "B",
+    "explanation": "Journaling file systems write metadata changes to a log/journal first so that after a sudden crash or power failure, the file system can be quickly restored to a consistent state."
+  },
+  {
+    "question": "In a directory, what entry special notation `.` and `..` represent in Unix/Linux systems?",
+    "options": [
+      "A. `.` is root directory, `..` is home directory",
+      "B. `.` is current directory, `..` is parent directory",
+      "C. `.` is temp file, `..` is deleted file",
+      "D. `.` is hidden file, `..` is system file"
+    ],
+    "answer": "B",
+    "explanation": "In Unix/Linux directories, `.` refers to the current directory itself, while `..` refers to its parent directory."
+  },
+  {
+    "question": "What component of the operating system translates high-level file system commands (like read block N) into low-level hardware control signals?",
+    "options": [
+      "A. Application Program",
+      "B. Device Driver (and I/O Control layer)",
+      "C. User Interface Shell",
+      "D. Compiler Front-end"
+    ],
+    "answer": "B",
+    "explanation": "Device drivers and the I/O Control layer translate abstract commands into specific hardware controller operations (cylinder, track, sector numbers)."
+  },
+  {
+    "question": "What is a raw disk partition (Raw I/O)?",
+    "options": [
+      "A. A disk partition used without an OS file system, where applications directly manage raw block storage (e.g., databases)",
+      "B. A corrupted partition that cannot be mounted",
+      "C. A partition created exclusively for soft links",
+      "D. A partition stored in cloud storage"
+    ],
+    "answer": "A",
+    "explanation": "Raw partitions bypass the OS file system layer, allowing specialized applications (like DBMS) to control disk block allocation directly."
+  },
+  {
+    "question": "Which file allocation method suffers from the 'file growth problem' because it requires reserving space upfront?",
+    "options": [
+      "A. Linked Allocation",
+      "B. Contiguous Allocation",
+      "C. Indexed Allocation",
+      "D. Inode-based Allocation"
+    ],
+    "answer": "B",
+    "explanation": "Contiguous allocation requires knowing file size at creation time; if a file expands beyond its allocated contiguous space, it must be moved or fail."
+  }
+]
