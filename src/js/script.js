@@ -284,9 +284,6 @@ let quizFinished = false;
 let sessionRecorded = false;
 let sessionStarted = false;
 let sessionStartedAt = null;
-let timerInterval = null;
-let elapsedSeconds = 0;
-let remainingSeconds = 0;
 
 const els = {
     setupView: document.getElementById("setup-view"),
@@ -308,30 +305,15 @@ const els = {
     explanationText: document.getElementById("explanation-text"),
     explanationTranslated: document.getElementById("explanation-translated"),
     resultCard: document.getElementById("result-card"),
-    sessionGate: document.getElementById("session-gate"),
-    sessionStatus: document.getElementById("session-status"),
-    startHint: document.getElementById("start-hint"),
-    btnStart: document.getElementById("btn-start"),
     btnPrev: document.getElementById("btn-prev"),
     btnNext: document.getElementById("btn-next"),
-    btnFinish: document.getElementById("btn-finish"),
     btnBackSetup: document.getElementById("btn-back-setup"),
-    btnResetSession: document.getElementById("btn-reset-session"),
     btnOpenQuiz: document.getElementById("btn-open-quiz"),
     questionCounter: document.getElementById("question-counter"),
     scoreDisplay: document.getElementById("score-display"),
-    timerDisplay: document.getElementById("timer-display"),
     progressBar: document.getElementById("overall-progress-bar"),
     progressText: document.getElementById("progress-text"),
-    modePractice: document.getElementById("mode-practice"),
-    modeTest: document.getElementById("mode-test"),
-    timeLimit: document.getElementById("time-limit"),
     btnPracticeWrong: document.getElementById("btn-practice-wrong"),
-    importFile: document.getElementById("import-file"),
-    importStatus: document.getElementById("import-status"),
-    btnImportSample: document.getElementById("btn-import-sample"),
-    sampleDialog: document.getElementById("sample-dialog"),
-    btnCloseSample: document.getElementById("btn-close-sample"),
     metricSessions: document.getElementById("metric-sessions"),
     metricAccuracy: document.getElementById("metric-accuracy"),
     metricBest: document.getElementById("metric-best"),
@@ -343,9 +325,7 @@ const els = {
     statBestBar: document.getElementById("stat-best-bar"),
     statWrongBar: document.getElementById("stat-wrong-bar"),
     dictList: document.getElementById("dict-list"),
-    dictSearch: document.getElementById("dict-search"),
-    importFileSidebar: document.getElementById("import-file-sidebar"),
-    importDropzone: document.getElementById("import-dropzone")
+    dictSearch: document.getElementById("dict-search")
 };
 
 function init() {
@@ -353,8 +333,6 @@ function init() {
     rebuildPackList();
     renderDictionary(glossary);
     updateStatsDisplay();
-    updateModeUI();
-    updateTimerDisplay(0);
     bindEvents();
     showSetupView();
 }
@@ -364,50 +342,11 @@ function bindEvents() {
     els.dictSearch.addEventListener("input", handleDictionarySearch);
     els.btnNext.addEventListener("click", handleNext);
     els.btnPrev.addEventListener("click", handlePrev);
-    els.btnStart.addEventListener("click", startQuizSession);
-    els.btnFinish.addEventListener("click", () => finishQuiz(false));
     els.btnBackSetup.addEventListener("click", showSetupView);
-    els.btnResetSession.addEventListener("click", resetActiveSession);
     els.btnOpenQuiz.addEventListener("click", () => openQuizFromSelection(false));
-    els.modePractice.addEventListener("click", () => setStudyMode("practice"));
-    els.modeTest.addEventListener("click", () => setStudyMode("test"));
     els.btnPracticeWrong.addEventListener("click", startWrongPractice);
     els.btnTranslateQuestion.addEventListener("click", translateCurrentQuestion);
     els.btnTranslateExplanation.addEventListener("click", translateCurrentExplanation);
-    els.importFile.addEventListener("change", handleImportFile);
-    if (els.importFileSidebar) {
-        els.importFileSidebar.addEventListener("change", handleImportFile);
-    }
-    
-    // Setup Drag & Drop
-    const dropzone = els.importDropzone;
-    if (dropzone) {
-        ["dragenter", "dragover"].forEach(eventName => {
-            dropzone.addEventListener(eventName, (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                dropzone.classList.add("dragover");
-            }, false);
-        });
-
-        ["dragleave", "drop"].forEach(eventName => {
-            dropzone.addEventListener(eventName, (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                dropzone.classList.remove("dragover");
-            }, false);
-        });
-
-        dropzone.addEventListener("drop", (e) => {
-            const dt = e.dataTransfer;
-            const file = dt.files?.[0];
-            if (file) {
-                handleImportFile(file);
-            }
-        }, false);
-    }
-    els.btnImportSample.addEventListener("click", showSampleDialog);
-    els.btnCloseSample.addEventListener("click", () => els.sampleDialog.close());
 }
 
 function rebuildPackList() {
@@ -530,8 +469,6 @@ async function loadPack(pack, wrongPractice = false) {
                 setImportStatus("Bộ đề này chưa có câu sai để ôn lại.", "success");
                 return;
             }
-            studyMode = "practice";
-            updateModeUI();
         }
 
         startSession(sessionQuestions, wrongPractice);
@@ -650,7 +587,6 @@ function normalizeQuestions(data) {
 }
 
 function startSession(questions, wrongPractice) {
-    stopTimer();
     isWrongPractice = wrongPractice;
     currentQuestions = questions;
     currentQuestionIndex = 0;
@@ -658,11 +594,8 @@ function startSession(questions, wrongPractice) {
     score = 0;
     quizFinished = false;
     sessionRecorded = false;
-    sessionStarted = false;
-    sessionStartedAt = null;
-    elapsedSeconds = 0;
-    remainingSeconds = studyMode === "test" ? Number(els.timeLimit.value) : 0;
-
+    sessionStarted = true;
+    sessionStartedAt = Date.now();
     if (studyMode === "practice" && !wrongPractice) {
         loadProgress(currentPackId);
     }
@@ -672,8 +605,6 @@ function startSession(questions, wrongPractice) {
     els.emptyState.hidden = true;
     els.quizContainer.hidden = false;
     els.resultCard.hidden = true;
-    els.btnResetSession.disabled = false;
-    updateTimerDisplay(studyMode === "test" ? remainingSeconds : 0);
     updateOverallProgress();
     showQuestion();
 }
@@ -687,47 +618,12 @@ function resetActiveSession({ clearSavedProgress = false, autoStart = false } = 
 
     startSession(isWrongPractice ? currentQuestions : baseQuestions, isWrongPractice);
 
-    if (autoStart) {
-        startQuizSession();
-    }
-}
-
-function startQuizSession() {
-    if (sessionStarted || quizFinished || currentQuestions.length === 0) return;
-
-    sessionStarted = true;
-    sessionStartedAt = Date.now();
-    elapsedSeconds = 0;
-    remainingSeconds = studyMode === "test" ? Number(els.timeLimit.value) : 0;
-    startTimer();
-    showQuestion();
-}
-
-function setStudyMode(mode) {
-    if (studyMode === mode) return;
-
-    studyMode = mode;
-    updateModeUI();
-
-    if (!els.quizView.hidden && activePack && baseQuestions.length > 0) {
-        startSession(baseQuestions, false);
-    }
-}
-
-function updateModeUI() {
-    els.modePractice.classList.toggle("active", studyMode === "practice");
-    els.modeTest.classList.toggle("active", studyMode === "test");
-    els.timeLimit.disabled = studyMode !== "test";
-    els.btnFinish.hidden = studyMode !== "test";
 }
 
 function showSetupView() {
-    stopTimer();
     els.setupView.hidden = false;
     els.quizView.hidden = true;
     els.btnBackSetup.hidden = true;
-    els.btnResetSession.hidden = true;
-    els.btnResetSession.disabled = !activePack;
     document.documentElement.scrollTop = 0;
 
     animate(
@@ -745,8 +641,6 @@ function showQuizView() {
     els.setupView.hidden = true;
     els.quizView.hidden = false;
     els.btnBackSetup.hidden = false;
-    els.btnResetSession.hidden = false;
-    els.btnResetSession.disabled = false;
     document.documentElement.scrollTop = 0;
 
     animate(
@@ -823,28 +717,12 @@ function showQuestion() {
         { duration: 0.4, type: "spring", stiffness: 300, damping: 15 }
     );
     
-    if (!sessionStarted && !quizFinished) {
-        animate(els.sessionGate, { opacity: [0, 1], scale: [0.9, 1], y: [20, 0] }, { type: "spring", stiffness: 400, damping: 15 });
-    }
-
     if (showAnswers && hasAnswered) {
         showFeedback(question, userAnswers[currentQuestionIndex]);
     }
 
-    updateSessionGate();
     updateNavigation(canInteract);
     updateDictionaryForCurrentQuestion(question);
-}
-
-function updateSessionGate() {
-    els.sessionGate.classList.toggle("running", sessionStarted && !quizFinished);
-    els.sessionStatus.textContent = quizFinished ? "Đã hoàn thành" : sessionStarted ? "Đang làm bài" : "Sẵn sàng";
-    els.startHint.textContent = quizFinished
-        ? "Xem lại đáp án, luyện câu sai hoặc chọn gói khác để bắt đầu phiên mới."
-        : sessionStarted
-            ? "Phiên đang chạy. Câu đã trả lời được tự lưu trong chế độ luyện tập."
-            : "Bấm bắt đầu để mở câu hỏi và tính thời gian.";
-    els.btnStart.hidden = sessionStarted || quizFinished;
 }
 
 function updateNavigation(canInteract) {
@@ -855,8 +733,6 @@ function updateNavigation(canInteract) {
     els.btnNext.disabled = quizFinished
         ? currentQuestionIndex === currentQuestions.length - 1
         : !canInteract;
-    els.btnFinish.hidden = studyMode !== "test" || quizFinished;
-    els.btnFinish.disabled = !canInteract;
 }
 
 function handleOptionSelect(optionIndex) {
@@ -899,7 +775,6 @@ function finishQuiz(autoSubmitted) {
     if (quizFinished && sessionRecorded) return;
 
     quizFinished = true;
-    stopTimer();
     calculateScore();
     recordSession();
     updateOverallProgress();
@@ -928,7 +803,6 @@ function showResult(autoSubmitted) {
     const answered = Object.keys(userAnswers).length;
     const wrong = total - score;
     const percent = total ? Math.round((score / total) * 100) : 0;
-    const duration = formatTime(getSessionDuration());
 
     // Find next pack
     const currentIdx = availablePacks.findIndex(p => p.id === currentPackId);
@@ -938,7 +812,7 @@ function showResult(autoSubmitted) {
 
     els.resultCard.hidden = false;
     els.resultCard.innerHTML = `
-        <h2>${autoSubmitted ? "Hết giờ" : "Kết quả phiên học"}</h2>
+        <h2>Kết quả phiên học</h2>
         <p>${escapeHtml(getResultMessage(percent))}</p>
         <div class="result-grid">
             <div class="result-stat"><strong>${score}/${total}</strong><span>Điểm</span></div>
@@ -946,8 +820,6 @@ function showResult(autoSubmitted) {
             <div class="result-stat"><strong>${answered}</strong><span>Đã trả lời</span></div>
             <div class="result-stat"><strong>${wrong}</strong><span>Cần ôn lại</span></div>
         </div>
-        <p style="margin: 12px 0 16px; color: var(--muted); font-size: 0.9rem;">Thời gian làm bài: ${duration}</p>
-        
         <div class="result-actions" style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; margin-top: 18px; border-top: 1.5px dashed var(--line); padding-top: 18px;">
             <button class="btn btn-secondary" id="btn-result-back" type="button">Đổi lựa chọn</button>
             <button class="btn btn-secondary" id="btn-result-retry" type="button">Học lại</button>
@@ -1175,52 +1047,9 @@ function updateStatsDisplay(packId = currentPackId) {
     els.btnPracticeWrong.disabled = !packStats || wrongTotal === 0;
 }
 
-function startTimer() {
-    stopTimer();
-
-    if (studyMode === "test") {
-        remainingSeconds = Number(els.timeLimit.value);
-        updateTimerDisplay(remainingSeconds);
-    } else {
-        elapsedSeconds = 0;
-        updateTimerDisplay(0);
-    }
-
-    timerInterval = setInterval(() => {
-        if (studyMode === "test") {
-            remainingSeconds -= 1;
-            updateTimerDisplay(remainingSeconds);
-            if (remainingSeconds <= 0) {
-                finishQuiz(true);
-            }
-        } else {
-            elapsedSeconds += 1;
-            updateTimerDisplay(elapsedSeconds);
-        }
-    }, 1000);
-}
-
-function stopTimer() {
-    if (timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-    }
-}
-
-function updateTimerDisplay(seconds) {
-    els.timerDisplay.textContent = formatTime(Math.max(seconds, 0));
-    els.timerDisplay.classList.toggle("warning", studyMode === "test" && seconds <= 60);
-}
-
 function getSessionDuration() {
     if (!sessionStartedAt) return 0;
     return Math.max(0, Math.round((Date.now() - sessionStartedAt) / 1000));
-}
-
-function formatTime(totalSeconds) {
-    const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, "0");
-    const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, "0");
-    return `${minutes}:${seconds}`;
 }
 
 function handleDictionarySearch(event) {
@@ -1597,7 +1426,6 @@ function removeImportedPack(packId) {
     }
 
     if (currentPackId === packId) {
-        stopTimer();
         activePack = null;
         currentPackId = null;
         baseQuestions = [];
@@ -1608,7 +1436,6 @@ function removeImportedPack(packId) {
         els.emptyState.hidden = false;
         els.quizTitle.textContent = "Chọn một bộ đề để bắt đầu";
         els.activePackLabel.textContent = "Chưa chọn bộ đề";
-        els.btnResetSession.disabled = true;
         showSetupView();
         updateOverallProgress();
         updateStatsDisplay();
@@ -1619,23 +1446,9 @@ function removeImportedPack(packId) {
 }
 
 function setImportStatus(message, type) {
+    if (!els.importStatus) return;
     els.importStatus.textContent = message;
     els.importStatus.className = `status-text ${type || ""}`;
-}
-
-function showSampleDialog() {
-    if (typeof els.sampleDialog.showModal === "function") {
-        els.sampleDialog.showModal();
-        return;
-    }
-    alert(`[
-  {
-    "question": "What is a stack?",
-    "options": ["A. FIFO data structure", "B. LIFO data structure"],
-    "answer": "B",
-    "explanation": "A stack follows Last In, First Out."
-  }
-]`);
 }
 
 function cleanTitle(value) {

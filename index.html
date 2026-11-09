@@ -16,25 +16,21 @@
                 <h1>Ôn tập mọi môn học</h1>
             </div>
             <div class="topbar-actions">
-                <button class="btn btn-secondary" id="btn-back-setup" type="button" hidden>Đổi lựa chọn</button>
-                <button class="btn btn-secondary" id="btn-reset-session" type="button" disabled hidden>Làm lại
-                    phiên</button>
-                <label class="btn btn-primary import-trigger" for="import-file">Thêm bộ đề</label>
-                <input id="import-file" type="file" accept=".json,application/json" hidden>
+                <button class="btn btn-secondary" id="btn-back-setup" type="button" hidden>Chọn bộ đề khác</button>
             </div>
         </header>
 
         <main class="setup-view" id="setup-view">
             <section class="setup-hero">
                 <div>
-                    <p class="eyebrow">Bắt đầu học</p>
-                    <h2>Chọn môn học và bộ đề phù hợp với bạn</h2>
-                    <p>Tạo một phiên học tập trung, theo dõi tiến độ và thêm bộ đề của bất kỳ môn học nào bằng file JSON.</p>
+                    <p class="eyebrow">Ôn tập tập trung</p>
+                    <h2>Chọn bộ đề và bắt đầu ôn</h2>
+                    <p>Giữ nhịp với tiến độ, dịch nhanh câu hỏi và quay lại những câu cần ôn.</p>
                 </div>
                 <div class="selected-summary" id="selected-pack-summary">
                     <span>Bộ đề đang chọn</span>
                     <strong>Chưa chọn bộ đề</strong>
-                    <small>Chọn một môn học hoặc bộ đề để tiếp tục.</small>
+                    <small>Chọn một bộ đề bên dưới để xem tiến độ và bắt đầu.</small>
                 </div>
             </section>
 
@@ -79,50 +75,20 @@
                     <div class="pack-list setup-pack-list" id="pack-list"></div>
                 </section>
 
-                <aside class="panel setup-panel" aria-label="Cấu hình phiên quiz">
+                <aside class="panel setup-panel" aria-label="Tiến độ bộ đề">
                     <div class="panel-header">
                         <div>
                             <p class="panel-kicker">02</p>
-                            <h2>Cấu hình phiên</h2>
+                            <h2>Tiến độ bộ đề</h2>
                         </div>
                     </div>
 
                     <div class="setup-controls">
-                        <div class="segmented-control" role="group" aria-label="Chọn chế độ học">
-                            <button class="segment active" id="mode-practice" type="button">Luyện tập</button>
-                            <button class="segment" id="mode-test" type="button">Kiểm tra</button>
-                        </div>
-                        <label class="compact-field" for="time-limit">
-                            <span>Thời gian kiểm tra</span>
-                            <select id="time-limit">
-                                <option value="900">15 phút</option>
-                                <option value="1800" selected>30 phút</option>
-                                <option value="2700">45 phút</option>
-                                <option value="3600">60 phút</option>
-                            </select>
-                        </label>
                         <button class="btn btn-secondary full-width" id="btn-practice-wrong" type="button"
                             disabled>Luyện câu sai</button>
                         <button class="btn btn-primary full-width btn-large" id="btn-open-quiz" type="button"
-                            disabled>Vào quiz</button>
+                            disabled>Bắt đầu ôn</button>
                     </div>
-
-                    <section class="import-panel" aria-label="Import dữ liệu">
-                        <div>
-                            <h3>Thêm bộ đề</h3>
-                            <p>Hỗ trợ JSON dạng mảng câu hỏi có `question`, `options`, `answer`, `explanation`.</p>
-                        </div>
-                        <div class="import-dropzone" id="import-dropzone">
-                            <span style="font-size: 0.85rem;">Kéo & thả file JSON vào đây hoặc</span>
-                            <label class="btn btn-secondary btn-small" for="import-file-sidebar"
-                                style="cursor: pointer; padding: 4px 10px; font-size: 0.8rem; width: auto; min-height: auto; margin-top: 4px; display: inline-block;">Chọn
-                                file JSON</label>
-                            <input id="import-file-sidebar" type="file" accept=".json,application/json" hidden>
-                        </div>
-                        <button class="btn btn-secondary full-width" id="btn-import-sample" type="button">Xem mẫu
-                            JSON</button>
-                        <p class="status-text" id="import-status"></p>
-                    </section>
 
                     <section class="stats-detail">
                         <h3>Hiệu suất bộ đề</h3>
@@ -161,7 +127,6 @@
                     </div>
                     <div class="session-meta">
                         <span id="question-counter">0 / 0</span>
-                        <span id="timer-display">00:00</span>
                         <span id="score-display">Đúng: 0</span>
                     </div>
                 </div>
@@ -177,14 +142,6 @@
                 </div>
 
                 <section class="quiz-container" id="quiz-container" hidden>
-                    <div class="session-gate" id="session-gate">
-                        <div>
-                            <strong id="session-status">Sẵn sàng</strong>
-                            <p id="start-hint">Bấm bắt đầu để mở câu hỏi và tính thời gian.</p>
-                        </div>
-                        <button class="btn btn-primary" id="btn-start" type="button">Bắt đầu</button>
-                    </div>
-
                     <article class="question-card">
                         <span class="question-label">Câu hỏi</span>
                         <h3 id="question-text">Loading question...</h3>
@@ -207,7 +164,6 @@
                     <div class="controls-container">
                         <button class="btn btn-secondary" id="btn-prev" type="button" disabled>Câu trước</button>
                         <button class="btn btn-primary" id="btn-next" type="button">Câu tiếp theo</button>
-                        <button class="btn btn-danger" id="btn-finish" type="button">Nộp bài</button>
                     </div>
                 </section>
             </section>
@@ -229,27 +185,6 @@
         </main>
     </div>
 
-    <dialog class="sample-dialog" id="sample-dialog">
-        <div class="dialog-header">
-            <h2>Mẫu dữ liệu import</h2>
-            <button class="dialog-close" id="btn-close-sample" type="button" aria-label="Đóng">Đóng</button>
-        </div>
-        <pre><code>[
-  {
-    "question": "What is a stack?",
-    "options": [
-      "A. FIFO data structure",
-      "B. LIFO data structure",
-      "C. Sorted tree",
-      "D. Hash function"
-    ],
-    "answer": "B",
-    "explanation": "A stack follows Last In, First Out."
-  }
-]</code></pre>
-    </dialog>
-
-    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
     <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"></script>
     <script src="./src/js/script.js"></script>
 </body>
