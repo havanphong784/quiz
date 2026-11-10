@@ -70,6 +70,36 @@ const builtInPacks = [
         subject: DEFAULT_SUBJECT,
         count: 40,
         tags: ["OS", "Chương 3", "Memory Management"]
+    },
+    {
+        id: "os_ce_2002",
+        title: "Đề CE 2002",
+        desc: "Ôn tập nhân hệ điều hành, tiến trình, luồng và các bài tập lập lịch CPU.",
+        file: "./src/data/Đề_CE_2002.json",
+        source: "Import sẵn",
+        subject: DEFAULT_SUBJECT,
+        count: 30,
+        tags: ["OS", "CE 2002", "Lập lịch CPU"]
+    },
+    {
+        id: "os_similar_exam_1",
+        title: "Đề tương tự 1",
+        desc: "Bộ đề luyện tập về chế độ kernel, phần cứng, tiến trình và lập lịch CPU.",
+        file: "./src/data/Đề_tương_tự_1.json",
+        source: "Import sẵn",
+        subject: DEFAULT_SUBJECT,
+        count: 20,
+        tags: ["OS", "Đề tương tự", "Lập lịch CPU"]
+    },
+    {
+        id: "os_similar_exam_2",
+        title: "Đề tương tự 2",
+        desc: "Bộ đề luyện tập về hệ điều hành, phần cứng, luồng và lập lịch CPU.",
+        file: "./src/data/Đề_tương_tự_2.json",
+        source: "Import sẵn",
+        subject: DEFAULT_SUBJECT,
+        count: 20,
+        tags: ["OS", "Đề tương tự", "Lập lịch CPU"]
     }
 ];
 
@@ -99,6 +129,7 @@ let sessionStarted = false;
 let sessionStartedAt = null;
 let dictionaryRequestToken = 0;
 let activeSubject = "";
+let autoTranslateEnabled = false;
 
 function getLocalStorage() {
     try {
@@ -132,6 +163,7 @@ const els = {
     questionText: document.getElementById("question-text"),
     questionTranslation: document.getElementById("question-translation"),
     btnTranslateQuestion: document.getElementById("btn-translate-question"),
+    btnAutoTranslate: document.getElementById("btn-auto-translate"),
     btnTranslateExplanation: document.getElementById("btn-translate-explanation"),
     optionsContainer: document.getElementById("options-container"),
     explanationCard: document.getElementById("explanation-card"),
@@ -193,6 +225,7 @@ function bindEvents() {
     els.btnOpenQuiz.addEventListener("click", () => openQuizFromSelection(false));
     els.btnPracticeWrong.addEventListener("click", startWrongPractice);
     els.btnTranslateQuestion.addEventListener("click", translateCurrentQuestion);
+    els.btnAutoTranslate.addEventListener("click", toggleAutoTranslation);
     els.btnTranslateExplanation.addEventListener("click", translateCurrentExplanation);
 }
 
@@ -546,6 +579,7 @@ function showQuestion() {
     els.scoreDisplay.textContent = showAnswers ? `Đúng: ${score}` : `Đã trả lời: ${Object.keys(userAnswers).length}`;
     els.questionText.textContent = question.question;
     els.questionTranslation.textContent = "";
+    updateAutoTranslateButton();
     els.optionsContainer.innerHTML = "";
     els.explanationCard.hidden = true;
     els.explanationCard.className = "explanation-card";
@@ -558,7 +592,10 @@ function showQuestion() {
         button.className = "option-btn";
         button.innerHTML = `
             <span class="option-key">${escapeHtml(parsed.key)}</span>
-            <span class="option-text">${escapeHtml(parsed.text)}</span>
+            <span class="option-copy">
+                <span class="option-text">${escapeHtml(parsed.text)}</span>
+                <span class="option-translation" data-option-translation></span>
+            </span>
         `;
 
         const isSelected = userAnswers[currentQuestionIndex] === index;
@@ -599,6 +636,7 @@ function showQuestion() {
 
     updateNavigation(canInteract);
     updateDictionaryForCurrentQuestion(question);
+    if (autoTranslateEnabled) translateCurrentAnswerSet();
 }
 
 function updateNavigation(canInteract) {
@@ -1186,6 +1224,50 @@ function translateCurrentExplanation() {
     if (!currentQuestions.length) return;
     const explanation = currentQuestions[currentQuestionIndex].explanation;
     translateText(explanation, els.explanationTranslated, "Đang dịch giải thích...");
+}
+
+function updateAutoTranslateButton() {
+    els.btnAutoTranslate.disabled = false;
+    els.btnAutoTranslate.classList.toggle("is-active", autoTranslateEnabled);
+    els.btnAutoTranslate.setAttribute("aria-pressed", String(autoTranslateEnabled));
+    els.btnAutoTranslate.textContent = autoTranslateEnabled ? "Tắt tự động dịch" : "Bật tự động dịch";
+}
+
+function toggleAutoTranslation() {
+    autoTranslateEnabled = !autoTranslateEnabled;
+    updateAutoTranslateButton();
+    if (autoTranslateEnabled) translateCurrentAnswerSet();
+}
+
+async function translateCurrentAnswerSet() {
+    const question = currentQuestions[currentQuestionIndex];
+    if (!question || !autoTranslateEnabled) return;
+
+    const questionIndex = currentQuestionIndex;
+    const optionTargets = [...els.optionsContainer.querySelectorAll("[data-option-translation]")];
+    const jobs = [{ text: question.question, target: els.questionTranslation, loading: "Đang dịch câu hỏi..." }];
+
+    if (userAnswers[currentQuestionIndex] !== undefined) {
+        jobs.push(...question.options.map((option, index) => ({
+            text: parseOption(option, index).text,
+            target: optionTargets[index],
+            loading: "Đang dịch đáp án..."
+        })));
+
+        if (question.explanation) {
+            jobs.push({ text: question.explanation, target: els.explanationTranslated, loading: "Đang dịch giải thích..." });
+        }
+    }
+
+    els.btnAutoTranslate.disabled = true;
+    els.btnAutoTranslate.textContent = "Đang dịch...";
+    await TranslationUtils.runWithConcurrency(jobs.filter(job => job.target), 3, job =>
+        translateText(job.text, job.target, job.loading)
+    );
+
+    if (currentQuestionIndex === questionIndex && autoTranslateEnabled) {
+        updateAutoTranslateButton();
+    }
 }
 
 async function translateText(text, targetEl, loadingText) {

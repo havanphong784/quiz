@@ -87,3 +87,8 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgba(28,176,246,.
 
 @media (max-width: 840px) { .overview-strip { grid-template-columns: repeat(2,1fr); }.quiz-view { grid-template-columns: 1fr; }.assist-panel { position: static; }.dict-list { max-height: 280px; } }
 @media (max-width: 620px) { .app-shell { width: min(100% - 24px,1200px); padding-top: 16px; }.topbar { align-items: flex-start; padding-bottom: 18px; }.topbar h1 { font-size: 1.05rem; }.topbar .eyebrow { font-size: .65rem; }.setup-hero { grid-template-columns: 1fr; gap: 24px; padding: 28px 22px; margin-top: 20px; }.setup-hero h2 { font-size: 2.25rem; }.overview-strip { grid-template-columns: 1fr; }.metric-card { min-height: auto; }.choose-panel, .quiz-stage { padding: 18px; }.panel-header { align-items: flex-start; }.panel-header .btn-secondary { min-height: 38px; padding: 8px 10px; font-size: .65rem; }.stage-header { align-items: flex-start; flex-direction: column; }.session-meta { justify-content: flex-start; text-align: left; }.result-grid { grid-template-columns: repeat(2,1fr); }.pack-dialog > * { margin-left: 18px; margin-right: 18px; }.dialog-header { padding-top: 20px; }.pack-dialog-actions { grid-template-columns: 1fr; }.controls-container .btn { min-height: 40px; padding: 8px 10px; font-size: .68rem; } }
+
+.auto-translate { margin-left: 14px; color: var(--green); }
+.auto-translate.is-active { padding: 5px 8px; color: #fff; background: var(--green); border-radius: 7px; text-decoration: none; }
+.option-copy { min-width: 0; }
+.option-translation { display: block; margin-top: 6px; color: var(--muted); font-size: .8rem; font-weight: 700; line-height: 1.4; }

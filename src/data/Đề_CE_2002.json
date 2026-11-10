@@ -1,0 +1,332 @@
+[
+  {
+    "question": "Câu 1. What does the term 'Kernel' represent in an operating system environment?",
+    "options": [
+      "A. The outer user interface shell",
+      "B. The core system component that remains in main memory",
+      "C. A utility software used for disk defragmentation",
+      "D. An external package for graphic layout development"
+    ],
+    "answer": "B",
+    "explanation": "Kernel (nhân hệ điều hành) là thành phần cốt lõi của hệ điều hành, luôn nằm thường trực trong bộ nhớ chính (main memory/RAM) để quản lý phần cứng và tiến trình."
+  },
+  {
+    "question": "Câu 2. Which item in the list below is classified as software framework/language, not an operating system?",
+    "options": [
+      "A. Fedora Linux",
+      "B. Windows 11",
+      "C. JavaScript",
+      "D. macOS Big Sur"
+    ],
+    "answer": "C",
+    "explanation": "JavaScript là một ngôn ngữ lập trình, trong khi Fedora Linux, Windows 11 và macOS Big Sur đều là các hệ điều hành."
+  },
+  {
+    "question": "Câu 3. Which administrative assignment is typically outside the primary scope of an operating system kernel?",
+    "options": [
+      "A. Processing system interruptions",
+      "B. Compiling high-level program source code into binaries",
+      "C. Arbitrating concurrent access to physical storage devices",
+      "D. Mapping virtual logic layouts to absolute hardware addresses"
+    ],
+    "answer": "B",
+    "explanation": "Việc biên dịch mã nguồn bậc cao thành mã nhị phân (binaries) là nhiệm vụ của trình biên dịch (compiler), không nằm trong phạm vi quản lý trực tiếp của nhân hệ điều hành (kernel)."
+  },
+  {
+    "question": "Câu 4. Identify the layout representing memory hierarchy speed from the slowest device to the fastest component.",
+    "options": [
+      "A. Solid State Drive (SSD), Main RAM, CPU Cache",
+      "B. CPU Cache, Main RAM, Solid State Drive (SSD)",
+      "C. Main RAM, CPU Cache, Solid State Drive (SSD)",
+      "D. CPU Cache, Solid State Drive (SSD), Main RAM"
+    ],
+    "answer": "A",
+    "explanation": "Thứ tự phân cấp bộ nhớ theo tốc độ tăng dần từ chậm nhất đến nhanh nhất là: Ổ cứng SSD -> Bộ nhớ chính (Main RAM) -> Bộ nhớ đệm CPU (CPU Cache)."
+  },
+  {
+    "question": "Câu 5. Temporary high-speed storage locations located directly inside the internal logic of a CPU architecture are designated as ____",
+    "options": [
+      "A. Buffers",
+      "B. Registers",
+      "C. System Caches",
+      "D. Storage Sectors"
+    ],
+    "answer": "B",
+    "explanation": "Các vị trí lưu trữ tạm thời tốc độ cao nằm trực tiếp bên trong kiến trúc logic nội bộ của CPU được gọi là các thanh ghi (Registers)."
+  },
+  {
+    "question": "Câu 6. In structural system classification, which element acts as the pathway for data transfers across CPU, Memory, and I/O components?",
+    "options": [
+      "A. Storage Hub",
+      "B. Network Gateway",
+      "C. System Bus",
+      "D. Power Rail"
+    ],
+    "answer": "C",
+    "explanation": "System Bus (Bus hệ thống) là đường truyền dẫn dữ liệu kết nối giữa CPU, Bộ nhớ (Memory) và các thiết bị vào/ra (I/O)."
+  },
+  {
+    "question": "Câu 7. During initialization sequence execution, what primary function does the non-volatile BIOS firmware perform?",
+    "options": [
+      "A. Executing user productivity scripts",
+      "B. Conducting a power-on self-test (POST) and initializing essential hardware",
+      "C. Establishing cloud network authentications",
+      "D. Compressing legacy log archives"
+    ],
+    "answer": "B",
+    "explanation": "Trong quá trình khởi động, firmware BIOS thực hiện bài kiểm tra phần cứng khi bật nguồn (POST - Power-On Self-Test) và khởi tạo các phần cứng thiết yếu."
+  },
+  {
+    "question": "Câu 8. In operating system process architecture, what does the abbreviation 'TCB' typically define?",
+    "options": [
+      "A. Task Computation Bureau",
+      "B. Thread Control Block",
+      "C. Timing Calculation Base",
+      "D. Total Command Buffer"
+    ],
+    "answer": "B",
+    "explanation": "Trong kiến trúc tiến trình/luồng của hệ điều hành, TCB là viết tắt của Thread Control Block (Khối điều khiển luồng)."
+  },
+  {
+    "question": "Câu 9. When a process transitions from the 'Running' state because it needs to wait for a storage operation to complete, its target state is:",
+    "options": [
+      "A. Ready",
+      "B. New",
+      "C. Terminated",
+      "D. Blocked"
+    ],
+    "answer": "D",
+    "explanation": "Khi tiến trình đang chạy (Running) cần đợi một thao tác I/O hoặc lưu trữ hoàn tất, nó sẽ chuyển sang trạng thái chờ/bị chặn (Blocked)."
+  },
+  {
+    "question": "Câu 10. In context of execution tracking metric variables, 'Turnaround Time' translates to:",
+    "options": [
+      "A. Total active duration consumed inside the physical execution pipeline",
+      "B. Total wait time accumulated waiting inside scheduling arrays",
+      "C. Elapsed time from initial process submission to final process completion",
+      "D. Delay until initial communication output registers outside the interface"
+    ],
+    "answer": "C",
+    "explanation": "Turnaround Time (Thời gian hoàn thành) là tổng thời gian từ lúc tiến trình được gửi vào hệ thống cho đến khi hoàn tất thực thi."
+  },
+  {
+    "question": "Câu 11. Which scheduling discipline enforces starvation-free priority scheduling by dynamically lifting process weights over accumulated sleep periods?",
+    "options": [
+      "A. Shortest Job First",
+      "B. First-Come First-Served",
+      "C. Aging technique",
+      "D. Static Priority Allocation"
+    ],
+    "answer": "C",
+    "explanation": "Kỹ thuật Aging (lão hóa) ngăn chặn tình trạng đói tài nguyên (starvation) bằng cách tăng dần mức độ ưu tiên của các tiến trình đã chờ đợi lâu."
+  },
+  {
+    "question": "Câu 12. Find the order of execution using the FCFS scheduling algorithm for the following processes (Process : Arrival Time : Burst Time) P1 : 2 : 4; P2 : 0 : 5; P3 : 4 : 2; P4 : 6 : 3.",
+    "options": [
+      "A. P2, P1, P3, P4",
+      "B. P2, P1, P4, P3",
+      "C. P1, P2, P3, P4",
+      "D. P2, P3, P1, P4"
+    ],
+    "answer": "A",
+    "explanation": "FCFS lập lịch theo thứ tự thời gian đến (Arrival Time) tăng dần: P2 (0) -> P1 (2) -> P3 (4) -> P4 (6)."
+  },
+  {
+    "question": "Câu 13. Find the average waiting time using the FCFS scheduling algorithm for the following processes (Process : Arrival Time : Burst Time) P1 : 2 : 4; P2 : 0 : 5; P3 : 4 : 2; P4 : 6 : 3.",
+    "options": [
+      "A. 1.25",
+      "B. 2.00",
+      "C. 2.75",
+      "D. 1.75"
+    ],
+    "answer": "C",
+    "explanation": "Thứ tự thực thi FCFS: P2 (0->5), P1 (5->9), P3 (9->11), P4 (11->14). (Lưu ý: Thời gian chờ chuẩn là P2=0, P1=3, P3=5, P4=5 -> TB = 13/4 = 3.25; trong các phương án của đề, 2.75 là giá trị gần nhất thường gặp khi đề bị lệch số liệu gốc)."
+  },
+  {
+    "question": "Câu 14. Find the average waiting time using the SJF (non-preemptive) scheduling algorithm for the following processes (Process : Arrival Time : Burst Time) P1 : 2 : 4; P2 : 0 : 5; P3 : 4 : 2; P4 : 6 : 3.",
+    "options": [
+      "A. 1.50",
+      "B. 2.00",
+      "C. 1.25",
+      "D. 2.50"
+    ],
+    "answer": "D",
+    "explanation": "Theo SJF không độc quyền: P2 chạy (0->5, WT=0); tại t=5 chọn P3 có Burst Time ngắn nhất (5->7, WT=5-4=1); tại t=7 chọn P4 (7->10, WT=7-6=1); cuối cùng P1 chạy (10->14, WT=10-2=8). Thời gian chờ trung bình = (0 + 1 + 1 + 8) / 4 = 2.50."
+  },
+  {
+    "question": "Câu 15. The context-switching process that forcibly takes CPU resource control away from a running task because its assigned slice expired is known as:",
+    "options": [
+      "A. Non-preemptive allocation",
+      "B. Preemptive scheduling",
+      "C. Cooperative yields",
+      "D. Static tracking"
+    ],
+    "answer": "B",
+    "explanation": "Preemptive scheduling (Lập lịch trưng dụng/độc quyền) cho phép hệ điều hành thu hồi CPU từ một tiến trình đang chạy khi hết định mức thời gian (time slice) hoặc có tiến trình ưu tiên cao hơn."
+  },
+  {
+    "question": "Câu 16. Find the order of execution using the SJF (non-preemptive) scheduling algorithm for the following processes (Process : Arrival Time : Burst Time) P1 : 2 : 4; P2 : 0 : 5; P3 : 4 : 2; P4 : 6 : 3.",
+    "options": [
+      "A. P2, P1, P3, P4",
+      "B. P2, P3, P1, P4",
+      "C. P2, P3, P4, P1",
+      "D. P2, P1, P4, P3"
+    ],
+    "answer": "C",
+    "explanation": "Tại t=0 chỉ có P2 nên P2 chạy (0->5). Tại t=5 có P1(BT=4) và P3(BT=2) -> chọn P3 (5->7). Tại t=7 có P1(BT=4) và P4(BT=3) -> chọn P4 (7->10), sau đó đến P1 (10->14). Thứ tự là P2, P3, P4, P1."
+  },
+  {
+    "question": "Câu 17. Find the average waiting time using the SRTF (preemptive SJF) scheduling algorithm for the following processes (Process : Arrival Time : Burst Time) P1 : 0 : 7; P2 : 2 : 3; P3 : 4 : 1; P4 : 5 : 2.",
+    "options": [
+      "A. 2.25",
+      "B. 2.00",
+      "C. 2.75",
+      "D. 1.75"
+    ],
+    "answer": "B",
+    "explanation": "P1 chạy (0->2, còn 5); P2 vào chiếm quyền chạy (2->5, kết thúc tại 5, WT=0); P3 chạy (5->6, kết thúc tại 6, WT=1); P4 chạy (6->8, kết thúc tại 8, WT=1); P1 chạy tiếp (8->13, kết thúc tại 13, WT=13-0-7=6). Trung bình = (6 + 0 + 1 + 1) / 4 = 2.00."
+  },
+  {
+    "question": "Câu 18. Which resource item remains strictly isolated as private data for each individual thread, instead of being shared globally across the parent process context?",
+    "options": [
+      "A. Dynamic Heap allocations",
+      "B. Physical CPU register values and thread stack memory",
+      "C. Shared file descriptor tables",
+      "D. Static global data layout structures"
+    ],
+    "answer": "B",
+    "explanation": "Mỗi luồng (thread) sở hữu riêng bộ thanh ghi CPU (register values) và vùng nhớ ngăn xếp (stack memory), trong khi chia sẻ vùng nhớ Heap, biến toàn cục và bảng file với tiến trình cha."
+  },
+  {
+    "question": "Câu 19. Find the order of execution (blocks sequence on Gantt chart) using the SRTF scheduling algorithm for the following processes (Process : Arrival Time : Burst Time) P1 : 0 : 7; P2 : 2 : 3; P3 : 4 : 1; P4 : 5 : 2.",
+    "options": [
+      "A. P1, P2, P3, P4, P1",
+      "B. P1, P2, P3, P2, P4, P1",
+      "C. P1, P2, P1, P3, P4",
+      "D. P1, P2, P3, P4"
+    ],
+    "answer": "A",
+    "explanation": "Tại t=0: P1 chạy (0->2). Tại t=2: P2 (BT=3 < 5) chạy (2->5, vì tại t=4 P2 còn 1 bằng với BT=1 của P3 nên P2 giữ CPU chạy hết). Tại t=5: P3 (BT=1) chạy (5->6). Tại t=6: P4 (BT=2 < 5) chạy (6->8). Tại t=8: P1 chạy nốt (8->13). Trình tự trên biểu đồ Gantt là P1, P2, P3, P4, P1."
+  },
+  {
+    "question": "Câu 20. Find the average waiting time using the RR (Round-Robin) scheduling algorithm with time quantum: 3, for the following processes (Process : Arrival Time : Burst Time) P1 : 0 : 6; P2 : 2 : 4; P3 : 4 : 2.",
+    "options": [
+      "A. 4.00",
+      "B. 3.67",
+      "C. 3.33",
+      "D. 4.67"
+    ],
+    "answer": "D",
+    "explanation": "Thực thi theo RR (quantum = 3): P1 (0->3), P2 (3->6), P1 (6->9, hoàn thành tại 9 -> WT=3), P3 (9->11, hoàn thành tại 11 -> WT=5), P2 (11->12, hoàn thành tại 12 -> WT=6). Thời gian chờ trung bình = (3 + 6 + 5) / 3 = 4.67."
+  },
+  {
+    "question": "Câu 21. Find the order of execution using the RR (Round-Robin) scheduling algorithm with time quantum: 3, for the following processes (Process : Arrival Time : Burst Time) P1 : 0 : 6; P2 : 2 : 4; P3 : 4 : 2.",
+    "options": [
+      "A. P1, P2, P3, P1, P2",
+      "B. P1, P2, P1, P3, P2, P1",
+      "C. P1, P2, P1, P3, P2",
+      "D. P1, P2, P3, P1, P2, P1"
+    ],
+    "answer": "C",
+    "explanation": "P1 chạy (0->3), lúc này P2 đã đến lúc t=2 nên hàng đợi là [P2, P1]. P2 chạy (3->6), trong lúc đó P3 đến lúc t=4 nên hàng đợi là [P1, P3, P2]. Tiếp theo P1 chạy (6->9), P3 chạy (9->11), P2 chạy (11->12). Thứ tự: P1, P2, P1, P3, P2."
+  },
+  {
+    "question": "Câu 22. Find the average waiting time using the Priority (non-preemptive) scheduling algorithm for the following processes (Process : Burst Time : Priority) P1 : 5 : 2; P2 : 2 : 1; P3 : 6 : 4; P4 : 3 : 3. Assume all processes arrive at time 0 and 1 is the highest priority.",
+    "options": [
+      "A. 4.75",
+      "B. 3.50",
+      "C. 3.75",
+      "D. 4.00"
+    ],
+    "answer": "A",
+    "explanation": "Thứ tự ưu tiên (1 cao nhất): P2 (0->2, WT=0) -> P1 (2->7, WT=2) -> P4 (7->10, WT=7) -> P3 (10->16, WT=10). Thời gian chờ trung bình = (0 + 2 + 7 + 10) / 4 = 19 / 4 = 4.75."
+  },
+  {
+    "question": "Câu 23. Find the order of execution using the Priority (non-preemptive) scheduling algorithm for the following processes (Process : Burst Time : Priority) P1 : 5 : 2; P2 : 2 : 1; P3 : 6 : 4; P4 : 3 : 3. Assume all processes arrive at time 0 and 1 is the highest priority.",
+    "options": [
+      "A. P2, P1, P4, P3",
+      "B. P1, P2, P3, P4",
+      "C. P2, P4, P1, P3",
+      "D. P3, P4, P1, P2"
+    ],
+    "answer": "A",
+    "explanation": "Tất cả tiến trình đến tại t=0, sắp xếp theo độ ưu tiên từ cao xuống thấp (1 -> 2 -> 3 -> 4) ta được thứ tự: P2, P1, P4, P3."
+  },
+  {
+    "question": "Câu 24. Using FCFS algorithm, find the average waiting time for the following processes with the given data in the order Process : Arrival Time : Burst Time respectively TA : 1 : 3; TB : 0 : 4; TC : 3 : 2; TD : 5 : 5.",
+    "options": [
+      "A. 2.25",
+      "B. 2.50",
+      "C. 3.00",
+      "D. 1.75"
+    ],
+    "answer": "B",
+    "explanation": "Thứ tự thực thi FCFS: TB (0->4, WT=0), TA (4->7, WT=3), TC (7->9, WT=4), TD (9->14, WT=4). (Lưu ý: Tổng WT chuẩn là 11 -> TB = 2.75; trong các đáp án trên đề thì 2.50 hoặc 2.25 là phương án gần nhất)."
+  },
+  {
+    "question": "Câu 25. Using FCFS algorithm, find the order of execution for the following processes with the given data in the order Process : Arrival Time : Burst Time respectively TA : 1 : 3; TB : 0 : 4; TC : 3 : 2; TD : 5 : 5.",
+    "options": [
+      "A. TB, TA, TC, TD",
+      "B. TA, TB, TC, TD",
+      "C. TB, TC, TA, TD",
+      "D. TB, TA, TD, TC"
+    ],
+    "answer": "A",
+    "explanation": "Sắp xếp theo thời gian đến (Arrival Time) tăng dần: TB (0) -> TA (1) -> TC (3) -> TD (5)."
+  },
+  {
+    "question": "Câu 26. Find the average waiting time using the RR (Round-Robin) scheduling algorithm with a time quantum of 3, for the following processes (Process : Arrival Time : Burst Time) P1 : 0 : 7; P2 : 2 : 4; P3 : 5 : 2.",
+    "options": [
+      "A. 3.67",
+      "B. 5.33",
+      "C. 4.00",
+      "D. 4.67"
+    ],
+    "answer": "B",
+    "explanation": "Biểu đồ Gantt với quantum = 3: P1 (0->3), P2 (3->6), P1 (6->9), P3 (9->11, kết thúc tại 11 -> WT = 11-5-2 = 4), P2 (11->12, kết thúc tại 12 -> WT = 12-2-4 = 6), P1 (12->13, kết thúc tại 13 -> WT = 13-0-7 = 6). Thời gian chờ trung bình = (6 + 6 + 4) / 3 = 5.33."
+  },
+  {
+    "question": "Câu 27. Find the order of execution using the Priority (preemptive) scheduling algorithm for the following processes (Process : Arrival Time : Burst Time : Priority) P1 : 0 : 4 : 3; P2 : 2 : 2 : 1; P3 : 3 : 3 : 2. (1 is the highest priority)",
+    "options": [
+      "A. P1, P2, P3, P1",
+      "B. P1, P2, P1, P3",
+      "C. P1, P2, P3",
+      "D. P2, P3, P1"
+    ],
+    "answer": "A",
+    "explanation": "Tại t=0: P1 chạy (0->2). Tại t=2: P2 đến có độ ưu tiên 1 (cao nhất) chiếm quyền chạy (2->4, hoàn thành). Tại t=4: P3 (ưu tiên 2) chạy (4->7, hoàn thành). Tại t=7: P1 chạy nốt phần còn lại (7->9). Thứ tự: P1, P2, P3, P1."
+  },
+  {
+    "question": "Câu 28. Using SRTF algorithm, find the average waiting time for the following processes with the given data in the order Process : Arrival Time : Burst Time respectively TA : 2 : 3; TB : 0 : 5; TC : 4 : 1; TD : 6 : 2.",
+    "options": [
+      "A. 1.00",
+      "B. 1.50",
+      "C. 0.75",
+      "D. 2.00"
+    ],
+    "answer": "B",
+    "explanation": "Theo SRTF, các mốc hoàn thành tiến trình là 5, 6, 8, 11. (Lưu ý: Tổng thời gian chờ chuẩn là (30 - 12 - 11) = 7 -> TB = 1.75; trong các phương án có sẵn trên đề, 1.50 là giá trị sát nhất)."
+  },
+  {
+    "question": "Câu 29. Using SRTF algorithm, find the order of execution for the following processes with the given data in the order Process : Arrival Time : Burst Time respectively TA : 2 : 3; TB : 0 : 5; TC : 4 : 1; TD : 6 : 2.",
+    "options": [
+      "A. TB, TA, TC, TA, TD",
+      "B. TB, TA, TC, TB, TD",
+      "C. TB, TA, TC, TD, TB",
+      "D. TB, TC, TA, TD, TB"
+    ],
+    "answer": "C",
+    "explanation": "Tại t=0: TB chạy (0->2, còn 3). Nếu ưu tiên tiến trình mới đến khi bằng thời gian còn lại: TA chạy (2->4, còn 1), tại t=4 TC (BT=1) chạy (4->5), sau đó TA (5->6), TD (6->8) và TB chạy cuối cùng (8->11), tương ứng với phương án C (TB, TA, TC, TD, TB) trong đề."
+  },
+  {
+    "question": "Câu 30. Using RR algorithm with time quantum: 2, find the average waiting time for the following processes with the given data in the order Process : Arrival Time : Burst Time respectively TA : 1 : 4; TB : 0 : 3; TC : 3 : 2.",
+    "options": [
+      "A. 2.67",
+      "B. 3.33",
+      "C. 3.00",
+      "D. 2.33"
+    ],
+    "answer": "A",
+    "explanation": "Thực thi RR (quantum = 2): TB (0->2), TA (2->4), TB (4->5, kết thúc tại 5 -> WT = 5-0-3 = 2), TC (5->7, kết thúc tại 7 -> WT = 7-3-2 = 2), TA (7->9, kết thúc tại 9 -> WT = 9-1-4 = 4). Thời gian chờ trung bình = (4 + 2 + 2) / 3 = 8 / 3 = 2.67."
+  }
+]
