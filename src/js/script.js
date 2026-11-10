@@ -82,6 +82,16 @@ const builtInPacks = [
         tags: ["OS", "CE 2002", "Lập lịch CPU"]
     },
     {
+        id: "os_practice_ce2002",
+        title: "Đề luyện tập CE 2002",
+        desc: "Luyện tập về nhân hệ điều hành, phần cứng, tiến trình và các thuật toán lập lịch CPU.",
+        file: "./src/data/practice_exam_ce2002.json",
+        source: "Import sẵn",
+        subject: DEFAULT_SUBJECT,
+        count: 30,
+        tags: ["OS", "CE 2002", "Luyện tập", "Lập lịch CPU"]
+    },
+    {
         id: "os_similar_exam_1",
         title: "Đề tương tự 1",
         desc: "Bộ đề luyện tập về chế độ kernel, phần cứng, tiến trình và lập lịch CPU.",
