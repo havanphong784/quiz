@@ -260,7 +260,7 @@ const STORAGE_IMPORTED_KEY = "ctdlgt_imported_packs_v1";
 const STORAGE_TRANSLATION_CACHE_KEY = "ctdlgt_translation_cache_v1";
 const sentenceCache = new Map();
 const glossaryDefinitions = new Map(glossary.map(item => [item.term.toLowerCase(), item.def]));
-const persistentTranslationCache = TranslationUtils.createPersistentCache(localStorage, STORAGE_TRANSLATION_CACHE_KEY);
+const persistentTranslationCache = TranslationUtils.createPersistentCache(getLocalStorage(), STORAGE_TRANSLATION_CACHE_KEY);
 
 let importedPacks = [];
 let availablePacks = [];
@@ -279,6 +279,14 @@ let sessionRecorded = false;
 let sessionStarted = false;
 let sessionStartedAt = null;
 let dictionaryRequestToken = 0;
+
+function getLocalStorage() {
+    try {
+        return window.localStorage;
+    } catch {
+        return undefined;
+    }
+}
 
 const els = {
     setupView: document.getElementById("setup-view"),
@@ -1147,7 +1155,8 @@ async function updateDictionaryForCurrentQuestion(question) {
             if (requestToken === dictionaryRequestToken && !els.dictSearch.value.trim()) {
                 renderDictionaryForQuestion(initialEntries);
             }
-        }
+        },
+        () => requestToken === dictionaryRequestToken && !els.dictSearch.value.trim()
     );
 }
 

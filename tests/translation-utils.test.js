@@ -40,10 +40,26 @@ async function run() {
         Array.from(utils.extractTerms("A C++ program uses C++.", [{ term: "C++", def: "Cộng cộng" }], 10)),
         ["C++", "program", "uses"]
     );
+    assert.deepEqual(
+        Array.from(utils.extractTerms(
+            "Compare Time Complexity and Space Complexity.",
+            [
+                { term: "Time Complexity", def: "độ phức tạp thời gian" },
+                { term: "Space Complexity", def: "độ phức tạp không gian" }
+            ],
+            10
+        )),
+        ["Space Complexity", "Time Complexity", "compare"]
+    );
 
-    const cache = utils.createPersistentCache(createStorage(), "translations");
+    const storage = createStorage();
+    const cache = utils.createPersistentCache(storage, "translations");
     cache.set("Binary Tree", "cây nhị phân");
     assert.equal(cache.get("binary tree"), "cây nhị phân");
+    assert.equal(utils.createPersistentCache(storage, "translations").get("binary tree"), "cây nhị phân");
+    assert.equal(cache.get("constructor"), undefined);
+    assert.equal(utils.createPersistentCache({ getItem: () => '{"bad":42}' }, "translations").get("bad"), undefined);
+    assert.equal(utils.createPersistentCache({ getItem: () => "not json" }, "translations").get("tree"), undefined);
 
     const brokenStorage = {
         getItem() {
@@ -103,6 +119,27 @@ async function run() {
     assert.equal(entries[2].def, "Chưa thể tra lúc này");
     assert.deepEqual(cachedWrites, [["fresh", "dịch fresh"], ["second", "dịch second"], ["third", "dịch third"]]);
     assert.ok(lookupPeak <= 3);
+
+    let overlappingActive = 0;
+    let overlappingPeak = 0;
+    const uncached = { get: () => undefined, set: () => {} };
+    await Promise.all([
+        utils.resolveTranslations(["one", "two"], uncached, 3, async term => {
+            overlappingActive += 1;
+            overlappingPeak = Math.max(overlappingPeak, overlappingActive);
+            await new Promise(resolve => setTimeout(resolve, 5));
+            overlappingActive -= 1;
+            return term;
+        }),
+        utils.resolveTranslations(["three", "four"], uncached, 3, async term => {
+            overlappingActive += 1;
+            overlappingPeak = Math.max(overlappingPeak, overlappingActive);
+            await new Promise(resolve => setTimeout(resolve, 5));
+            overlappingActive -= 1;
+            return term;
+        })
+    ]);
+    assert.ok(overlappingPeak <= 3);
 
     console.log("translation-utils tests passed");
 }

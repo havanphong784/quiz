@@ -23,6 +23,7 @@
         const found = [];
         const usedWords = new Set();
         const knownTerms = new Set();
+        const matchedPhrases = [];
 
         [...glossary]
             .filter(item => item && item.term)
@@ -33,11 +34,14 @@
                 if (!key || knownTerms.has(key) || !containsTerm(source, term)) return;
 
                 const termWords = key.match(/[a-z]+/g) || [];
-                if (termWords.some(word => usedWords.has(word))) return;
+                const isPhrase = termWords.length > 1;
+                if (isPhrase && matchedPhrases.some(words => termWords.every(word => words.has(word)))) return;
+                if (!isPhrase && termWords.some(word => usedWords.has(word))) return;
 
                 found.push(term);
                 knownTerms.add(key);
                 termWords.forEach(word => usedWords.add(word));
+                if (isPhrase) matchedPhrases.push(new Set(termWords));
             });
 
         const words = source.toLowerCase().match(/[a-z]+/g) || [];
@@ -53,21 +57,28 @@
     }
 
     function createPersistentCache(storage, key) {
-        let values = {};
+        let values = Object.create(null);
 
         try {
             const saved = storage?.getItem(key);
             if (saved) {
                 const parsed = JSON.parse(saved);
-                values = parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+                if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+                    Object.entries(parsed).forEach(([term, definition]) => {
+                        if (typeof definition === "string" && definition.trim()) {
+                            values[normalizeKey(term)] = definition;
+                        }
+                    });
+                }
             }
         } catch {
-            values = {};
+            values = Object.create(null);
         }
 
         return {
             get(term) {
-                return values[normalizeKey(term)];
+                const normalizedTerm = normalizeKey(term);
+                return Object.hasOwn(values, normalizedTerm) ? values[normalizedTerm] : undefined;
             },
             set(term, translation) {
                 const normalizedTerm = normalizeKey(term);
@@ -98,7 +109,37 @@
         return results;
     }
 
-    async function resolveTranslations(terms, cache, limit, translate, onUpdate) {
+    const sharedQueues = new Map();
+
+    function getSharedQueue(limit) {
+        const queueLimit = Math.max(1, Number(limit) || 1);
+        if (sharedQueues.has(queueLimit)) return sharedQueues.get(queueLimit);
+
+        const pending = [];
+        let active = 0;
+        const runNext = () => {
+            while (active < queueLimit && pending.length > 0) {
+                const task = pending.shift();
+                active += 1;
+                Promise.resolve()
+                    .then(task.worker)
+                    .then(task.resolve, task.reject)
+                    .finally(() => {
+                        active -= 1;
+                        runNext();
+                    });
+            }
+        };
+        const queue = worker => new Promise((resolve, reject) => {
+            pending.push({ worker, resolve, reject });
+            runNext();
+        });
+
+        sharedQueues.set(queueLimit, queue);
+        return queue;
+    }
+
+    async function resolveTranslations(terms, cache, limit, translate, onUpdate, isCurrent) {
         const entries = terms.map(term => {
             const definition = cache.get(term);
             return definition
@@ -109,7 +150,9 @@
             .map((entry, index) => ({ entry, index }))
             .filter(({ entry }) => entry.state === "loading");
 
-        await runWithConcurrency(pending, limit, async ({ entry, index }) => {
+        const queue = getSharedQueue(limit);
+        await Promise.all(pending.map(({ entry, index }) => queue(async () => {
+            if (isCurrent && !isCurrent()) return;
             try {
                 const definition = await translate(entry.term);
                 if (!definition || typeof definition !== "string") throw new Error("Missing translation");
@@ -122,7 +165,7 @@
                 entry.state = "error";
             }
             onUpdate?.(entry, index);
-        });
+        })));
 
         return entries;
     }
