@@ -279,6 +279,7 @@ let sessionRecorded = false;
 let sessionStarted = false;
 let sessionStartedAt = null;
 let dictionaryRequestToken = 0;
+let activeSubject = "";
 
 function getLocalStorage() {
     try {
@@ -295,6 +296,7 @@ const els = {
     packList: document.getElementById("pack-list"),
     packCount: document.getElementById("pack-count"),
     packSearch: document.getElementById("pack-search"),
+    btnBackSubjects: document.getElementById("btn-back-subjects"),
     packDialog: document.getElementById("pack-dialog"),
     packDialogTitle: document.getElementById("pack-dialog-title"),
     packDialogDescription: document.getElementById("pack-dialog-description"),
@@ -345,6 +347,7 @@ function init() {
 
 function bindEvents() {
     els.packSearch.addEventListener("input", renderPacks);
+    els.btnBackSubjects.addEventListener("click", () => { activeSubject = ""; renderPacks(); });
     els.dictSearch.addEventListener("input", handleDictionarySearch);
     els.btnNext.addEventListener("click", handleNext);
     els.btnPrev.addEventListener("click", handlePrev);
@@ -357,25 +360,45 @@ function bindEvents() {
 
 function rebuildPackList() {
     availablePacks = [...builtInPacks, ...importedPacks];
+    availablePacks.forEach(pack => { pack.subject ||= "CTDL&GT"; });
+    if (activeSubject && !availablePacks.some(pack => pack.subject === activeSubject)) activeSubject = "";
     els.packCount.textContent = `${availablePacks.length} bộ đề`;
     renderPacks();
 }
 
 function renderPacks() {
     const query = els.packSearch.value.trim().toLowerCase();
-    const packs = availablePacks.filter(pack => {
-        const haystack = `${pack.title} ${pack.desc} ${pack.source} ${pack.subject || ""} ${(pack.tags || []).join(" ")}`.toLowerCase();
-        return haystack.includes(query);
-    });
+    const view = LibraryUtils.getLibraryView(activeSubject, query);
+    els.btnBackSubjects.hidden = view !== "packs";
+    els.packSearch.closest("label").hidden = view === "packs";
 
     els.packList.innerHTML = "";
+
+    if (view === "subjects") {
+        LibraryUtils.getSubjectSummaries(availablePacks, "CTDL&GT").forEach(subject => {
+            const item = document.createElement("button");
+            item.type = "button";
+            item.className = "subject-item";
+            item.innerHTML = `<strong>${escapeHtml(subject.name)}</strong><span>${subject.count} bộ đề</span>`;
+            item.addEventListener("click", () => { activeSubject = subject.name; renderPacks(); });
+            els.packList.appendChild(item);
+        });
+        return;
+    }
+
+    const packs = view === "packs"
+        ? availablePacks.filter(pack => pack.subject === activeSubject)
+        : LibraryUtils.searchPacks(availablePacks, query);
 
     if (packs.length === 0) {
         els.packList.innerHTML = '<p class="muted-empty">Không tìm thấy bộ đề phù hợp.</p>';
         return;
     }
 
-    packs.forEach(pack => {
+    packs.forEach(pack => els.packList.appendChild(createPackItem(pack)));
+}
+
+function createPackItem(pack) {
         const item = document.createElement("button");
         item.type = "button";
         item.className = `pack-item ${selectedPack?.id === pack.id ? "active" : ""}`;
@@ -402,14 +425,7 @@ function renderPacks() {
             selectPack(pack);
         });
 
-        els.packList.appendChild(item);
-    });
-
-    animate(
-        ".pack-item",
-        { opacity: [0, 1], y: [30, 0], scale: [0.85, 1], rotate: [-2, 0] },
-        { delay: stagger(0.08), type: "spring", stiffness: 400, damping: 15 }
-    );
+        return item;
 }
 
 function renderPackTags(tags = []) {

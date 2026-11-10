@@ -30,5 +30,10 @@
         });
     }
 
-    window.LibraryUtils = { getSubjectSummaries, searchPacks };
+    function getLibraryView(activeSubject, query) {
+        if (String(activeSubject || "").trim()) return "packs";
+        return String(query || "").trim() ? "search" : "subjects";
+    }
+
+    window.LibraryUtils = { getSubjectSummaries, searchPacks, getLibraryView };
 })();

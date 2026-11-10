@@ -25,6 +25,9 @@ assert.deepEqual(
         { name: "Hệ điều hành", count: 1 }
     ]
 );
+assert.equal(utils.getLibraryView("", ""), "subjects");
+assert.equal(utils.getLibraryView("Hệ điều hành", ""), "packs");
+assert.equal(utils.getLibraryView("", "os"), "search");
 assert.deepEqual(
     Array.from(utils.searchPacks(packs, "os")),
     [packs[2]]

@@ -413,6 +413,11 @@ select:focus-visible {
     grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.subject-item { min-height: 130px; padding: 20px; border: 1px solid var(--line); border-radius: var(--radius-small); background: #fff; color: var(--ink); text-align: left; cursor: pointer; }
+.subject-item:hover { border-color: var(--accent); box-shadow: var(--shadow-small); }
+.subject-item strong, .subject-item span { display: block; }
+.subject-item span { margin-top: 8px; color: var(--muted); font-size: .82rem; }
+
 .pack-item {
     position: relative;
     width: 100%;
