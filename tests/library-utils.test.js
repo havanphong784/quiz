@@ -13,7 +13,7 @@ function loadUtils() {
 const packs = [
     { title: "Danh sách liên kết", desc: "Con trỏ", source: "Có sẵn", subject: "CTDL&GT", tags: ["Linked List"] },
     { title: "Ngăn xếp", desc: "LIFO", source: "Có sẵn", subject: "", tags: ["Stack"] },
-    { title: "Tiến trình", desc: "Quản lý process", source: "OS", subject: "Hệ điều hành", tags: ["Process"] }
+    { title: "Tiến trình", desc: "Quản lý process", source: "OS", subject: "Nguyên lí hệ điều hành", tags: ["Process"] }
 ];
 
 const utils = loadUtils();
@@ -22,11 +22,11 @@ assert.deepEqual(
     JSON.parse(JSON.stringify(utils.getSubjectSummaries(packs, "CTDL&GT"))),
     [
         { name: "CTDL&GT", count: 2 },
-        { name: "Hệ điều hành", count: 1 }
+        { name: "Nguyên lí hệ điều hành", count: 1 }
     ]
 );
 assert.equal(utils.getLibraryView("", ""), "subjects");
-assert.equal(utils.getLibraryView("Hệ điều hành", ""), "packs");
+assert.equal(utils.getLibraryView("Nguyên lí hệ điều hành", ""), "packs");
 assert.equal(utils.getLibraryView("", "os"), "search");
 assert.deepEqual(
     Array.from(utils.searchPacks(packs, "os")),
