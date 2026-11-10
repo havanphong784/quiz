@@ -98,5 +98,34 @@
         return results;
     }
 
-    window.TranslationUtils = { extractTerms, createPersistentCache, runWithConcurrency };
+    async function resolveTranslations(terms, cache, limit, translate, onUpdate) {
+        const entries = terms.map(term => {
+            const definition = cache.get(term);
+            return definition
+                ? { term, def: definition, state: "ready" }
+                : { term, def: "Đang tra…", state: "loading" };
+        });
+        const pending = entries
+            .map((entry, index) => ({ entry, index }))
+            .filter(({ entry }) => entry.state === "loading");
+
+        await runWithConcurrency(pending, limit, async ({ entry, index }) => {
+            try {
+                const definition = await translate(entry.term);
+                if (!definition || typeof definition !== "string") throw new Error("Missing translation");
+
+                entry.def = definition;
+                entry.state = "ready";
+                cache.set(entry.term, definition);
+            } catch {
+                entry.def = "Chưa thể tra lúc này";
+                entry.state = "error";
+            }
+            onUpdate?.(entry, index);
+        });
+
+        return entries;
+    }
+
+    window.TranslationUtils = { extractTerms, createPersistentCache, runWithConcurrency, resolveTranslations };
 })();

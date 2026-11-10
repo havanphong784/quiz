@@ -257,16 +257,10 @@ builtInPacks.forEach(pack => {
 const STORAGE_STATS_KEY = "ctdlgt_quiz_stats_v2";
 const STORAGE_PROGRESS_PREFIX = "ctdlgt_progress_";
 const STORAGE_IMPORTED_KEY = "ctdlgt_imported_packs_v1";
-const translationCache = new Map();
+const STORAGE_TRANSLATION_CACHE_KEY = "ctdlgt_translation_cache_v1";
 const sentenceCache = new Map();
-const stopWords = new Set([
-    "the", "is", "at", "which", "on", "in", "to", "a", "an", "and", "for", "of", "with", "by", "as",
-    "it", "that", "this", "be", "are", "or", "not", "if", "then", "there", "such", "can", "has",
-    "have", "from", "but", "when", "how", "what", "why", "will", "would", "should", "could", "about",
-    "into", "only", "than", "over", "also", "some", "any", "very", "much", "more", "most"
-]);
-
-glossary.forEach(item => translationCache.set(item.term.toLowerCase(), item.def));
+const glossaryDefinitions = new Map(glossary.map(item => [item.term.toLowerCase(), item.def]));
+const persistentTranslationCache = TranslationUtils.createPersistentCache(localStorage, STORAGE_TRANSLATION_CACHE_KEY);
 
 let importedPacks = [];
 let availablePacks = [];
@@ -284,6 +278,7 @@ let quizFinished = false;
 let sessionRecorded = false;
 let sessionStarted = false;
 let sessionStartedAt = null;
+let dictionaryRequestToken = 0;
 
 const els = {
     setupView: document.getElementById("setup-view"),
@@ -1110,73 +1105,55 @@ function renderDictionary(items) {
 function createDictItem(item, relevant = false) {
     const el = document.createElement("div");
     el.className = `dict-item ${relevant ? "relevant" : ""}`;
+    const definitionClass = item.state === "loading" || item.state === "error"
+        ? "dict-def muted-empty"
+        : "dict-def";
     el.innerHTML = `
         <div class="dict-term">${escapeHtml(item.term)}</div>
-        <div class="dict-def">${escapeHtml(item.def)}</div>
+        <div class="${definitionClass}">${escapeHtml(item.def)}</div>
     `;
     return el;
 }
 
-function updateDictionaryForCurrentQuestion(question) {
+async function updateDictionaryForCurrentQuestion(question) {
     if (els.dictSearch.value.trim()) return;
 
-    const fullText = `${question.question} ${question.options.join(" ")} ${question.explanation || ""}`.toLowerCase();
-    const relevant = [];
-    const knownKeys = new Set();
-
-    glossary.forEach(item => {
-        if (textContainsTerm(fullText, item.term)) {
-            relevant.push(item);
-            knownKeys.add(item.term.toLowerCase());
+    const requestToken = ++dictionaryRequestToken;
+    const fullText = `${question.question} ${(question.options || []).join(" ")} ${question.explanation || ""}`;
+    const terms = TranslationUtils.extractTerms(fullText, glossary, 10);
+    const currentQuestionCache = {
+        get(term) {
+            return glossaryDefinitions.get(term.toLowerCase()) || persistentTranslationCache.get(term);
+        },
+        set(term, definition) {
+            persistentTranslationCache.set(term, definition);
         }
-    });
+    };
 
-    const words = fullText
-        .replace(/[^a-z0-9\s]/g, " ")
-        .split(/\s+/)
-        .filter(word => word.length > 3 && !stopWords.has(word));
+    const initialEntries = terms.map(term => ({
+        term,
+        def: currentQuestionCache.get(term) || "Đang tra…",
+        state: currentQuestionCache.get(term) ? "ready" : "loading"
+    }));
+    renderDictionaryForQuestion(initialEntries);
 
-    const uniqueWords = [...new Set(words)];
-
-    uniqueWords.slice(0, 18).forEach(word => {
-        if (knownKeys.has(word)) return;
-        if (translationCache.has(word)) {
-            const cachedDef = translationCache.get(word);
-            if (cachedDef !== "Không rõ") {
-                relevant.push({ term: capitalize(word), def: cachedDef });
-                knownKeys.add(word);
+    await TranslationUtils.resolveTranslations(
+        terms,
+        currentQuestionCache,
+        3,
+        translateTextWithFallback,
+        (entry, index) => {
+            initialEntries[index] = entry;
+            if (requestToken === dictionaryRequestToken && !els.dictSearch.value.trim()) {
+                renderDictionaryForQuestion(initialEntries);
             }
         }
-    });
-
-    renderDictionaryForQuestion(relevant);
-
-    // Fetch translations for words not in cache (limit to 5 to prevent API rate-limiting)
-    const uncachedWords = [];
-    
-    uncachedWords.forEach(async (word) => {
-        await fetchWordTranslation(word);
-        const translated = translationCache.get(word);
-        if (translated && translated !== "Không rõ") {
-            // Re-render only if the user is still on the same question
-            if (currentQuestions.length > 0 && currentQuestions[currentQuestionIndex] === question) {
-                updateDictionaryForCurrentQuestion(question);
-            }
-        }
-    });
-}
-
-function textContainsTerm(text, term) {
-    const normalizedTerm = term.toLowerCase().trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    if (!normalizedTerm) {
-        return false;
-    }
-
-    return new RegExp(`(^|[^a-z0-9])${normalizedTerm}([^a-z0-9]|$)`, "i").test(text);
+    );
 }
 
 function renderDictionaryForQuestion(relevantTerms) {
     els.dictList.innerHTML = "";
+    els.dictList.setAttribute("aria-live", "polite");
 
     if (relevantTerms.length > 0) {
         const title = document.createElement("div");
@@ -1184,6 +1161,11 @@ function renderDictionaryForQuestion(relevantTerms) {
         title.textContent = "Từ vựng trong câu hiện tại";
         els.dictList.appendChild(title);
         relevantTerms.forEach(item => els.dictList.appendChild(createDictItem(item, true)));
+    } else {
+        const empty = document.createElement("p");
+        empty.className = "muted-empty";
+        empty.textContent = "Không tìm thấy từ cần tra trong câu này.";
+        els.dictList.appendChild(empty);
     }
 
     const title = document.createElement("div");
@@ -1332,21 +1314,6 @@ async function translateTextWithFallback(text) {
     throw lastError || new Error("Tất cả các API dịch đều không hoạt động hoặc bị giới hạn.");
 }
 
-async function fetchWordTranslation(word) {
-    try {
-        const translated = await translateTextWithFallback(word);
-
-        if (translated && translated.toLowerCase() !== word.toLowerCase()) {
-            translationCache.set(word, translated);
-            glossary.push({ term: capitalize(word), def: translated });
-        } else {
-            translationCache.set(word, "Không rõ");
-        }
-    } catch (error) {
-        translationCache.set(word, "Không rõ");
-    }
-}
-
 function translateCurrentQuestion() {
     if (!currentQuestions.length) return;
     translateText(currentQuestions[currentQuestionIndex].question, els.questionTranslation, "Đang dịch câu hỏi...");
@@ -1476,10 +1443,6 @@ function cleanTitle(value) {
         .replace(/\s+/g, " ")
         .trim()
         .replace(/\b\w/g, char => char.toUpperCase()) || "Gói import";
-}
-
-function capitalize(value) {
-    return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 function escapeHtml(value) {

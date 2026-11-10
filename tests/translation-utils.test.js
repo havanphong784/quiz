@@ -67,6 +67,43 @@ async function run() {
     assert.deepEqual(Array.from(results), [2, 4, 6, 8]);
     assert.ok(peakActive <= 2);
 
+    const cachedValues = new Map([["cached", "đã lưu"]]);
+    const cachedWrites = [];
+    const fakeCache = {
+        get(term) {
+            return cachedValues.get(term);
+        },
+        set(term, definition) {
+            cachedWrites.push([term, definition]);
+            cachedValues.set(term, definition);
+        }
+    };
+    let lookupActive = 0;
+    let lookupPeak = 0;
+    const lookedUp = [];
+    const entries = await utils.resolveTranslations(
+        ["cached", "fresh", "failed", "second", "third"],
+        fakeCache,
+        3,
+        async term => {
+            lookedUp.push(term);
+            lookupActive += 1;
+            lookupPeak = Math.max(lookupPeak, lookupActive);
+            await new Promise(resolve => setTimeout(resolve, 5));
+            lookupActive -= 1;
+            if (term === "failed") throw new Error("network error");
+            return `dịch ${term}`;
+        }
+    );
+    assert.equal(entries[0].state, "ready");
+    assert.equal(entries[0].def, "đã lưu");
+    assert.deepEqual(lookedUp, ["fresh", "failed", "second", "third"]);
+    assert.equal(entries[1].def, "dịch fresh");
+    assert.equal(entries[2].state, "error");
+    assert.equal(entries[2].def, "Chưa thể tra lúc này");
+    assert.deepEqual(cachedWrites, [["fresh", "dịch fresh"], ["second", "dịch second"], ["third", "dịch third"]]);
+    assert.ok(lookupPeak <= 3);
+
     console.log("translation-utils tests passed");
 }
 
