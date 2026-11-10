@@ -72,7 +72,8 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .metric-card strong { display: block; margin: 7px 0 3px; color: var(--navy); font-size: 1.9rem; line-height: 1; }
 .metric-card small { color: var(--muted); font-size: 0.76rem; }
 
-.setup-layout, .quiz-view { grid-template-columns: minmax(0, 1fr) 320px; align-items: start; }
+.setup-layout { grid-template-columns: 1fr; align-items: start; }
+.quiz-view { grid-template-columns: minmax(0, 1fr) 320px; align-items: start; }
 .panel, .quiz-stage { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
 .panel { padding: 26px; }
 .quiz-stage { padding: clamp(24px, 4vw, 42px); }
@@ -102,6 +103,18 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .setup-controls { display: grid; gap: 13px; }
 .stats-detail { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--line); }
 .stats-detail h3 { margin: 0 0 6px; font-size: 0.98rem; }
+
+.pack-dialog { width: min(460px, calc(100% - 32px)); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); padding: 24px; }
+.pack-dialog::backdrop { background: rgba(22, 36, 61, 0.38); }
+.pack-dialog .dialog-header { margin-bottom: 16px; }
+.pack-dialog-description { margin: 0; color: var(--muted); }
+.dialog-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 20px 0 10px; }
+.dialog-stats div { border-radius: 10px; background: var(--surface-muted); padding: 12px; }
+.dialog-stats span, .dialog-stats strong { display: block; }
+.dialog-stats span { color: var(--muted); font-size: 0.72rem; font-weight: 700; }
+.dialog-stats strong { margin-top: 3px; color: var(--navy); font-size: 1.1rem; }
+.dialog-progress { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.pack-dialog-actions { display: grid; gap: 10px; margin-top: 22px; }
 
 .stage-header { margin-bottom: 20px; }
 .stage-header h2 { max-width: 720px; font-size: clamp(1.45rem, 2.4vw, 2.1rem); }
@@ -193,6 +206,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
   .option-btn { grid-template-columns: 29px minmax(0, 1fr); min-height: 56px; padding: 12px; }
   .pack-topline { align-items: flex-start; flex-direction: column; gap: 5px; }
   .assist-panel { padding: 18px; }
+  .pack-dialog { padding: 20px; }
 }
 
 @media (max-width: 480px) {
@@ -213,4 +227,9 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
   .option-text { font-size: 0.9rem; }
   .controls-container { gap: 8px; }
   .controls-container .btn { min-width: 0; padding: 0 10px; }
+  .pack-dialog { width: min(100% - 20px, 460px); padding: 18px; }
+  .dialog-stats, .dialog-progress { grid-template-columns: 1fr; }
+  .dialog-stats { gap: 6px; margin-top: 16px; }
+  .dialog-stats div { display: flex; align-items: baseline; justify-content: space-between; padding: 10px 12px; }
+  .dialog-stats strong { margin: 0; }
 }

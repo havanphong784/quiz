@@ -292,6 +292,9 @@ const els = {
     packList: document.getElementById("pack-list"),
     packCount: document.getElementById("pack-count"),
     packSearch: document.getElementById("pack-search"),
+    packDialog: document.getElementById("pack-dialog"),
+    packDialogTitle: document.getElementById("pack-dialog-title"),
+    packDialogDescription: document.getElementById("pack-dialog-description"),
     quizContainer: document.getElementById("quiz-container"),
     emptyState: document.getElementById("empty-state"),
     activePackLabel: document.getElementById("active-pack-label"),
@@ -424,7 +427,21 @@ function selectPack(pack) {
     renderPacks();
     updateSelectedPackSummary(pack);
     updateStatsDisplay(pack.id);
+    openPackDialog(pack);
+}
+
+function openPackDialog(pack) {
+    const packStats = getPackStats(pack.id);
+    const questionCount = pack.count ? `${pack.count} câu hỏi` : "Sẵn sàng tải câu hỏi";
+
+    els.packDialogTitle.textContent = pack.title;
+    els.packDialogDescription.textContent = `${pack.desc || "Bộ đề đã được thêm."} ${questionCount}.`;
     els.btnOpenQuiz.disabled = false;
+    els.btnPracticeWrong.disabled = packStats.wrongQuestionIds.length === 0;
+
+    if (!els.packDialog.open) {
+        els.packDialog.showModal();
+    }
 }
 
 function updateSelectedPackSummary(pack) {
@@ -448,6 +465,9 @@ async function openQuizFromSelection(wrongPractice) {
     if (!selectedPack) {
         setImportStatus("Chọn một bộ đề trước khi vào quiz.", "error");
         return;
+    }
+    if (els.packDialog.open) {
+        els.packDialog.close();
     }
     await loadPack(selectedPack, wrongPractice);
 }
@@ -634,7 +654,6 @@ function showSetupView() {
     
     animate(".setup-hero", { opacity: [0, 1], scale: [0.95, 1], y: [20, 0] }, { duration: 0.5, type: "spring", stiffness: 300, damping: 20 });
     animate(".metric-card", { opacity: [0, 1], scale: [0.8, 1], y: [30, 0] }, { delay: stagger(0.08), type: "spring", stiffness: 400, damping: 18 });
-    animate(".setup-panel", { opacity: [0, 1], x: [30, 0] }, { duration: 0.5, type: "spring", stiffness: 300, damping: 20 });
 }
 
 function showQuizView() {

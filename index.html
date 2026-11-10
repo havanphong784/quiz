@@ -75,46 +75,6 @@
                     <div class="pack-list setup-pack-list" id="pack-list"></div>
                 </section>
 
-                <aside class="panel setup-panel" aria-label="Tiến độ bộ đề">
-                    <div class="panel-header">
-                        <div>
-                            <p class="panel-kicker">02</p>
-                            <h2>Tiến độ bộ đề</h2>
-                        </div>
-                    </div>
-
-                    <div class="setup-controls">
-                        <button class="btn btn-secondary full-width" id="btn-practice-wrong" type="button"
-                            disabled>Luyện câu sai</button>
-                        <button class="btn btn-primary full-width btn-large" id="btn-open-quiz" type="button"
-                            disabled>Bắt đầu ôn</button>
-                    </div>
-
-                    <section class="stats-detail">
-                        <h3>Hiệu suất bộ đề</h3>
-                        <div class="stat-row">
-                            <span>Độ chính xác</span>
-                            <strong id="stat-accuracy-label">0%</strong>
-                        </div>
-                        <div class="mini-bar">
-                            <div id="stat-accuracy-bar"></div>
-                        </div>
-                        <div class="stat-row">
-                            <span>Điểm tốt nhất</span>
-                            <strong id="stat-best-label">0%</strong>
-                        </div>
-                        <div class="mini-bar success">
-                            <div id="stat-best-bar"></div>
-                        </div>
-                        <div class="stat-row">
-                            <span>Câu cần ôn</span>
-                            <strong id="stat-wrong-label">0%</strong>
-                        </div>
-                        <div class="mini-bar warning">
-                            <div id="stat-wrong-bar"></div>
-                        </div>
-                    </section>
-                </aside>
             </section>
         </main>
 
@@ -184,6 +144,33 @@
             </aside>
         </main>
     </div>
+
+    <dialog class="pack-dialog" id="pack-dialog" aria-labelledby="pack-dialog-title">
+        <div class="dialog-header">
+            <div>
+                <p class="panel-kicker">Bộ đề đã chọn</p>
+                <h2 id="pack-dialog-title">Chọn cách ôn</h2>
+            </div>
+            <form method="dialog">
+                <button class="dialog-close" type="submit" aria-label="Đóng panel chọn bộ đề">Đóng</button>
+            </form>
+        </div>
+        <p class="pack-dialog-description" id="pack-dialog-description"></p>
+        <section class="dialog-stats" aria-label="Tiến độ bộ đề">
+            <div><span>Độ chính xác</span><strong id="stat-accuracy-label">0%</strong></div>
+            <div><span>Điểm tốt nhất</span><strong id="stat-best-label">0%</strong></div>
+            <div><span>Câu cần ôn</span><strong id="stat-wrong-label">0%</strong></div>
+        </section>
+        <div class="dialog-progress" aria-hidden="true">
+            <div class="mini-bar"><div id="stat-accuracy-bar"></div></div>
+            <div class="mini-bar success"><div id="stat-best-bar"></div></div>
+            <div class="mini-bar warning"><div id="stat-wrong-bar"></div></div>
+        </div>
+        <div class="pack-dialog-actions">
+            <button class="btn btn-secondary full-width" id="btn-practice-wrong" type="button" disabled>Luyện câu sai</button>
+            <button class="btn btn-primary full-width btn-large" id="btn-open-quiz" type="button">Bắt đầu ôn</button>
+        </div>
+    </dialog>
 
     <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"></script>
     <script src="./src/js/script.js"></script>
