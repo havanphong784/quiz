@@ -38,221 +38,40 @@ const glossary = [
     { term: "Asymptotic Notation", def: "Ký pháp tiệm cận" }
 ];
 
+const DEFAULT_SUBJECT = "Nguyên lí hệ điều hành";
+
 const builtInPacks = [
     {
-        id: "algo_analysis",
-        title: "Phân tích thuật toán",
-        desc: "Độ phức tạp, Big O, Omega, Theta và tốc độ tăng trưởng.",
-        file: "./src/data/Algorithm_Analysis.json",
-        source: "Có sẵn"
+        id: "os_introduction",
+        title: "Chương 1: Giới thiệu hệ điều hành",
+        desc: "Vai trò của hệ điều hành, tài nguyên phần cứng, lời gọi hệ thống và cấu trúc hệ điều hành.",
+        file: "./src/data/Ch1_Introduction.json",
+        source: "Import sẵn",
+        subject: DEFAULT_SUBJECT,
+        count: 40,
+        tags: ["OS", "Chương 1", "Introduction"]
     },
     {
-        id: "linked_lists",
-        title: "Danh sách liên kết",
-        desc: "Singly, doubly, circular linked lists và các thao tác cơ bản.",
-        file: "./src/data/Linked_Lists.json",
-        source: "Có sẵn"
+        id: "os_processes_and_threads",
+        title: "Chương 2: Tiến trình và luồng",
+        desc: "Tiến trình, luồng, giao tiếp, đồng bộ hóa và lập lịch CPU.",
+        file: "./src/data/Ch2_Processes_and_Threads.json",
+        source: "Import sẵn",
+        subject: DEFAULT_SUBJECT,
+        count: 40,
+        tags: ["OS", "Chương 2", "Processes & Threads"]
     },
     {
-        id: "stacks_queues",
-        title: "Ngăn xếp & hàng đợi",
-        desc: "LIFO, FIFO, cài đặt bằng mảng và danh sách liên kết.",
-        file: "./src/data/Stacks-Queues.json",
-        source: "Có sẵn"
-    },
-    {
-        id: "search_sort",
-        title: "Tìm kiếm & sắp xếp",
-        desc: "Sequential search, binary search và các thuật toán sort nền tảng.",
-        file: "./src/data/Searching_Sorting.json",
-        source: "Có sẵn"
-    },
-    {
-        id: "trees",
-        title: "Cây",
-        desc: "Binary tree, binary search tree, forest và duyệt cây.",
-        file: "./src/data/Trees.json",
-        source: "Có sẵn"
-    },
-    {
-        id: "heaps",
-        title: "Heap",
-        desc: "Max heap, min heap, priority queue và heap sort.",
-        file: "./src/data/Heaps.json",
-        source: "Có sẵn"
-    },
-    {
-        id: "graphs",
-        title: "Đồ thị",
-        desc: "Biểu diễn đồ thị, BFS, DFS và thuật ngữ liên quan.",
-        file: "./src/data/Graphs.json",
-        source: "Có sẵn"
-    },
-    {
-        id: "hash_table",
-        title: "Bảng băm",
-        desc: "Hashing tĩnh, hashing động và xử lý xung đột.",
-        file: "./src/data/Hash_Table.json",
-        source: "Có sẵn"
+        id: "os_memory_management",
+        title: "Chương 3: Quản lý bộ nhớ",
+        desc: "Không gian địa chỉ, phân trang, phân đoạn, bộ nhớ ảo và thay thế trang.",
+        file: "./src/data/Ch3_Memory_Management.json",
+        source: "Import sẵn",
+        subject: DEFAULT_SUBJECT,
+        count: 40,
+        tags: ["OS", "Chương 3", "Memory Management"]
     }
 ];
-
-const packEnhancements = {
-    algo_analysis: { tags: ["Foundation", "Big-O", "Theory"] },
-    linked_lists: { tags: ["Structure", "Linked List", "Pointer"] },
-    stacks_queues: { tags: ["Structure", "Stack", "Queue"] },
-    search_sort: { tags: ["Algorithm", "Search", "Sort"] },
-    trees: { tags: ["Structure", "Tree", "Traversal"] },
-    heaps: { tags: ["Structure", "Heap", "Priority Queue"] },
-    graphs: { tags: ["Structure", "Graph", "BFS/DFS"] },
-    hash_table: { tags: ["Structure", "Hashing", "Collision"] }
-};
-
-builtInPacks.forEach(pack => Object.assign(pack, packEnhancements[pack.id] || {}));
-
-builtInPacks.push(
-    {
-        id: "dsa_easy_50",
-        title: "DSA Easy - 50 Questions",
-        desc: "Entry-level DSA review questions for core concepts and basic operations.",
-        file: "./src/data/dsa_easy_50_questions.json",
-        source: "Built-in",
-        count: 50,
-        tags: ["Easy", "50 questions", "Review"]
-    },
-    {
-        id: "dsa_medium_50",
-        title: "DSA Medium - 50 Questions",
-        desc: "Medium DSA questions focused on analysis and practical algorithm use.",
-        file: "./src/data/dsa_medium_50_questions.json",
-        source: "Built-in",
-        count: 50,
-        tags: ["Medium", "50 questions", "Practice"]
-    },
-    {
-        id: "dsa_hard_50",
-        title: "DSA Hard - 50 Questions",
-        desc: "Advanced DSA questions for complexity analysis and deeper reasoning.",
-        file: "./src/data/dsa_hard_50_questions.json",
-        source: "Built-in",
-        count: 50,
-        tags: ["Hard", "50 questions", "Advanced"]
-    },
-    {
-        id: "coa_ch01",
-        title: "COA · Chương 1: Khái niệm cơ bản",
-        desc: "Kiến trúc, tổ chức máy tính và quá trình phát triển máy tính.",
-        file: "./src/data/CH01-Basic_Concepts_and_Computer_Evolution.json",
-        source: "Có sẵn",
-        subject: "Kiến trúc máy tính",
-        count: 30,
-        tags: ["COA", "Chương 1"]
-    },
-    {
-        id: "coa_ch02",
-        title: "COA · Chương 2: Hiệu năng",
-        desc: "Các thước đo, công thức và yếu tố ảnh hưởng đến hiệu năng máy tính.",
-        file: "./src/data/CH02-Performance_Issues.json",
-        source: "Có sẵn",
-        subject: "Kiến trúc máy tính",
-        count: 30,
-        tags: ["COA", "Chương 2"]
-    },
-    {
-        id: "coa_ch03",
-        title: "COA · Chương 3: Chức năng & liên kết",
-        desc: "Chu kỳ lệnh, bus hệ thống và sự liên kết giữa các thành phần máy tính.",
-        file: "./src/data/CH03-Computer_Function_and_Interconnection.json",
-        source: "Có sẵn",
-        subject: "Kiến trúc máy tính",
-        count: 30,
-        tags: ["COA", "Chương 3"]
-    },
-    {
-        id: "coa_ch04",
-        title: "COA · Chương 4: Bộ nhớ đệm",
-        desc: "Cache memory, ánh xạ cache và các chính sách thay thế.",
-        file: "./src/data/CH04-Cache_Memory.json",
-        source: "Có sẵn",
-        subject: "Kiến trúc máy tính",
-        count: 30,
-        tags: ["COA", "Chương 4"]
-    },
-    {
-        id: "coa_ch05",
-        title: "COA · Chương 5: Bộ nhớ trong",
-        desc: "Bộ nhớ bán dẫn, mã sửa lỗi và tổ chức bộ nhớ trong.",
-        file: "./src/data/CH05-Internal_Memory.json",
-        source: "Có sẵn",
-        subject: "Kiến trúc máy tính",
-        count: 30,
-        tags: ["COA", "Chương 5"]
-    },
-    {
-        id: "coa_cache_40",
-        title: "COA · Chương 4: Cache nâng cao",
-        desc: "Phân cấp bộ nhớ, locality và các kỹ thuật tối ưu cache.",
-        file: "./src/data/coa_chapter4_cache_mcq_40_questions.json",
-        source: "Có sẵn",
-        subject: "Kiến trúc máy tính",
-        count: 40,
-        tags: ["COA", "Cache"]
-    },
-    {
-        id: "os_ch01",
-        title: "Hệ điều hành · Chương 1: Tổng quan",
-        desc: "Vai trò, cấu trúc và các khái niệm nền tảng của hệ điều hành.",
-        file: "./src/data/chapter1_mcq_40_questions.json",
-        source: "Có sẵn",
-        subject: "Nguyên lí hệ điều hành",
-        count: 40,
-        tags: ["OS", "Chương 1"]
-    },
-    {
-        id: "os_ch02",
-        title: "Hệ điều hành · Chương 2: Tiến trình",
-        desc: "Tiến trình, luồng, lập lịch và đồng bộ hóa.",
-        file: "./src/data/chapter2_mcq_40_questions.json",
-        source: "Có sẵn",
-        subject: "Nguyên lí hệ điều hành",
-        count: 40,
-        tags: ["OS", "Chương 2"]
-    },
-    {
-        id: "os_ch03",
-        title: "Hệ điều hành · Chương 3: Quản lý bộ nhớ",
-        desc: "Không gian địa chỉ, phân trang và bộ nhớ ảo.",
-        file: "./src/data/chapter3_mcq_40_questions.json",
-        source: "Có sẵn",
-        subject: "Nguyên lí hệ điều hành",
-        count: 40,
-        tags: ["OS", "Chương 3"]
-    },
-    {
-        id: "os_ch04",
-        title: "Hệ điều hành · Chương 4: Hệ thống tệp",
-        desc: "Tệp, thư mục, lưu trữ lâu dài và các hệ thống tệp.",
-        file: "./src/data/chapter4_mcq_40_questions.json",
-        source: "Có sẵn",
-        subject: "Nguyên lí hệ điều hành",
-        count: 40,
-        tags: ["OS", "Chương 4"]
-    },
-    {
-        id: "os_advanced_tanenbaum",
-        title: "Hệ điều hành nâng cao · Tanenbaum",
-        desc: "MINIX, bảo vệ hệ thống, real-time và các chủ đề hệ điều hành nâng cao.",
-        file: "./src/data/tanenbaum_advanced_os_mcq_40_questions.json",
-        source: "Có sẵn",
-        subject: "Nguyên lí hệ điều hành",
-        count: 40,
-        tags: ["OS", "Nâng cao"]
-    }
-);
-
-builtInPacks.forEach(pack => {
-    pack.subject ||= "CTDL&GT";
-});
 
 const STORAGE_STATS_KEY = "ctdlgt_quiz_stats_v2";
 const STORAGE_PROGRESS_PREFIX = "ctdlgt_progress_";
@@ -379,7 +198,7 @@ function bindEvents() {
 
 function rebuildPackList() {
     availablePacks = [...builtInPacks, ...importedPacks];
-    availablePacks.forEach(pack => { pack.subject ||= "CTDL&GT"; });
+    availablePacks.forEach(pack => { pack.subject ||= DEFAULT_SUBJECT; });
     if (activeSubject && !availablePacks.some(pack => pack.subject === activeSubject)) activeSubject = "";
     els.packCount.textContent = `${availablePacks.length} bộ đề`;
     renderPacks();
@@ -394,7 +213,7 @@ function renderPacks() {
     els.packList.innerHTML = "";
 
     if (view === "subjects") {
-        LibraryUtils.getSubjectSummaries(availablePacks, "CTDL&GT").forEach(subject => {
+        LibraryUtils.getSubjectSummaries(availablePacks, DEFAULT_SUBJECT).forEach(subject => {
             const item = document.createElement("button");
             item.type = "button";
             item.className = "subject-item";
@@ -1412,7 +1231,7 @@ async function handleImportFile(eventOrFile) {
             title,
             desc: `Gói import từ ${file.name}`,
             source: "Import",
-            subject: activeSubject || "CTDL&GT",
+            subject: activeSubject || DEFAULT_SUBJECT,
             imported: true,
             count: questions.length,
             questions
