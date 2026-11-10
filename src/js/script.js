@@ -297,6 +297,12 @@ const els = {
     packCount: document.getElementById("pack-count"),
     packSearch: document.getElementById("pack-search"),
     btnBackSubjects: document.getElementById("btn-back-subjects"),
+    btnImportPack: document.getElementById("btn-import-pack"),
+    btnImportSample: document.getElementById("btn-import-sample"),
+    sampleDialog: document.getElementById("sample-dialog"),
+    importFile: document.getElementById("import-file"),
+    importDropzone: document.getElementById("import-dropzone"),
+    importStatus: document.getElementById("import-status"),
     packDialog: document.getElementById("pack-dialog"),
     packDialogTitle: document.getElementById("pack-dialog-title"),
     packDialogDescription: document.getElementById("pack-dialog-description"),
@@ -347,6 +353,19 @@ function init() {
 
 function bindEvents() {
     els.packSearch.addEventListener("input", renderPacks);
+    els.btnImportPack.addEventListener("click", () => els.importFile.click());
+    els.btnImportSample.addEventListener("click", () => els.sampleDialog.showModal());
+    els.importFile.addEventListener("change", handleImportFile);
+    ["dragenter", "dragover", "dragleave", "drop"].forEach(eventName => {
+        els.importDropzone.addEventListener(eventName, event => {
+            event.preventDefault();
+            els.importDropzone.classList.toggle("dragover", eventName === "dragenter" || eventName === "dragover");
+            if (eventName === "drop") {
+                const file = event.dataTransfer?.files?.[0];
+                if (file) handleImportFile(file);
+            }
+        });
+    });
     els.btnBackSubjects.addEventListener("click", () => { activeSubject = ""; renderPacks(); });
     els.dictSearch.addEventListener("input", handleDictionarySearch);
     els.btnNext.addEventListener("click", handleNext);
@@ -1379,6 +1398,10 @@ async function handleImportFile(eventOrFile) {
     if (!file) return;
 
     try {
+        if (!/\.json$/i.test(file.name)) {
+            throw new Error("Vui lòng chọn tệp JSON (.json).");
+        }
+        setImportStatus("Đang import bộ đề...", "");
         const text = await file.text();
         const data = JSON.parse(text);
         const questions = normalizeQuestions(data);
@@ -1389,19 +1412,26 @@ async function handleImportFile(eventOrFile) {
             title,
             desc: `Gói import từ ${file.name}`,
             source: "Import",
+            subject: activeSubject || "CTDL&GT",
             imported: true,
             count: questions.length,
             questions
         };
 
-        importedPacks.unshift(importedPack);
-        saveImportedPacks();
+        const updatedPacks = [importedPack, ...importedPacks];
+        saveImportedPacks(updatedPacks);
+        importedPacks = updatedPacks;
+        activeSubject = importedPack.subject;
+        els.packSearch.value = "";
         rebuildPackList();
         setImportStatus(`Đã import "${title}" với ${questions.length} câu.`, "success");
         selectPack(importedPack);
     } catch (error) {
         console.error("Import thất bại:", error);
-        setImportStatus(error.message || "File JSON không hợp lệ.", "error");
+        const message = error instanceof SyntaxError
+            ? "File JSON không hợp lệ. Vui lòng kiểm tra lại nội dung tệp."
+            : error.message || "Không thể import bộ đề.";
+        setImportStatus(message, "error");
     } finally {
         if (eventOrFile?.target) {
             eventOrFile.target.value = "";
@@ -1418,8 +1448,8 @@ function readImportedPacks() {
     }
 }
 
-function saveImportedPacks() {
-    localStorage.setItem(STORAGE_IMPORTED_KEY, JSON.stringify(importedPacks));
+function saveImportedPacks(packs = importedPacks) {
+    localStorage.setItem(STORAGE_IMPORTED_KEY, JSON.stringify(packs));
 }
 
 function removeImportedPack(packId) {

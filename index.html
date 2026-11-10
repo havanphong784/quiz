@@ -68,6 +68,21 @@
                         <span class="count-pill" id="pack-count">0 gói</span>
                     </div>
 
+                    <div class="import-panel">
+                        <div class="import-dropzone" id="import-dropzone">
+                            <div>
+                                <h3>Import gói câu hỏi</h3>
+                                <p id="import-help">Chọn hoặc kéo thả tệp JSON để thêm bộ đề của bạn.</p>
+                            </div>
+                            <div class="import-actions">
+                                <button class="btn btn-secondary" id="btn-import-sample" type="button" aria-haspopup="dialog" aria-controls="sample-dialog">Xem mẫu JSON</button>
+                                <button class="btn btn-secondary" id="btn-import-pack" type="button">Chọn tệp JSON</button>
+                            </div>
+                            <input id="import-file" type="file" accept=".json,application/json" aria-label="Import gói câu hỏi" aria-describedby="import-help" hidden>
+                        </div>
+                        <p class="status-text" id="import-status" role="status" aria-live="polite" aria-atomic="true"></p>
+                    </div>
+
                     <label class="search-field" for="pack-search">
                         <span>Tìm môn học hoặc bộ đề</span>
                         <input id="pack-search" type="search" placeholder="Ví dụ: CTDL&GT, tiếng Anh...">
@@ -145,6 +160,35 @@
             </aside>
         </main>
     </div>
+
+    <dialog class="pack-dialog sample-dialog" id="sample-dialog" aria-labelledby="sample-dialog-title">
+        <div class="dialog-header">
+            <h2 id="sample-dialog-title">Mẫu JSON để import</h2>
+            <form method="dialog">
+                <button class="dialog-close" type="submit" aria-label="Đóng mẫu JSON">Đóng</button>
+            </form>
+        </div>
+        <p class="pack-dialog-description">Lưu nội dung dưới đây thành tệp <strong>bo-de.json</strong>, chỉnh sửa câu hỏi rồi chọn tệp để import.</p>
+        <pre class="sample-json"><code>[
+  {
+    "question": "Ngăn xếp (stack) hoạt động theo nguyên tắc nào?",
+    "options": [
+      "A. Vào trước, ra trước (FIFO)",
+      "B. Vào sau, ra trước (LIFO)",
+      "C. Lấy phần tử ngẫu nhiên",
+      "D. Lấy phần tử nhỏ nhất"
+    ],
+    "answer": "B",
+    "explanation": "Ngăn xếp lấy phần tử được thêm vào sau cùng trước tiên."
+  }
+]</code></pre>
+        <ul class="sample-format-help">
+            <li><code>question</code>: nội dung câu hỏi.</li>
+            <li><code>options</code>: danh sách có ít nhất 2 lựa chọn.</li>
+            <li><code>answer</code>: chữ cái của đáp án đúng, ví dụ <code>"B"</code>.</li>
+            <li><code>explanation</code>: giải thích đáp án, không bắt buộc.</li>
+        </ul>
+    </dialog>
 
     <dialog class="pack-dialog" id="pack-dialog" aria-labelledby="pack-dialog-title">
         <div class="dialog-header">
