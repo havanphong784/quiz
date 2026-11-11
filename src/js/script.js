@@ -110,6 +110,66 @@ const builtInPacks = [
         subject: DEFAULT_SUBJECT,
         count: 20,
         tags: ["OS", "Đề tương tự", "Lập lịch CPU"]
+    },
+    {
+        id: "architecture_chapter_1",
+        title: "Kiến trúc máy tính - Chương 1",
+        desc: "Khái niệm cơ bản và quá trình phát triển của máy tính.",
+        file: "./src/data/architecture_chapter_1.json",
+        source: "Import sẵn",
+        subject: "Kiến trúc máy tính",
+        count: 20,
+        tags: ["KTMT", "Chương 1"]
+    },
+    {
+        id: "architecture_chapter_2",
+        title: "Kiến trúc máy tính - Chương 2",
+        desc: "Các thành phần, hiệu năng và tổ chức hệ thống máy tính.",
+        file: "./src/data/architecture_chapter_2.json",
+        source: "Import sẵn",
+        subject: "Kiến trúc máy tính",
+        count: 20,
+        tags: ["KTMT", "Chương 2"]
+    },
+    {
+        id: "architecture_chapter_3",
+        title: "Kiến trúc máy tính - Chương 3",
+        desc: "Cấu trúc và hoạt động của hệ thống máy tính.",
+        file: "./src/data/architecture_chapter_3.json",
+        source: "Import sẵn",
+        subject: "Kiến trúc máy tính",
+        count: 20,
+        tags: ["KTMT", "Chương 3"]
+    },
+    {
+        id: "architecture_chapter_4",
+        title: "Kiến trúc máy tính - Chương 4",
+        desc: "Hệ thống phân cấp bộ nhớ và các nguyên lý bộ nhớ.",
+        file: "./src/data/architecture_chapter_4.json",
+        source: "Import sẵn",
+        subject: "Kiến trúc máy tính",
+        count: 20,
+        tags: ["KTMT", "Chương 4"]
+    },
+    {
+        id: "architecture_chapter_5",
+        title: "Kiến trúc máy tính - Chương 5",
+        desc: "Bộ nhớ trong, RAM, ROM và công nghệ bán dẫn.",
+        file: "./src/data/architecture_chapter_5.json",
+        source: "Import sẵn",
+        subject: "Kiến trúc máy tính",
+        count: 20,
+        tags: ["KTMT", "Chương 5"]
+    },
+    {
+        id: "architecture_chapter_6",
+        title: "Kiến trúc máy tính - Chương 6",
+        desc: "Bộ nhớ ngoài, đĩa từ và các thiết bị lưu trữ.",
+        file: "./src/data/architecture_chapter_6.json",
+        source: "Import sẵn",
+        subject: "Kiến trúc máy tính",
+        count: 20,
+        tags: ["KTMT", "Chương 6"]
     }
 ];
 

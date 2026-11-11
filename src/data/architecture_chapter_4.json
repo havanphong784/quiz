@@ -1,0 +1,222 @@
+[
+  {
+    "question": "Which of the following correctly describes the fundamental trade-offs in the computer memory hierarchy as one moves down from processor registers to secondary storage?",
+    "options": [
+      "A. Increasing cost per bit, decreasing capacity, and decreasing access time",
+      "B. Decreasing cost per bit, increasing capacity, and increasing access time",
+      "C. Decreasing cost per bit, decreasing capacity, and increasing access time",
+      "D. Increasing cost per bit, increasing capacity, and decreasing access time"
+    ],
+    "answer": "B",
+    "explanation": "As one moves down the memory hierarchy, the cost per bit decreases, the storage capacity increases, the access time increases (becomes slower), and the frequency of access by the processor decreases."
+  },
+  {
+    "question": "Which memory access method retrieves a data word based on a portion of its contents rather than its explicit address, performing comparisons across all storage locations simultaneously?",
+    "options": [
+      "A. Sequential access",
+      "B. Direct access",
+      "C. Random access",
+      "D. Associative access"
+    ],
+    "answer": "D",
+    "explanation": "Associative access enables a hardware comparison of desired bit locations within a word for a specified match across all words simultaneously, retrieving data based on contents rather than a memory address."
+  },
+  {
+    "question": "What is the primary difference between temporal locality and spatial locality?",
+    "options": [
+      "A. Temporal locality refers to referencing memory locations with identical physical addresses, while spatial locality refers to random address access.",
+      "B. Temporal locality refers to accessing memory locations that were used recently, while spatial locality refers to accessing clustered or adjacent memory locations.",
+      "C. Temporal locality applies strictly to instructions, while spatial locality applies exclusively to data operands.",
+      "D. Temporal locality relies on direct mapping, while spatial locality requires associative mapping."
+    ],
+    "answer": "B",
+    "explanation": "Temporal locality reflects the tendency of a processor to access memory locations that have been used recently (e.g., in loops), whereas spatial locality reflects the tendency to access clustered, nearby memory locations (e.g., sequential instruction execution or array traversal)."
+  },
+  {
+    "question": "What is the key advantage of a logical (virtual) cache over a physical cache?",
+    "options": [
+      "A. Cache access speed is faster because the cache responds directly before the Memory Management Unit (MMU) performs address translation.",
+      "B. It completely eliminates the need to flush cache lines during operating system context switches.",
+      "C. It requires simpler tag comparison circuitry than a physical cache.",
+      "D. Different processes with identical virtual addresses can share cache lines without extra tagging."
+    ],
+    "answer": "A",
+    "explanation": "A logical (virtual) cache stores data using virtual addresses, allowing the processor to access cache directly without waiting for the MMU to translate the virtual address into a physical address, thereby speeding up access."
+  },
+  {
+    "question": "In a direct-mapped cache, how is a main memory block mapped into a cache line?",
+    "options": [
+      "A. Any block can be placed into any line of the cache.",
+      "B. A block is mapped to a line based on the formula: line number = block number modulo (number of lines in cache).",
+      "C. A block is mapped based on the least recently used replacement policy.",
+      "D. A block is dynamically assigned to the line with the fewest references."
+    ],
+    "answer": "B",
+    "explanation": "Direct mapping assigns each block of main memory to exactly one possible cache line according to the formula i = j modulo m, where i is the cache line number, j is the main memory block number, and m is the total number of lines in the cache."
+  },
+  {
+    "question": "For a direct-mapped cache with an address length of (s + w) bits, where w is the number of word identification bits and r is the number of line index bits, what is the size of the Tag field?",
+    "options": [
+      "A. s bits",
+      "B. (s - r) bits",
+      "C. (s + r) bits",
+      "D. (r + w) bits"
+    ],
+    "answer": "B",
+    "explanation": "In direct mapping, the main memory address is divided into three fields: Word field (w bits), Line index field (r bits), and Tag field (s - r bits), where s represents the total block address bits."
+  },
+  {
+    "question": "What is the primary disadvantage of direct-mapped caches that can cause significant performance degradation ('thrashing')?",
+    "options": [
+      "A. Hardware implementation is prohibitively expensive due to numerous tag comparators.",
+      "B. If a program repeatedly accesses words from different blocks that map to the exact same cache line, the blocks are repeatedly swapped and hit ratio plummets.",
+      "C. The cache controller cannot implement write-back policies.",
+      "D. The line size cannot exceed 4 bytes."
+    ],
+    "answer": "B",
+    "explanation": "Because each block maps to only one specific cache line, if a program repeatedly references two or more blocks that map to the same line, continuous swapping occurs (thrashing), resulting in high miss rates."
+  },
+  {
+    "question": "What is the role of a 'victim cache' in computer memory design?",
+    "options": [
+      "A. To store corrupted cache lines detected by parity bits.",
+      "B. To act as a small, fully associative cache that holds recently evicted lines from a direct-mapped L1 cache to reduce conflict misses.",
+      "C. To permanently backup write-through data before writing to main memory.",
+      "D. To hold discarded branch predictions from the processor pipeline."
+    ],
+    "answer": "B",
+    "explanation": "A victim cache is typically a small, fully associative cache (4 to 16 lines) residing between a direct-mapped L1 cache and the next memory level to catch and quickly recycle evicted blocks, significantly reducing conflict misses."
+  },
+  {
+    "question": "In associative mapping (fully associative cache), how is a main memory address interpreted by the cache logic?",
+    "options": [
+      "A. Divided into Tag, Line, and Word fields.",
+      "B. Divided into Tag, Set, and Word fields.",
+      "C. Divided simply into Tag and Word fields.",
+      "D. Divided into Index and Offset fields only."
+    ],
+    "answer": "C",
+    "explanation": "In fully associative mapping, a block can be loaded into any line in the cache, so there is no line index field; the memory address is interpreted simply as a Tag field (s bits) and a Word offset field (w bits)."
+  },
+  {
+    "question": "What is the main engineering disadvantage of a fully associative cache compared to direct mapping?",
+    "options": [
+      "A. It experiences severe conflict misses.",
+      "B. It requires complex hardware circuitry to examine the tags of all cache lines simultaneously in parallel.",
+      "C. It cannot utilize the Least Recently Used (LRU) replacement policy.",
+      "D. Each block has only one fixed slot in the cache."
+    ],
+    "answer": "B",
+    "explanation": "To determine whether a requested block is present in a fully associative cache, the cache controller must compare the address tag against the tags of all cache lines simultaneously, which requires complex and expensive parallel comparison circuitry."
+  },
+  {
+    "question": "In a k-way set-associative cache, how are main memory blocks assigned to cache lines?",
+    "options": [
+      "A. Each block can only map to line k in the entire cache.",
+      "B. The cache is divided into sets of k lines each, and a block maps to a specific set (set = block modulo number of sets) and can be placed in any of the k lines within that set.",
+      "C. Each block is randomly assigned to any line with no set structure.",
+      "D. Each set contains 2^k lines, and blocks can only occupy the first line of each set."
+    ],
+    "answer": "B",
+    "explanation": "In k-way set-associative mapping, the cache is partitioned into v sets, each containing k lines. A block maps to set i = j mod v and can reside in any of the k lines within that set, combining the advantages of direct and associative mapping."
+  },
+  {
+    "question": "Why is the Least Recently Used (LRU) algorithm considered the most popular and effective cache replacement policy?",
+    "options": [
+      "A. It requires zero hardware overhead and no control bits.",
+      "B. Based on temporal locality, the block that has not been referenced for the longest time is the least likely to be referenced in the near future.",
+      "C. It replaces the block that has accumulated the highest access frequency count.",
+      "D. It selects lines completely at random to prevent thrashing."
+    ],
+    "answer": "B",
+    "explanation": "LRU relies on the principle of temporal locality: by evicting the block that has been in the cache longest without any reference, it preserves recently accessed blocks that are most likely to be needed again soon."
+  },
+  {
+    "question": "How can a true LRU replacement algorithm be easily implemented in hardware for a two-way set-associative cache?",
+    "options": [
+      "A. By maintaining a 16-bit integer counter for each line.",
+      "B. By associating a single USE bit with each line; when one line is referenced, its USE bit is set to 1 and the partner line's USE bit is cleared to 0.",
+      "C. By shifting lines through a 64-bit circular register on every clock cycle.",
+      "D. By sorting cache tags alphabetically during idle bus cycles."
+    ],
+    "answer": "B",
+    "explanation": "For two-way set associativity, each line includes a single USE bit. When a line in the set is accessed, its USE bit is set to 1 and the other line's USE bit is set to 0. On replacement, the line with USE bit 0 is evicted."
+  },
+  {
+    "question": "What is the primary disadvantage of the 'write-through' cache policy?",
+    "options": [
+      "A. Main memory is constantly invalid and out-of-date.",
+      "B. It generates substantial memory write traffic on the system bus, creating a performance bottleneck.",
+      "C. It requires a dirty bit (modify bit) for every cache line.",
+      "D. It cannot be used in single-processor systems."
+    ],
+    "answer": "B",
+    "explanation": "In a write-through policy, every write operation must update both the cache line and main memory simultaneously. Because write operations occur frequently, this creates substantial bus traffic and a potential memory bottleneck."
+  },
+  {
+    "question": "How does the 'write-back' policy minimize memory write traffic?",
+    "options": [
+      "A. Writes are made only to the cache; main memory is updated only when a modified block (marked with a dirty bit) is evicted.",
+      "B. Write operations are permanently buffered in processor registers without updating cache.",
+      "C. Only non-cached memory words are allowed to be modified.",
+      "D. It forces all write operations to be converted into read operations."
+    ],
+    "answer": "A",
+    "explanation": "Write-back updates data only in the cache and sets a dirty/use bit. Main memory is written only when that modified cache line is replaced, dramatically reducing memory write operations compared to write-through."
+  },
+  {
+    "question": "What generally happens to cache hit ratio as the cache line (block) size is continuously increased from very small to very large?",
+    "options": [
+      "A. It increases monotonically until it reaches 100%.",
+      "B. It decreases immediately because larger blocks contain invalid words.",
+      "C. It initially increases due to spatial locality, but begins to decrease as blocks become too large because fewer lines fit in cache and fetched data goes unused.",
+      "D. Line size has absolutely no effect on hit ratio."
+    ],
+    "answer": "C",
+    "explanation": "As block size increases, the hit ratio initially rises because spatial locality brings in adjacent useful words. However, as block size grows excessively large, fewer lines fit into the fixed cache size and unreferenced data replaces useful blocks, causing the hit ratio to decline."
+  },
+  {
+    "question": "What is the primary advantage of a 'split cache' (separate L1 Instruction and L1 Data caches) over a unified cache?",
+    "options": [
+      "A. Higher overall hit rate for a given total cache capacity.",
+      "B. Eliminates cache contention between the instruction fetch/decode unit and the execution unit in pipelined processors.",
+      "C. Automatic load balancing between instructions and operands.",
+      "D. Requires designing and implementing only a single cache controller."
+    ],
+    "answer": "B",
+    "explanation": "A split cache isolates instruction accesses from data accesses, eliminating structural contention between instruction prefetching/decoding and execution load/store units, which is crucial for maintaining smooth pipeline execution."
+  },
+  {
+    "question": "In a multilevel cache hierarchy, why is an on-chip L1 cache significantly faster than an external cache reachable via a system bus?",
+    "options": [
+      "A. On-chip caches utilize DRAM while external caches use magnetic storage.",
+      "B. Short internal data paths on the processor chip eliminate external bus transit delays and avoid bus arbitration cycles.",
+      "C. On-chip caches bypass the Tag comparison stage entirely.",
+      "D. On-chip caches only hold instructions and never data."
+    ],
+    "answer": "B",
+    "explanation": "Because on-chip L1 cache resides on the same silicon die as the processor core, internal data paths are extremely short, eliminating external bus delays, capacitive loading, and bus contention wait states."
+  },
+  {
+    "question": "What is the organization of the L1 instruction cache in the Intel Pentium 4 processor?",
+    "options": [
+      "A. An 8-kB direct-mapped cache storing raw x86 machine instructions.",
+      "B. An Execution Trace Cache that stores decoded micro-operations (approx. 12K micro-ops) rather than raw x86 instructions.",
+      "C. A 64-kB 16-way set-associative cache storing binary assembly code.",
+      "D. A unified 512-kB off-chip SRAM cache."
+    ],
+    "answer": "B",
+    "explanation": "The Pentium 4 uses an Execution Trace Cache as its L1 instruction cache, which stores up to 12K decoded micro-operations (micro-ops) after instruction decoding, removing decoder latency from the main execution loop."
+  },
+  {
+    "question": "In a cache system using two control bits in register CR0, what do the Cache Disable (CD) and Not Write-Through (NW) bits control in the Pentium 4 processor?",
+    "options": [
+      "A. CD enables/disables cache fills, while NW controls write-through caching and invalidation behavior.",
+      "B. CD toggles between L1 and L2 cache, while NW switches between RISC and CISC execution.",
+      "C. CD controls branch prediction, while NW configures virtual memory paging.",
+      "D. CD sets the line size, while NW selects the replacement algorithm."
+    ],
+    "answer": "A",
+    "explanation": "In Intel processors including the Pentium 4, CR0 contains the CD (Cache Disable) bit to control cache fills, and the NW (Not Write-Through) bit to enable/inhibit write-through operations and cache invalidations."
+  }
+]

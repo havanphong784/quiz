@@ -1,0 +1,222 @@
+[
+  {
+    "question": "What was the primary approach historically used by chipmakers to boost microprocessor speed before hitting physical power constraints?",
+    "options": [
+      "A. Increasing clock speed and logic density by shrinking transistor sizes",
+      "B. Reducing the total number of transistors on the silicon die",
+      "C. Eliminating cache memory to reduce data routing complexity",
+      "D. Replacing dynamic RAM with magnetic-core memory"
+    ],
+    "answer": "A",
+    "explanation": "Historically, the dominant driver of performance gains was increasing clock speed and logic density by shrinking gate sizes and distances between circuits, allowing transistors to switch faster."
+  },
+  {
+    "question": "Which of the following describes the 'Power Wall' obstacle that arose as clock speeds and transistor density increased?",
+    "options": [
+      "A. Power density (Watts/cm²) increases exponentially with clock rate and logic density, causing severe heat dissipation problems.",
+      "B. Power supply units could no longer provide direct current to motherboards.",
+      "C. Main memory requires significantly more power than the central processing unit.",
+      "D. Transistors fail to conduct electricity at frequencies above 100 MHz."
+    ],
+    "answer": "A",
+    "explanation": "As logic density and clock speed increased, power density (Watts/cm²) rose exponentially, making heat dissipation an insurmountable physical barrier to further scaling up clock speeds."
+  },
+  {
+    "question": "Why does RC delay become an increasingly severe bottleneck as chip components decrease in size?",
+    "options": [
+      "A. Thinner interconnect wires increase resistance (R) while closer spacing increases capacitance (C), raising the RC product.",
+      "B. Resistance drops to zero, causing uncontrolled electrical resonance.",
+      "C. Capacitance decreases, making signals arrive too quickly for synchronous clocking.",
+      "D. Interconnects expand thermally, breaking physical circuit pathways."
+    ],
+    "answer": "A",
+    "explanation": "As components shrink, connecting wires become thinner (increasing electrical resistance R) and are placed closer together (increasing capacitance C). Because delay increases as the RC product increases, wire signal propagation slows down."
+  },
+  {
+    "question": "What industry-wide architectural paradigm shift occurred in the mid-2000s in response to clock speed and power limits?",
+    "options": [
+      "A. Transitioning from single complex high-frequency processors to multicore processors",
+      "B. Abandoning semiconductor technology in favor of vacuum tube arrays",
+      "C. Removing pipelining and branch prediction logic from microprocessors",
+      "D. Switching exclusively to cloud-only compute terminals without local CPUs"
+    ],
+    "answer": "A",
+    "explanation": "To continue increasing performance without exceeding power dissipation limits, processor designers shifted from increasing clock frequencies of single complex cores to placing multiple processor cores on a single chip."
+  },
+  {
+    "question": "According to Pollack's Rule, how does processor performance scale with an increase in microarchitecture complexity?",
+    "options": [
+      "A. Performance increase is roughly proportional to the square root of the increase in complexity.",
+      "B. Performance increases quadratically with chip complexity.",
+      "C. Performance is strictly inversely proportional to transistor count.",
+      "D. Doubling chip complexity quadruples instruction execution speed."
+    ],
+    "answer": "A",
+    "explanation": "Pollack's rule states that performance increase is roughly proportional to the square root of the increase in complexity (e.g., doubling processor logic yields only about a 40% performance gain)."
+  },
+  {
+    "question": "How do Many Integrated Core (MIC) architectures differ from standard multicore processors?",
+    "options": [
+      "A. MIC architectures feature a very large number (e.g., 50+) of homogeneous general-purpose cores on a single chip.",
+      "B. MIC architectures combine an analog computer with a digital computer.",
+      "C. MIC architectures eliminate all internal L1 and L2 caches.",
+      "D. MIC architectures only execute serial single-threaded applications."
+    ],
+    "answer": "A",
+    "explanation": "The MIC strategy involves a homogeneous collection of a large number of general-purpose cores (typically 50 or more) on a single chip designed for highly parallel computing workloads."
+  },
+  {
+    "question": "What primary characteristic distinguishes a Graphics Processing Unit (GPU) from a standard Central Processing Unit (CPU)?",
+    "options": [
+      "A. A GPU is designed to perform massively parallel SIMD operations on graphics and vector data with high floating-point throughput.",
+      "B. A GPU is optimized strictly for sequential branch-heavy operating system kernels.",
+      "C. A GPU contains significantly more control and branch-prediction logic than ALU logic.",
+      "D. A GPU cannot perform mathematical floating-point operations."
+    ],
+    "answer": "A",
+    "explanation": "GPUs feature a massively parallel architecture with hundreds or thousands of cores designed for data-parallel SIMD operations, maximizing floating-point operations per second (FLOPS)."
+  },
+  {
+    "question": "What is the core principle formulated by Amdahl's Law?",
+    "options": [
+      "A. The potential speedup of a program using multiple processors is fundamentally limited by the inherently serial fraction of the code.",
+      "B. Adding more processors always increases performance linearly regardless of software design.",
+      "C. Memory capacity doubles every 18 months at constant cost.",
+      "D. The execution time of a parallel program depends entirely on the fastest parallel thread."
+    ],
+    "answer": "A",
+    "explanation": "Amdahl's law demonstrates that overall speedup gained by parallel processing is limited by the fraction of execution time that is sequential and cannot be parallelized: Speedup = 1 / ((1 - f) + f / N)."
+  },
+  {
+    "question": "Under Amdahl's Law, if 10% of a program's execution time is inherently serial (f = 0.90), what is the theoretical maximum speedup as the number of processors approaches infinity?",
+    "options": [
+      "A. 10",
+      "B. 100",
+      "C. 90",
+      "D. Infinite speedup"
+    ],
+    "answer": "A",
+    "explanation": "As N approaches infinity, the term f / N approaches 0, leaving Speedup = 1 / (1 - f) = 1 / (1 - 0.90) = 1 / 0.10 = 10."
+  },
+  {
+    "question": "What does Little's Law describe in queuing theory and system performance evaluation?",
+    "options": [
+      "A. L = λ * W, relating average items in the system (L), arrival rate (λ), and average time spent in the system (W).",
+      "B. MIPS = f / (CPI * 10^6), relating clock speed to instruction count.",
+      "C. Speedup = Performance_after / Performance_before.",
+      "D. P = C * V^2 * f, relating dynamic power to capacitance, voltage, and frequency."
+    ],
+    "answer": "A",
+    "explanation": "Little's Law states that for any steady-state queuing system without leakage, the average number of items in the system (L) equals the average arrival rate (λ) multiplied by the average time an item spends in the system (W)."
+  },
+  {
+    "question": "How can Little's Law (L = λW) be practically applied to evaluate a multicore server?",
+    "options": [
+      "A. To model the relationship between waiting threads (L), request arrival rate (λ), and average memory/service response time (W).",
+      "B. To calculate the physical heat generated per square centimeter of silicon.",
+      "C. To determine the width of the external system data bus.",
+      "D. To measure the exact number of transistors inside an L1 cache."
+    ],
+    "answer": "A",
+    "explanation": "In multicore server design, Little's Law relates the average number of stopped threads waiting for data (L) to the rate of subtask thread requests (λ) and average response time (W)."
+  },
+  {
+    "question": "Why is comparing clock speed (GHz) alone unreliable when assessing overall performance across different processor architectures?",
+    "options": [
+      "A. Processors have different instruction set architectures, instruction mixes, and average cycles per instruction (CPI).",
+      "B. System clocks run at randomly fluctuating frequencies during runtime.",
+      "C. Higher clock speed always implies lower electrical conductivity.",
+      "D. Clock speed only measures memory access latency rather than CPU execution speed."
+    ],
+    "answer": "A",
+    "explanation": "Different processor designs require different numbers of clock cycles per instruction (CPI) and different instruction counts to accomplish the same high-level task, making clock speed alone an incomplete performance metric."
+  },
+  {
+    "question": "How is the CPU execution time (T) for a program calculated from instruction count (Ic), average cycles per instruction (CPI), and clock cycle time (τ)?",
+    "options": [
+      "A. T = Ic * CPI * τ",
+      "B. T = (Ic * τ) / CPI",
+      "C. T = CPI / (Ic * τ)",
+      "D. T = Ic / (CPI * τ)"
+    ],
+    "answer": "A",
+    "explanation": "Total processor execution time is the product of the total number of executed instructions (Ic), the average cycles per instruction (CPI), and the duration of each clock cycle (τ = 1/f): T = Ic * CPI * τ."
+  },
+  {
+    "question": "If a 400-MHz processor executes a program with an average CPI of 2.0, what is the resulting MIPS rate?",
+    "options": [
+      "A. 200 MIPS",
+      "B. 800 MIPS",
+      "C. 100 MIPS",
+      "D. 400 MIPS"
+    ],
+    "answer": "A",
+    "explanation": "The MIPS rate is given by f / (CPI * 10^6). Here, (400 * 10^6) / (2.0 * 10^6) = 200 MIPS."
+  },
+  {
+    "question": "What is a major reason why MIPS (Millions of Instructions Per Second) is considered inadequate for comparing CISC and RISC processors?",
+    "options": [
+      "A. CISC instructions do more work per instruction, so a RISC machine may have a higher MIPS rate while taking identical execution time.",
+      "B. MIPS can only be measured on single-cycle processors.",
+      "C. CISC processors do not use clock cycles to execute instructions.",
+      "D. RISC processors cannot execute integer arithmetic instructions."
+    ],
+    "answer": "A",
+    "explanation": "Because a single CISC instruction may perform complex memory and arithmetic operations that require multiple simpler RISC instructions, a RISC processor may execute more instructions per second (higher MIPS) to achieve the exact same computational result."
+  },
+  {
+    "question": "What performance metric specifically measures floating-point calculation throughput in scientific computations?",
+    "options": [
+      "A. MFLOPS (Millions of Floating-Point Operations Per Second)",
+      "B. MIPS (Millions of Instructions Per Second)",
+      "C. CPI (Cycles Per Instruction)",
+      "D. IPC (Instructions Per Cycle)"
+    ],
+    "answer": "A",
+    "explanation": "MFLOPS measures the execution rate of floating-point operations per second, widely used in scientific modeling, 3D graphics, and numerical simulations."
+  },
+  {
+    "question": "When averaging execution rates (such as MFLOPS or transactions per second) across multiple benchmarks, which mean provides the correct value?",
+    "options": [
+      "A. Harmonic Mean (HM)",
+      "B. Arithmetic Mean (AM)",
+      "C. Median only",
+      "D. Geometric Mean only"
+    ],
+    "answer": "A",
+    "explanation": "The Harmonic Mean is mathematically appropriate when averaging rates or ratios with an inversely proportional unit (such as operations per unit time), because it is consistent with the total execution time."
+  },
+  {
+    "question": "Why does the SPEC benchmark organization use the Geometric Mean (GM) to summarize normalized execution ratios across benchmark suites?",
+    "options": [
+      "A. The geometric mean produces consistent relative rankings regardless of which machine is chosen as the reference baseline.",
+      "B. The geometric mean always yields a larger number than the arithmetic mean.",
+      "C. The geometric mean completely eliminates execution time measurement errors.",
+      "D. The geometric mean requires zero multiplication or root operations."
+    ],
+    "answer": "A",
+    "explanation": "The property that makes the geometric mean attractive for normalized benchmark ratios is that the ranking among tested machines is independent of the choice of the reference machine."
+  },
+  {
+    "question": "In SPEC benchmark terminology, what is the key difference between a 'speed metric' and a 'rate metric'?",
+    "options": [
+      "A. Speed metric measures elapsed time to complete a single task, while rate metric measures throughput / multiple simultaneous tasks.",
+      "B. Speed metric evaluates floating-point code, while rate metric evaluates integer code only.",
+      "C. Speed metric measures network bandwidth, while rate metric measures CPU clock frequency.",
+      "D. Speed metric allows compiler optimization, while rate metric strictly forbids compiler use."
+    ],
+    "answer": "A",
+    "explanation": "The SPEC speed metric measures the time it takes a computer to complete a single task, whereas the rate metric (throughput) measures how many tasks a system can accomplish concurrently."
+  },
+  {
+    "question": "In SPEC benchmarks, what is the distinction between 'base metric' and 'peak metric'?",
+    "options": [
+      "A. Base metrics require strict default compiler flags across all tests, while peak metrics permit aggressive benchmark-specific compiler optimizations.",
+      "B. Base metrics measure hardware idle power, while peak metrics measure maximum wattage.",
+      "C. Base metrics run in single-user mode, while peak metrics run in kernel debug mode.",
+      "D. Base metrics test DRAM only, while peak metrics test hard disk read speeds."
+    ],
+    "answer": "A",
+    "explanation": "Base metrics enforce strict, uniform compilation rules across all benchmarks to ensure consistency, while peak metrics allow vendors to use aggressive, per-benchmark compiler tuning to maximize scores."
+  }
+]

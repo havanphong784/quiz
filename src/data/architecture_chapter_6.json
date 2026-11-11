@@ -1,0 +1,222 @@
+[
+  {
+    "question": "Which of the following correctly describes the read/write mechanism in modern magnetic hard disks?",
+    "options": [
+      "A. The read/write head must maintain continuous physical contact with the magnetic platter surface during operation.",
+      "B. Modern disk systems use separate read and write heads; the write head operates on electromagnetic induction, while the read head uses magnetoresistive (MR) or giant magnetoresistive (GMR) principles.",
+      "C. Data is read and written strictly through focused optical laser diodes reflected off crystalline pits.",
+      "D. A single coil of wire performs both read and write operations by mechanically altering the rotational speed of the disk."
+    ],
+    "answer": "B",
+    "explanation": "Traditional disk heads used an inductive coil for both reading and writing. Contemporary systems utilize dual heads: an inductive write head and a magnetoresistive (MR or GMR) read head, whose electrical resistance changes in the presence of magnetic fields, enabling higher recording densities."
+  },
+  {
+    "question": "In magnetic disk track formatting, what is the purpose of Multiple Zone Recording (or Zone Bit Recording)?",
+    "options": [
+      "A. It ensures that every track across the entire disk has exactly the same number of sectors and bits.",
+      "B. It increases overall storage capacity by packing more sectors onto outer tracks where the track circumference is greater, while maintaining approximately constant bit density.",
+      "C. It divides the disk into zones dedicated solely to operating system boot code.",
+      "D. It eliminates the need for an addressable sector header and cyclic redundancy check (CRC)."
+    ],
+    "answer": "B",
+    "explanation": "On traditional disks with constant angular velocity, inner tracks were packed at maximum density, leaving outer tracks underutilized. Multiple Zone Recording groups adjacent cylinders into zones, placing more sectors per track in outer zones to maximize total disk capacity while keeping recording density roughly constant."
+  },
+  {
+    "question": "Which component of disk access time dominates the delay when retrieving non-contiguous data blocks?",
+    "options": [
+      "A. Rotational latency",
+      "B. Transfer time",
+      "C. Seek time",
+      "D. Bus transmission delay"
+    ],
+    "answer": "C",
+    "explanation": "Seek time—the time required for the mechanical actuator arm to position the read/write head over the desired cylinder/track—is typically the longest component of disk access time, averaging between 3 to 15 milliseconds."
+  },
+  {
+    "question": "How is the average rotational latency calculated for a disk spinning at a rotational speed of r revolutions per minute (rpm)?",
+    "options": [
+      "A. 1 / (2 * r) seconds",
+      "B. 60 / (2 * r) = 1 / (2 * (r / 60)) seconds",
+      "C. r / 60 seconds",
+      "D. 2 * r / 60 seconds"
+    ],
+    "answer": "B",
+    "explanation": "At r rpm, the time for one full revolution is 60 / r seconds. On average, the desired sector is half a revolution away, making the average rotational delay equal to (1 / 2) * (60 / r) = 30 / r seconds (or 1 / (2 * (r / 60)))."
+  },
+  {
+    "question": "What is the common architectural concept shared by all RAID (Redundant Array of Independent Disks) levels?",
+    "options": [
+      "A. All RAID levels must use Hamming code to detect and correct multi-bit memory errors.",
+      "B. The operating system views the array of physical disks as a single logical drive, with data distributed across the physical drives and redundant capacity used for fault tolerance.",
+      "C. Every physical drive in the array must mirror identical copies of all files.",
+      "D. Data is accessed purely sequentially using dedicated magnetic tape emulation."
+    ],
+    "answer": "B",
+    "explanation": "All RAID levels share three common characteristics: (1) the array is viewed by the OS as a single logical drive, (2) data are distributed across physical drives in a scheme known as striping, and (3) redundant disk capacity is used to store parity or mirror data to guarantee data recoverability in case of disk failure."
+  },
+  {
+    "question": "Which of the following statements regarding RAID 0 is TRUE?",
+    "options": [
+      "A. RAID 0 provides fault tolerance through distributed Reed-Solomon parity codes.",
+      "B. RAID 0 is not a true member of the RAID family because it provides data striping without any redundancy or error correction.",
+      "C. RAID 0 mirrors every block onto an identical backup disk.",
+      "D. RAID 0 has slower read and write transfer rates than a single independent disk."
+    ],
+    "answer": "B",
+    "explanation": "RAID 0 employs data striping across multiple disks to maximize I/O throughput and transfer bandwidth, but it includes no redundancy (parity or mirroring). A failure of any single drive results in complete data loss for the entire volume."
+  },
+  {
+    "question": "What is the primary operational trade-off of RAID 1 (Disk Mirroring)?",
+    "options": [
+      "A. It provides high fault tolerance and fast read performance, but requires 100% capacity overhead because all data is duplicated.",
+      "B. It requires calculating complex Hamming codes across dedicated parity drives.",
+      "C. It cannot survive any single disk failure.",
+      "D. It requires synchronous rotation of all disk spindles across the array."
+    ],
+    "answer": "A",
+    "explanation": "RAID 1 achieves redundancy through 100% duplication (mirroring) of all logical stripes. While it offers high reliability and can service read requests concurrently from both copies, its cost is high because usable capacity is only 50% of total disk space."
+  },
+  {
+    "question": "Why is RAID 2 rarely, if ever, implemented in commercial disk subsystems?",
+    "options": [
+      "A. Disks do not support data striping.",
+      "B. Disk drives and controllers already incorporate internal error detection/correction codes (ECC), making bit-level striping and external Hamming parity disks redundant and economically inefficient.",
+      "C. Parity can only be calculated on rotating optical platters.",
+      "D. It cannot handle concurrent I/O operations."
+    ],
+    "answer": "B",
+    "explanation": "RAID 2 stripes data at the bit or byte level and uses dedicated disks to store Hamming error-correcting codes. Because individual disk drives already perform internal sector-level CRC/ECC error detection, the heavy hardware overhead of RAID 2's extra parity drives is unnecessary in practice."
+  },
+  {
+    "question": "What is the key functional difference between RAID 3 and RAID 4?",
+    "options": [
+      "A. RAID 3 uses distributed parity, whereas RAID 4 uses mirrored disks.",
+      "B. RAID 3 uses byte-level striping with synchronized spindles and a single parity disk, while RAID 4 uses block-level striping with independent disk access and a single parity disk.",
+      "C. RAID 3 is designed for small transactional I/O requests, while RAID 4 only supports sequential streaming.",
+      "D. RAID 3 supports dual parity, whereas RAID 4 has no parity."
+    ],
+    "answer": "B",
+    "explanation": "RAID 3 stripes data at very fine grain (bytes or words) across drives with synchronized spindle rotation, addressing high-bandwidth streaming transfers with one parity drive. RAID 4 employs large block-level strips, allowing independent drives to service unrelated I/O requests simultaneously, though writes still bottleneck on its single dedicated parity drive."
+  },
+  {
+    "question": "Why does RAID 4 suffer from a write performance bottleneck, and how does RAID 5 solve it?",
+    "options": [
+      "A. RAID 4 requires rewinding magnetic tape, while RAID 5 uses solid-state flash blocks.",
+      "B. In RAID 4, every write to any data drive requires updating the single dedicated parity drive; RAID 5 solves this by distributing parity blocks cyclically across all disks in the array.",
+      "C. RAID 4 does not support write caching, while RAID 5 eliminates parity calculation completely.",
+      "D. RAID 4 mirrors all parity disks twice, while RAID 5 stores parity only in volatile RAM."
+    ],
+    "answer": "B",
+    "explanation": "In RAID 4, all write operations must update a single physical parity drive, creating a severe I/O bottleneck. RAID 5 distributes parity strips evenly across all N+1 disks in a round-robin/cyclic fashion, allowing multiple concurrent write operations to occur simultaneously on different disks."
+  },
+  {
+    "question": "How does RAID 6 protect data against disk failures compared to RAID 5?",
+    "options": [
+      "A. RAID 6 uses two independent parity/redundancy calculations (such as XOR and Reed-Solomon P+Q codes) across two separate disks, allowing it to survive simultaneous failure of any two drives.",
+      "B. RAID 6 creates three mirrored copies of every data drive.",
+      "C. RAID 6 eliminates block-level striping entirely and uses optical backup discs.",
+      "D. RAID 6 can only survive failure of a single drive, but requires zero computational overhead."
+    ],
+    "answer": "A",
+    "explanation": "RAID 6 introduces dual redundancy by computing two distinct check codes (commonly an XOR parity P and an independent Galois-field/Reed-Solomon code Q) stored on separate disks. This enables the array to sustain the simultaneous failure of any two disks without losing data."
+  },
+  {
+    "question": "What is the fundamental architectural constraint when writing data to NAND flash memory in a Solid State Drive (SSD)?",
+    "options": [
+      "A. Data must be written bit-by-bit using magnetic induction coils.",
+      "B. Read and write operations are performed at the page level, but data can only be overwritten after an entire multi-page block is erased.",
+      "C. Flash memory can only perform write operations when the drive is completely full.",
+      "D. Each flash cell can be written an infinite number of times without physical degradation."
+    ],
+    "answer": "B",
+    "explanation": "In NAND flash memory, read and program (write) operations occur in units of pages (e.g., 4 KB to 16 KB), but flash cells cannot be directly overwritten in place. Existing data must be cleared in whole erasure blocks (e.g., 128 to 512 pages) before new writes can take place."
+  },
+  {
+    "question": "What is the purpose of the Flash Translation Layer (FTL) and the TRIM command in SSDs?",
+    "options": [
+      "A. The FTL converts magnetic track sectors into optical pit reflections.",
+      "B. The FTL maps logical block addresses (LBA) to physical flash pages and performs wear leveling, while the TRIM command informs the SSD which LBAs are no longer in use by the OS to optimize garbage collection.",
+      "C. The TRIM command increases the spindle rotation speed of the SSD controller.",
+      "D. The FTL serves solely to disable hardware encryption on the drive."
+    ],
+    "answer": "B",
+    "explanation": "The FTL emulates a standard block device interface by mapping logical OS addresses to physical flash locations, managing bad blocks and wear leveling. The OS-level TRIM command notifies the SSD controller when file data has been deleted, allowing the garbage collector to reclaim invalid pages proactively without unnecessary block rewrites."
+  },
+  {
+    "question": "Why do Solid State Drives (SSDs) require wear-leveling algorithms?",
+    "options": [
+      "A. To keep the temperature of rotating platters uniform.",
+      "B. Flash memory cells suffer from finite endurance; each erase/write cycle degrades the oxide insulating layer, so wear leveling distributes writes evenly across all blocks to prevent premature drive failure.",
+      "C. Flash memory cells lose their stored data if not rewritten every few seconds.",
+      "D. Wear leveling ensures that all files are stored strictly in alphabetical order."
+    ],
+    "answer": "B",
+    "explanation": "Floating-gate or charge-trap NAND flash cells physically wear out after a finite number of program/erase (P/E) cycles (e.g., 1,000 to 100,000 cycles). Wear leveling dynamically distributes write and erase operations uniformly across the physical medium so that no single flash block fails prematurely."
+  },
+  {
+    "question": "In optical discs like CD-ROM, how is digital binary information represented on the recording surface?",
+    "options": [
+      "A. By varying microscopic magnetic domain alignments.",
+      "B. By physical microscopic pits (depressions) and lands (flat surfaces); binary transitions are detected by changes in laser light reflectivity at pit-land boundaries.",
+      "C. By differing levels of electrical capacitance on silicon transistors.",
+      "D. By radioactive isotopes embedded into polycarbonate resin."
+    ],
+    "answer": "B",
+    "explanation": "Optical discs represent data physically through a spiraling track of microscopic depressions called pits, separated by flat areas called lands. When a laser shines on the track, destructive interference at pit-land transitions reduces reflected intensity, which a photodetector senses and decodes as binary transitions."
+  },
+  {
+    "question": "Why do optical discs like CD-ROM utilize Constant Linear Velocity (CLV) rather than Constant Angular Velocity (CAV)?",
+    "options": [
+      "A. CLV ensures that the disc rotates at a fixed, unvarying RPM regardless of where the optical head is reading.",
+      "B. CLV maintains a uniform linear speed and constant pit packing density past the optical pickup head by adjusting the disc's rotational speed from fast (at the inner track) to slow (at the outer track).",
+      "C. CLV allows the read laser to change its wavelength dynamically.",
+      "D. CLV eliminates the need for any error-correcting codes on the disc."
+    ],
+    "answer": "B",
+    "explanation": "Under Constant Linear Velocity (CLV), data is packed uniformly across the spiral track. To read bits at a constant rate, the drive's motor dynamically changes angular speed: rotating fastest when reading near the inner hub (approx. 500 RPM) and slowing down as the head moves toward the outer edge (approx. 200 RPM)."
+  },
+  {
+    "question": "How does a CD-RW (ReWritable) optical disc repeatedly record and erase data?",
+    "options": [
+      "A. By chemically burning irreversible holes into an organic dye recording layer.",
+      "B. By utilizing a phase-change active recording layer that shifts reversibly between a highly reflective crystalline state and a low-reflective amorphous state depending on laser heat intensity and cooling rate.",
+      "C. By changing the magnetic polarity of a thin cobalt-chromium alloy coating.",
+      "D. By physically cutting and smoothing physical grooves with a heated diamond stylus."
+    ],
+    "answer": "B",
+    "explanation": "CD-RW uses a phase-change material (typically an alloy of silver, indium, antimony, and tellurium). A high-energy laser pulse melts the alloy and rapid cooling freezes it into an amorphous state (low reflectivity, mimicking a pit), while a moderate-energy laser pulse anneals it back to crystalline form (high reflectivity, mimicking a land)."
+  },
+  {
+    "question": "Which physical modifications enabled DVDs and Blu-ray discs to achieve significantly higher capacities than standard CDs?",
+    "options": [
+      "A. Increasing the physical disc diameter from 120 mm to 300 mm.",
+      "B. Utilizing shorter laser wavelengths (e.g., 650 nm red for DVD, 405 nm blue-violet for Blu-ray), lenses with higher numerical aperture, tighter track pitch, and multi-layer recording.",
+      "C. Replacing optical lasers with microwave transmitter horns.",
+      "D. Eliminating all parity redundancy and sector formatting headers."
+    ],
+    "answer": "B",
+    "explanation": "Higher optical capacity is achieved by reducing diffraction spot size: using shorter wavelength lasers (CD: 780 nm infrared, DVD: 650 nm red, Blu-ray: 405 nm blue-violet) and higher numerical aperture (NA) lenses (CD: 0.45, DVD: 0.60, Blu-ray: 0.85). This enables much narrower tracks (tighter track pitch), smaller pits, and multi-layer disc designs."
+  },
+  {
+    "question": "What is the primary technological characteristic of modern high-density magnetic tape systems, such as LTO (Linear Tape-Open)?",
+    "options": [
+      "A. Data is read exclusively in circular concentric tracks like a floppy disk.",
+      "B. Data is recorded using serpentine recording, where data is written along the full length of the tape in one direction across multiple tracks, and then the head shifts slightly to write in reverse along the tape.",
+      "C. Magnetic tape provides random access times comparable to solid-state drives.",
+      "D. Magnetic tape requires optical lasers to decode pits etched into plastic."
+    ],
+    "answer": "B",
+    "explanation": "Modern cartridge systems like LTO use serpentine recording: multiple read/write heads record parallel data tracks along the tape from beginning to end. At the end of the tape, the head assembly steps down slightly and writes in the reverse direction, creating a dense multi-pass serpentine layout."
+  },
+  {
+    "question": "In the comparison of storage media characteristics, which of the following accurately ranks typical average access latency from fastest to slowest?",
+    "options": [
+      "A. Magnetic Tape -> Magnetic Hard Disk -> Solid State Drive (SSD)",
+      "B. Solid State Drive (SSD) -> Magnetic Hard Disk (HDD) -> Magnetic Tape",
+      "C. Magnetic Hard Disk (HDD) -> Solid State Drive (SSD) -> Magnetic Tape",
+      "D. Optical Disc -> Magnetic Hard Disk -> Solid State Drive (SSD)"
+    ],
+    "answer": "B",
+    "explanation": "SSDs have typical access latencies measured in microseconds (tens to hundreds of microseconds) due to electronic solid-state addressing. Magnetic HDDs require mechanical head movement and platter rotation, resulting in latencies of 5 to 15 milliseconds. Magnetic tape is a purely sequential media requiring physical reel winding, with access times often reaching tens of seconds."
+  }
+]

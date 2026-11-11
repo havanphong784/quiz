@@ -1,0 +1,222 @@
+[
+  {
+    "question": "Which of the following correctly describes the storage mechanism and physical nature of a Dynamic RAM (DRAM) cell?",
+    "options": [
+      "A. It stores data using traditional cross-coupled flip-flop logic gates and does not require periodic refreshing.",
+      "B. It stores data as an electric charge on a capacitor, making it essentially an analog device that requires periodic charge refreshing.",
+      "C. It stores data permanently using fused metallic links that are set during manufacturing.",
+      "D. It stores data as magnetic orientation in a ferromagnetic thin film that requires no electrical power."
+    ],
+    "answer": "B",
+    "explanation": "A DRAM cell stores binary data as charge on a capacitor. Because capacitors naturally leak charge over time even when power is continuously applied, DRAM requires periodic refresh circuitry. Furthermore, because a capacitor can hold any charge within a voltage range, the basic DRAM cell is essentially an analog device."
+  },
+  {
+    "question": "What happens to the stored charge in a DRAM capacitor during a read operation?",
+    "options": [
+      "A. The charge remains completely unaffected and intact.",
+      "B. The charge is amplified and transferred to secondary storage.",
+      "C. The readout from the cell discharges the capacitor, which must then be restored to complete the operation.",
+      "D. The charge is inverted and stored in an internal shadow register."
+    ],
+    "answer": "C",
+    "explanation": "Reading a DRAM cell connects the storage capacitor to the bit line and sense amplifier, which discharges the capacitor. The readout is destructive, so the charge must be rewritten/restored to the capacitor immediately to complete the read cycle."
+  },
+  {
+    "question": "Why is SRAM primarily used for processor cache memory while DRAM is preferred for computer main memory?",
+    "options": [
+      "A. SRAM is nonvolatile and cheaper per bit than DRAM.",
+      "B. SRAM is faster but less dense and more expensive per bit than DRAM, whereas DRAM offers higher bit density and lower cost for large capacities.",
+      "C. DRAM operates at much higher clock frequencies than SRAM but consumes more power in standby mode.",
+      "D. SRAM requires complex external refresh circuitry that only CPUs can provide."
+    ],
+    "answer": "B",
+    "explanation": "Static RAM (SRAM) uses 4 to 6 transistors per cell (flip-flops), making it faster but larger, less dense, and more expensive than DRAM. Dynamic RAM (DRAM) uses only one transistor and one capacitor per cell, providing much higher density and lower cost per bit, making DRAM ideal for large main memory while SRAM is favored for smaller, high-speed caches."
+  },
+  {
+    "question": "Which type of read-only memory has its binary data permanently wired into the chip during the manufacturing process using photographic masks?",
+    "options": [
+      "A. Mask ROM (Read-Only Memory)",
+      "B. Programmable ROM (PROM)",
+      "C. Erasable Programmable ROM (EPROM)",
+      "D. Electrically Erasable Programmable ROM (EEPROM)"
+    ],
+    "answer": "A",
+    "explanation": "Standard ROM is created like any integrated circuit chip, with data wired directly into the chip during fabrication. It has a high fixed setup cost and no room for error, as any bit error requires discarding the entire production batch."
+  },
+  {
+    "question": "How does an Erasable Programmable Read-Only Memory (EPROM) chip erase its stored data?",
+    "options": [
+      "A. By applying a high reverse voltage pulse to individual bytes.",
+      "B. By exposing the chip to intense ultraviolet (UV) radiation through a quartz window on the package.",
+      "C. By heating the package above 100°C in an oven.",
+      "D. By grounding all address lines simultaneously for 10 milliseconds."
+    ],
+    "answer": "B",
+    "explanation": "EPROM cells are erased by exposing the chip to ultraviolet light through a transparent quartz window built into the package. The process erases all cells simultaneously (chip-level erasure) and can take up to 20 minutes."
+  },
+  {
+    "question": "What is the key functional difference between EEPROM and Flash memory regarding their write/erase capabilities?",
+    "options": [
+      "A. EEPROM supports byte-level electrical erasure and writing in place, whereas Flash memory only supports block-level erasure.",
+      "B. EEPROM requires ultraviolet light to erase data, while Flash memory uses electrical signals.",
+      "C. Flash memory is volatile, while EEPROM is nonvolatile.",
+      "D. EEPROM uses one transistor per bit, whereas Flash memory requires six transistors per bit."
+    ],
+    "answer": "A",
+    "explanation": "EEPROM can be updated electrically at the byte level without erasing prior contents elsewhere on the chip. Flash memory, while also electrically erasable, is organized so that entire sections/blocks of memory cells are erased in a single action ('flash'), meaning it does not support byte-level erasure."
+  },
+  {
+    "question": "In a 16-Mbit DRAM chip organized as 4M x 4 (2048 x 2048 x 4), why are only 11 external address pins (A0–A10) used instead of 22?",
+    "options": [
+      "A. Because half of the memory is inaccessible to the processor.",
+      "B. Because the chip uses multiplexed addressing, where row and column addresses are strobed sequentially using RAS and CAS signals.",
+      "C. Because the memory is addressed using 11-bit serial tokens.",
+      "D. Because 11 pins are reserved exclusively for error-correcting Hamming codes."
+    ],
+    "answer": "B",
+    "explanation": "To reduce package pin count and physical footprint, DRAMs employ multiplexed addressing: the 22-bit address is split into an 11-bit row address (latched by Row Address Select, RAS) followed by an 11-bit column address (latched by Column Address Select, CAS) across the same 11 physical pins."
+  },
+  {
+    "question": "What is the consequence of adding one additional address pin to a square-array multiplexed DRAM chip?",
+    "options": [
+      "A. The memory capacity increases by 50%.",
+      "B. The memory capacity doubles.",
+      "C. The memory capacity quadruples (increases by a factor of 4).",
+      "D. The access latency is cut in half."
+    ],
+    "answer": "C",
+    "explanation": "Because DRAM uses address multiplexing on a square internal array, adding one address pin doubles both the number of rows and the number of columns (2x rows * 2x columns = 4x cells), thus quadrupling the total chip capacity with each new address pin."
+  },
+  {
+    "question": "What is an interleaved memory organization in main memory systems?",
+    "options": [
+      "A. A technique where cache memory and main memory share the same physical bus lines.",
+      "B. A design where memory is partitioned into independent banks that can service read or write requests simultaneously.",
+      "C. An architecture where code and data are stored in alternate bit positions of the same word.",
+      "D. A method of compressing unused memory blocks into virtual pages."
+    ],
+    "answer": "B",
+    "explanation": "Interleaved memory organizes DRAM chips into multiple independent banks. Each bank can process a read/write cycle independently, so a system with K banks can service up to K requests concurrently, significantly accelerating sequential block transfers."
+  },
+  {
+    "question": "In semiconductor memory systems, what is the fundamental difference between a 'hard failure' and a 'soft error'?",
+    "options": [
+      "A. A hard failure is caused by software bugs, while a soft error is caused by CPU overheating.",
+      "B. A hard failure is a permanent physical defect leaving cells stuck at 0 or 1, while a soft error is a random, non-destructive transient event without physical damage.",
+      "C. A hard failure affects parity bits, while a soft error affects only data bits.",
+      "D. A hard failure can be corrected by ECC logic, while a soft error requires replacing the memory module."
+    ],
+    "answer": "B",
+    "explanation": "A hard failure is a permanent physical defect caused by manufacturing flaws, wear, or environmental damage, leaving affected cells permanently stuck or erratically toggling. A soft error is a transient, non-destructive event (often caused by power supply noise or alpha particles from radioactive decay) that flips bit values without damaging the underlying hardware."
+  },
+  {
+    "question": "According to the Hamming error-correcting code inequality (2^K - 1 >= M + K), how many check bits (K) are required to provide Single-Error Correction (SEC) for an 8-bit data word (M = 8)?",
+    "options": [
+      "A. 3 check bits",
+      "B. 4 check bits",
+      "C. 5 check bits",
+      "D. 8 check bits"
+    ],
+    "answer": "B",
+    "explanation": "For M = 8 data bits: with K = 3, 2^3 - 1 = 7, which is less than 8 + 3 = 11 (insufficient). With K = 4, 2^4 - 1 = 15, which is greater than or equal to 8 + 4 = 12. Therefore, exactly 4 check bits are required for an 8-bit data word."
+  },
+  {
+    "question": "When an 8-bit data word is read from memory with Hamming SEC code, how is the syndrome word interpreted?",
+    "options": [
+      "A. If all bits are 0, no error occurred; if only one bit is 1, a check bit is in error; if multiple bits are 1, the numerical value identifies the bit position in error.",
+      "B. If the syndrome is non-zero, it indicates an unrecoverable hard disk failure.",
+      "C. The syndrome value directly specifies the total number of faulty memory banks.",
+      "D. An odd parity syndrome indicates a double error, while an even parity syndrome indicates single error."
+    ],
+    "answer": "A",
+    "explanation": "In Hamming SEC: (1) A syndrome of all 0s indicates no error. (2) A syndrome with exactly one bit set to 1 indicates an error occurred in one of the check bits (no data correction needed). (3) A syndrome with two or more bits set to 1 has a numerical value equal to the exact 1-based bit position of the corrupted bit, which is inverted to correct."
+  },
+  {
+    "question": "How does Single-Error-Correcting, Double-Error-Detecting (SEC-DED) code extend a basic Hamming SEC code?",
+    "options": [
+      "A. By doubling the number of data bits stored in each word.",
+      "B. By adding an additional overall parity bit covering all data and check bits.",
+      "C. By interleaving check bits across two separate DRAM chips.",
+      "D. By calculating cyclic redundancy check (CRC) polynomials across cache lines."
+    ],
+    "answer": "B",
+    "explanation": "SEC-DED adds an extra parity bit that calculates overall parity across the entire codeword (data bits plus check bits). If a single error occurs, the syndrome is non-zero and overall parity fails (correctable). If two errors occur, the syndrome is non-zero but overall parity passes, indicating an uncorrectable double error without mistakenly modifying a third bit."
+  },
+  {
+    "question": "What is the primary architectural enhancement of Synchronous DRAM (SDRAM) compared to conventional asynchronous DRAM?",
+    "options": [
+      "A. SDRAM uses magnetic storage rather than capacitors.",
+      "B. SDRAM exchanges data synchronized to an external system clock without wait states, using internal banks and burst mode.",
+      "C. SDRAM eliminates the need for periodic capacitor refresh cycles.",
+      "D. SDRAM replaces row and column decoding with content-addressable logic."
+    ],
+    "answer": "B",
+    "explanation": "Unlike conventional asynchronous DRAM where the processor must insert wait states while waiting for memory access, SDRAM moves data in and out synchronized to the system clock, latches commands, and utilizes multiple internal banks and burst mode to deliver high data transfer rates."
+  },
+  {
+    "question": "What is the function of the 'Mode Register' found in SDRAM architectures?",
+    "options": [
+      "A. It configures operational parameters such as CAS latency and burst length (1, 2, 4, 8, or full page).",
+      "B. It monitors voltage drops across the storage capacitors to initiate self-refresh.",
+      "C. It maps virtual memory page tables to physical row decoders.",
+      "D. It stores hardware error logs for failed DRAM cells."
+    ],
+    "answer": "A",
+    "explanation": "The SDRAM Mode Register allows customization of device operation to match system bus timings, primarily setting the burst length (e.g., 1, 2, 4, 8, or full page) and the CAS latency (the delay in clock cycles between read command issuance and data appearance)."
+  },
+  {
+    "question": "How does Double Data Rate SDRAM (DDR SDRAM) double the theoretical data rate compared to standard single-data-rate SDRAM at the same bus clock frequency?",
+    "options": [
+      "A. By transmitting data on both the rising and falling edges of the clock signal.",
+      "B. By doubling the supply voltage from 1.5V to 3.0V.",
+      "C. By eliminating the column address strobe (CAS) cycle entirely.",
+      "D. By compressing all 64-bit words into 32-bit packets."
+    ],
+    "answer": "A",
+    "explanation": "DDR SDRAM achieves double the data rate by transferring data on both the rising (positive) and falling (negative) edges of each clock pulse, combined with an internal prefetch buffer architecture."
+  },
+  {
+    "question": "What architectural innovation did JEDEC introduce in DDR4 to avoid increasing the prefetch buffer size to 16 bits?",
+    "options": [
+      "A. Reverting back to asynchronous bus interfaces.",
+      "B. Bank Groups, which allow separate bank groups to execute column cycles independently in parallel with an 8-bit prefetch.",
+      "C. Direct cache injection using internal SRAM arrays.",
+      "D. Optical signal transmission between the memory controller and DIMM slots."
+    ],
+    "answer": "B",
+    "explanation": "DDR3 already used an 8-bit prefetch buffer, which established a minimum burst length of 8. Moving to a 16-bit prefetch in DDR4 would have made short burst lengths inefficient. Instead, DDR4 retained the 8-bit prefetch but introduced 'bank groups', allowing two 8-bit prefetches to run in parallel in separate bank groups."
+  },
+  {
+    "question": "What physical mechanism in a Flash memory cell allows it to store a binary bit nonvolatilesly without external electrical power?",
+    "options": [
+      "A. Trapping electrons on an isolated floating gate sandwiched between oxide insulating layers via Fowler-Nordheim tunneling.",
+      "B. Changing the magnetic orientation of a ferromagnetic core using inductive coils.",
+      "C. Melting and solidifying a chalcogenide material between two electrodes.",
+      "D. Maintaining a continuous micro-current loop through superconducting wires."
+    ],
+    "answer": "A",
+    "explanation": "A flash memory cell uses a MOSFET with an added floating gate surrounded by thin insulating oxide. Applying a high programming voltage causes electrons to tunnel through the oxide layer onto the floating gate, where trapped negative charge alters the transistor's threshold voltage and remains trapped even when power is turned off."
+  },
+  {
+    "question": "Why is NOR Flash memory traditionally preferred for storing firmware/program code in embedded microcontrollers, while NAND Flash is preferred for SSDs and USB drives?",
+    "options": [
+      "A. NOR Flash provides high-speed random byte-level read access (execute-in-place), while NAND Flash has higher bit density, faster block writes/erases, and lower cost per bit.",
+      "B. NOR Flash is cheaper per gigabyte and provides higher density than NAND Flash.",
+      "C. NAND Flash allows single-byte random read/write without any page buffering.",
+      "D. NOR Flash does not suffer from wear or write endurance limits."
+    ],
+    "answer": "A",
+    "explanation": "NOR flash cells are connected in parallel to bit lines, enabling random access and byte-level reads, making it ideal for direct code execution (execute-in-place, XIP) in microcontrollers. NAND flash cells are connected in series, offering much higher density, faster write/erase speeds, and lower cost per bit, but requiring block/page-level access suited for mass storage."
+  },
+  {
+    "question": "Which emerging nonvolatile memory technology utilizes a Magnetic Tunneling Junction (MTJ) and switches the magnetization state of a 'free layer' directly by polarized electrical current?",
+    "options": [
+      "A. Phase-Change RAM (PCRAM)",
+      "B. Spin-Transfer Torque RAM (STT-RAM)",
+      "C. Resistive RAM (ReRAM)",
+      "D. Ferroelectric RAM (FeRAM)"
+    ],
+    "answer": "B",
+    "explanation": "STT-RAM (Spin-Transfer Torque RAM) is an advanced form of MRAM featuring an MTJ with a pinned reference layer and a free layer. In STT-RAM, a spin-polarized electric current passing directly through the MTJ flips the magnetic orientation of the free layer, providing high speed (<10 ns), high endurance (>10^15 cycles), and zero standby power."
+  }
+]

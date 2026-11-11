@@ -1,0 +1,222 @@
+[
+  {
+    "question": "What is the fundamental distinction between computer architecture and computer organization?",
+    "options": [
+      "A. Architecture refers to programmer-visible attributes (ISA), while organization refers to the operational units and their interconnections.",
+      "B. Architecture deals exclusively with software compilers, while organization deals with operating system scheduling.",
+      "C. Architecture changes with every new model, while organization remains permanently fixed.",
+      "D. Architecture refers to physical circuit board layouts, while organization refers to high-level programming languages."
+    ],
+    "answer": "A",
+    "explanation": "Computer architecture refers to attributes visible to the programmer (such as instruction set, data representation, and addressing modes), whereas computer organization refers to the underlying operational units and hardware interconnections that realize those architectural specifications."
+  },
+  {
+    "question": "Which of the following is considered an architectural attribute rather than an organizational attribute?",
+    "options": [
+      "A. Memory technology used (e.g., SRAM vs. DRAM)",
+      "B. The instruction set and addressing modes",
+      "C. Control signals and clock frequency",
+      "D. Interfaces and bus arbitrations between components"
+    ],
+    "answer": "B",
+    "explanation": "The instruction set and memory addressing techniques directly affect the logical execution of programs and are visible to the assembly programmer, making them architectural attributes. Memory technology and control signals are organizational details transparent to the programmer."
+  },
+  {
+    "question": "According to computer architecture fundamentals, what are the four basic functions that a computer can perform?",
+    "options": [
+      "A. Data processing, data storage, data movement, and control",
+      "B. Compiling, linking, loading, and debugging",
+      "C. Arithmetic calculation, graphic rendering, network routing, and printing",
+      "D. Fetching, decoding, pipelining, and branching"
+    ],
+    "answer": "A",
+    "explanation": "A computer performs four basic functions: data processing, data storage (short-term and long-term), data movement (I/O and communications), and control (managing resources and orchestrating components)."
+  },
+  {
+    "question": "What are the four main structural components of a traditional computer system?",
+    "options": [
+      "A. Compiler, Assembler, Linker, and Loader",
+      "B. CPU, Main Memory, I/O, and System Interconnection",
+      "C. Keyboard, Monitor, Hard Drive, and Mouse",
+      "D. ALU, Control Unit, Registers, and Internal Bus"
+    ],
+    "answer": "B",
+    "explanation": "At the top level, a computer consists of the Central Processing Unit (CPU), Main Memory, Input/Output (I/O), and System Interconnection (commonly a system bus)."
+  },
+  {
+    "question": "What are the major internal structural components of a Central Processing Unit (CPU)?",
+    "options": [
+      "A. ROM, RAM, Cache, and Virtual Memory",
+      "B. Control Unit, Arithmetic and Logic Unit (ALU), Registers, and CPU Interconnection",
+      "C. Northbridge, Southbridge, System Bus, and Expansion Slots",
+      "D. Motherboard, Power Supply, Heat Sink, and Cooling Fan"
+    ],
+    "answer": "B",
+    "explanation": "The CPU is composed of the Control Unit (controls operation), Arithmetic and Logic Unit (ALU - performs data processing), Registers (internal CPU storage), and CPU Interconnection (internal data paths)."
+  },
+  {
+    "question": "In multicore processor terminology, what is a 'core'?",
+    "options": [
+      "A. An entire printed circuit board containing multiple sockets",
+      "B. An individual processing unit on a processor chip capable of fetching and executing instructions",
+      "C. The main external system bus connecting the processor to RAM",
+      "D. A software thread managed by the operating system"
+    ],
+    "answer": "B",
+    "explanation": "A core is an individual processing unit on a processor chip that may be equivalent in functionality to a CPU on a single-CPU system, containing an ALU, control unit, registers, and often L1/L2 caches."
+  },
+  {
+    "question": "The fundamental concept introduced in the IAS computer, where programs and data are stored together in memory, is known as:",
+    "options": [
+      "A. The Harvard architecture",
+      "B. The stored-program concept",
+      "C. Hardwired control programming",
+      "D. Direct memory access (DMA)"
+    ],
+    "answer": "B",
+    "explanation": "The stored-program concept, attributed to John von Neumann and Alan Turing, specifies that data and instructions are stored together in a single read-write memory and are executed sequentially."
+  },
+  {
+    "question": "Which register in the IAS computer contains the address of the next instruction pair to be fetched from memory?",
+    "options": [
+      "A. Memory Buffer Register (MBR)",
+      "B. Instruction Register (IR)",
+      "C. Program Counter (PC)",
+      "D. Accumulator (AC)"
+    ],
+    "answer": "C",
+    "explanation": "In the IAS computer, the Program Counter (PC) contains the address of the next instruction pair to be fetched from memory."
+  },
+  {
+    "question": "In the IAS computer, each word consists of 40 bits. When storing instructions, what does one 40-bit word contain?",
+    "options": [
+      "A. A single 40-bit complex instruction",
+      "B. Two 20-bit instructions, each having an 8-bit opcode and a 12-bit address",
+      "C. Four 10-bit instructions without addresses",
+      "D. One 16-bit opcode and a 24-bit direct operand"
+    ],
+    "answer": "B",
+    "explanation": "An IAS memory word can hold either a 40-bit signed number or two 20-bit instructions (a left instruction and a right instruction), each consisting of an 8-bit opcode and a 12-bit memory address."
+  },
+  {
+    "question": "Which register in the IAS machine holds the 8-bit operation code (opcode) of the instruction currently being executed?",
+    "options": [
+      "A. Instruction Register (IR)",
+      "B. Instruction Buffer Register (IBR)",
+      "C. Memory Address Register (MAR)",
+      "D. Multiplier Quotient (MQ)"
+    ],
+    "answer": "A",
+    "explanation": "The Instruction Register (IR) holds the 8-bit opcode of the instruction currently being executed by the control circuits."
+  },
+  {
+    "question": "What key electronic component defines the Second Generation of computers (approx. 1957–1964)?",
+    "options": [
+      "A. Vacuum tubes",
+      "B. Transistors",
+      "C. Integrated circuits (SSI/MSI)",
+      "D. Microprocessors (VLSI)"
+    ],
+    "answer": "B",
+    "explanation": "The second generation of computers replaced bulky, heat-generating vacuum tubes with solid-state silicon transistors, which were smaller, cheaper, and dissipated less heat."
+  },
+  {
+    "question": "What was a major innovation introduced in the second-generation IBM 7094 to relieve the CPU from detailed I/O processing?",
+    "options": [
+      "A. Cloud computing networks",
+      "B. Independent data channels with their own processors and instruction sets",
+      "C. Microprogramming ROM control stores",
+      "D. Pipelined floating-point vector units"
+    ],
+    "answer": "B",
+    "explanation": "The IBM 7094 introduced data channels, which are independent I/O modules with their own processor and instruction set, relieving the CPU of the burden of handling detailed I/O operations."
+  },
+  {
+    "question": "What technological innovation defines the Third Generation of computers, beginning in 1958?",
+    "options": [
+      "A. Vacuum tubes",
+      "B. Discrete transistors on circuit boards",
+      "C. Integrated Circuits (ICs)",
+      "D. Optical storage media"
+    ],
+    "answer": "C",
+    "explanation": "The third generation of computers is defined by the invention of the integrated circuit (IC) in 1958, where multiple transistors, gates, and components are fabricated on a single silicon chip."
+  },
+  {
+    "question": "What are the two fundamental digital electronic building blocks required to construct a digital computer on an integrated circuit?",
+    "options": [
+      "A. Compilers and interpreters",
+      "B. Gates (for logic/data processing) and memory cells (for data storage)",
+      "C. Capacitors and vacuum tubes",
+      "D. Hardwired cables and mechanical relays"
+    ],
+    "answer": "B",
+    "explanation": "At the primitive digital electronic level, a computer is constructed from gates (which implement Boolean logic functions for data processing) and memory cells (which store binary digits)."
+  },
+  {
+    "question": "What does Moore's Law state regarding semiconductor technology?",
+    "options": [
+      "A. The cost of computer software doubles every two years.",
+      "B. The number of transistors that can be packed onto a single chip doubles roughly every 18 months to 2 years.",
+      "C. Clock speed increases linearly with the size of the computer chassis.",
+      "D. Power consumption on a chip decreases by half every month."
+    ],
+    "answer": "B",
+    "explanation": "Proposed by Gordon Moore in 1965, Moore's Law observed and predicted that the number of transistors on a single integrated circuit chip would double periodically (originally every year, later adjusted to every 18 months), dramatically reducing cost while increasing performance."
+  },
+  {
+    "question": "Why was the introduction of the IBM System/360 in 1964 considered a watershed moment in computer history?",
+    "options": [
+      "A. It was the first computer to run without electrical power.",
+      "B. It was the industry's first planned family of computers, providing architectural compatibility across diverse price and performance models.",
+      "C. It abandoned the binary system in favor of decimal vacuum tube rings.",
+      "D. It was the world's first single-chip microcontroller."
+    ],
+    "answer": "B",
+    "explanation": "The IBM System/360 was the industry's first planned family of computers. Models varied in price, speed, and organizational complexity, but shared a common architecture so that software written for one model could run on any other model."
+  },
+  {
+    "question": "What historic milestone occurred in 1971 with Intel's development of the 4004 chip?",
+    "options": [
+      "A. It was the first 64-bit multi-core supercomputer.",
+      "B. It was the first chip to contain all components of a CPU on a single chip, marking the birth of the microprocessor.",
+      "C. It replaced all magnetic tape storage with flash memory.",
+      "D. It eliminated the need for an Arithmetic and Logic Unit."
+    ],
+    "answer": "B",
+    "explanation": "In 1971, Intel developed the 4004, which contained all components of a CPU on a single silicon chip, giving birth to the microprocessor."
+  },
+  {
+    "question": "Which Intel microprocessor was the first to feature a 32-bit architecture and built-in hardware support for multitasking?",
+    "options": [
+      "A. Intel 4004",
+      "B. Intel 8086",
+      "C. Intel 80286",
+      "D. Intel 80386"
+    ],
+    "answer": "D",
+    "explanation": "The Intel 80386 (introduced in 1985) was Intel's first 32-bit processor and a major redesign that provided hardware support for multitasking and rivaled the power of minicomputers."
+  },
+  {
+    "question": "What is the primary architectural difference between a general-purpose microprocessor and a microcontroller?",
+    "options": [
+      "A. Microcontrollers are exclusively used in supercomputers.",
+      "B. A microcontroller integrates the processor core, memory (ROM/RAM), clock, and I/O peripherals onto a single silicon chip for dedicated tasks.",
+      "C. Microprocessors cannot execute arithmetic operations.",
+      "D. Microcontrollers require multiple external motherboards and discrete expansion cards."
+    ],
+    "answer": "B",
+    "explanation": "While general-purpose microprocessors rely on external chips for memory and I/O controllers, a microcontroller integrates the CPU core, non-volatile ROM, RAM, clock, and I/O controllers onto a single chip tailored for dedicated, cost- and energy-constrained embedded tasks."
+  },
+  {
+    "question": "Which processor architecture is predominantly used in embedded systems due to its high power efficiency and RISC design?",
+    "options": [
+      "A. ARM architecture",
+      "B. IBM System/370 architecture",
+      "C. IAS architecture",
+      "D. DEC PDP-8 Omnibus architecture"
+    ],
+    "answer": "A",
+    "explanation": "The ARM architecture is a high-performance, power-efficient Reduced Instruction Set Computer (RISC) design that has become the dominant architecture in smartphones and embedded devices worldwide."
+  }
+]
