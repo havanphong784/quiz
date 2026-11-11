@@ -16,6 +16,7 @@
                 <h1>Ôn tập mọi môn học</h1>
             </div>
             <div class="topbar-actions">
+                <button class="btn btn-secondary" id="btn-shortcuts" type="button" aria-haspopup="dialog" aria-controls="shortcuts-dialog" aria-keyshortcuts="Shift+/" title="Xem phím tắt (?)">Phím tắt <kbd>?</kbd></button>
                 <button class="btn btn-secondary" id="btn-back-setup" type="button" hidden>Chọn bộ đề khác</button>
             </div>
         </header>
@@ -121,8 +122,8 @@
                     <article class="question-card">
                         <span class="question-label">Câu hỏi</span>
                         <h3 id="question-text">Loading question...</h3>
-                        <button class="inline-action" id="btn-translate-question" type="button">Dịch câu hỏi</button>
-                        <button class="inline-action auto-translate" id="btn-auto-translate" type="button" aria-pressed="false">Bật tự động dịch</button>
+                        <button class="inline-action" id="btn-translate-question" aria-keyshortcuts="T" title="Dịch câu hỏi (T)" type="button">Dịch câu hỏi</button>
+                        <button class="inline-action auto-translate" id="btn-auto-translate" aria-keyshortcuts="V" title="Bật hoặc tắt tự động dịch (V)" type="button" aria-pressed="false">Bật tự động dịch</button>
                         <p class="translated-copy" id="question-translation"></p>
                     </article>
 
@@ -131,7 +132,7 @@
                     <article class="explanation-card" id="explanation-card" hidden>
                         <div class="explanation-title">Giải thích</div>
                         <p id="explanation-text"></p>
-                        <button class="inline-action" id="btn-translate-explanation" type="button">Dịch giải
+                        <button class="inline-action" id="btn-translate-explanation" aria-keyshortcuts="E" title="Dịch giải thích (E)" type="button">Dịch giải
                             thích</button>
                         <div id="explanation-translated"></div>
                     </article>
@@ -139,8 +140,8 @@
                     <article class="result-card" id="result-card" hidden></article>
 
                     <div class="controls-container">
-                        <button class="btn btn-secondary" id="btn-prev" type="button" disabled>Câu trước</button>
-                        <button class="btn btn-primary" id="btn-next" type="button">Câu tiếp theo</button>
+                        <button class="btn btn-secondary" id="btn-prev" aria-keyshortcuts="ArrowLeft" title="Câu trước (←)" type="button" disabled>Câu trước</button>
+                        <button class="btn btn-primary" id="btn-next" aria-keyshortcuts="ArrowRight" title="Câu tiếp theo hoặc kết thúc bài (→)" type="button">Câu tiếp theo</button>
                     </div>
                 </section>
             </section>
@@ -161,6 +162,30 @@
             </aside>
         </main>
     </div>
+
+    <dialog class="pack-dialog shortcuts-dialog" id="shortcuts-dialog" aria-labelledby="shortcuts-dialog-title">
+        <div class="dialog-header">
+            <h2 id="shortcuts-dialog-title">Phím tắt</h2>
+            <form method="dialog">
+                <button class="dialog-close" type="submit" aria-label="Đóng hướng dẫn phím tắt">Đóng</button>
+            </form>
+        </div>
+        <p class="pack-dialog-description">Dùng bàn phím để ôn tập nhanh hơn. Phím tắt tạm ngừng khi bạn đang nhập văn bản hoặc mở hộp thoại.</p>
+        <dl class="shortcut-list">
+            <div><dt><kbd>1</kbd>–<kbd>9</kbd> / <kbd>A</kbd>–<kbd>D</kbd></dt><dd>Chọn đáp án theo vị trí hoặc chữ cái.</dd></div>
+            <div><dt><kbd>←</kbd> / <kbd>→</kbd></dt><dd>Câu trước / câu tiếp theo. Ở câu cuối, <kbd>→</kbd> kết thúc bài.</dd></div>
+            <div><dt><kbd>T</kbd></dt><dd>Dịch câu hỏi hiện tại.</dd></div>
+            <div><dt><kbd>E</kbd></dt><dd>Dịch giải thích khi đã hiển thị.</dd></div>
+            <div><dt><kbd>V</kbd></dt><dd>Bật hoặc tắt tự động dịch.</dd></div>
+            <div><dt><kbd>/</kbd></dt><dd>Tìm bộ đề ở thư viện hoặc tìm từ vựng khi làm bài.</dd></div>
+            <div><dt><kbd>?</kbd></dt><dd>Mở hướng dẫn phím tắt.</dd></div>
+            <div><dt><kbd>Esc</kbd></dt><dd>Đóng hộp thoại đang mở.</dd></div>
+        </dl>
+        <label class="shortcut-toggle" for="shortcuts-enabled">
+            <input id="shortcuts-enabled" type="checkbox" checked>
+            <span>Bật phím tắt</span>
+        </label>
+    </dialog>
 
     <dialog class="pack-dialog sample-dialog" id="sample-dialog" aria-labelledby="sample-dialog-title">
         <div class="dialog-header">

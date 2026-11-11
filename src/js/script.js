@@ -113,6 +113,7 @@ const builtInPacks = [
     }
 ];
 
+const STORAGE_SHORTCUTS_KEY = "quizhub_shortcuts_enabled";
 const STORAGE_STATS_KEY = "ctdlgt_quiz_stats_v2";
 const STORAGE_PROGRESS_PREFIX = "ctdlgt_progress_";
 const STORAGE_IMPORTED_KEY = "ctdlgt_imported_packs_v1";
@@ -150,6 +151,9 @@ function getLocalStorage() {
 }
 
 const els = {
+    btnShortcuts: document.getElementById("btn-shortcuts"),
+    shortcutsDialog: document.getElementById("shortcuts-dialog"),
+    shortcutsEnabled: document.getElementById("shortcuts-enabled"),
     setupView: document.getElementById("setup-view"),
     quizView: document.getElementById("quiz-view"),
     selectedPackSummary: document.getElementById("selected-pack-summary"),
@@ -204,6 +208,11 @@ const els = {
 };
 
 function init() {
+    try {
+        els.shortcutsEnabled.checked = getLocalStorage()?.getItem(STORAGE_SHORTCUTS_KEY) !== "false";
+    } catch {
+        // Shortcuts remain available when browser storage is unavailable.
+    }
     importedPacks = readImportedPacks();
     rebuildPackList();
     renderDictionary(glossary);
@@ -213,6 +222,15 @@ function init() {
 }
 
 function bindEvents() {
+    els.btnShortcuts.addEventListener("click", () => els.shortcutsDialog.showModal());
+    els.shortcutsEnabled.addEventListener("change", () => {
+        try {
+            getLocalStorage()?.setItem(STORAGE_SHORTCUTS_KEY, String(els.shortcutsEnabled.checked));
+        } catch {
+            // The selected setting still applies for this visit.
+        }
+    });
+    document.addEventListener("keydown", handleKeyboardShortcut);
     els.packSearch.addEventListener("input", renderPacks);
     els.btnImportPack.addEventListener("click", () => els.importFile.click());
     els.btnImportSample.addEventListener("click", () => els.sampleDialog.showModal());
@@ -237,6 +255,55 @@ function bindEvents() {
     els.btnTranslateQuestion.addEventListener("click", translateCurrentQuestion);
     els.btnAutoTranslate.addEventListener("click", toggleAutoTranslation);
     els.btnTranslateExplanation.addEventListener("click", translateCurrentExplanation);
+}
+
+function handleKeyboardShortcut(event) {
+    if (event.defaultPrevented || event.repeat || event.isComposing || event.keyCode === 229
+        || event.ctrlKey || event.metaKey || event.altKey || !els.shortcutsEnabled.checked) return;
+    if (event.target?.closest?.("input, textarea, select, [contenteditable], [role='textbox'], [role='searchbox'], [role='combobox'], [role='slider'], [role='spinbutton']")) return;
+    if (document.querySelector("dialog[open]")) return;
+    if (event.shiftKey && event.key !== "?") return;
+
+    const key = event.key.toLowerCase();
+    if (key === "?") {
+        event.preventDefault();
+        els.btnShortcuts.click();
+        return;
+    }
+    if (key === "/") {
+        if (!els.setupView.hidden) {
+            if (els.packSearch.closest("label").hidden) els.btnBackSubjects.click();
+            els.packSearch.focus();
+            els.packSearch.select();
+        } else if (!els.quizView.hidden) {
+            els.dictSearch.focus();
+            els.dictSearch.select();
+        } else {
+            return;
+        }
+        event.preventDefault();
+        return;
+    }
+    if (els.quizView.hidden || els.quizContainer.hidden || !currentQuestions.length) return;
+
+    const actions = {
+        arrowleft: els.btnPrev,
+        arrowright: els.btnNext,
+        t: els.btnTranslateQuestion,
+        e: els.btnTranslateExplanation,
+        v: els.btnAutoTranslate
+    };
+    let button = actions[key];
+    if (/^[1-9]$/.test(key)) {
+        button = els.optionsContainer.querySelectorAll(".option-btn")[Number(key) - 1];
+    } else if (/^[a-d]$/.test(key)) {
+        button = [...els.optionsContainer.querySelectorAll(".option-btn")]
+            .find(option => option.querySelector(".option-key").textContent.toLowerCase() === key);
+    }
+    if (!button || button.disabled || button.closest("[hidden]")) return;
+
+    event.preventDefault();
+    button.click();
 }
 
 function rebuildPackList() {
@@ -600,6 +667,13 @@ function showQuestion() {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "option-btn";
+        const shortcutKeys = [];
+        if (index < 9) shortcutKeys.push(String(index + 1));
+        if (/^[A-D]$/i.test(parsed.key)) shortcutKeys.push(parsed.key.toUpperCase());
+        if (shortcutKeys.length) {
+            button.setAttribute("aria-keyshortcuts", shortcutKeys.join(" "));
+            button.title = `Chọn đáp án (${shortcutKeys.join(" / ")})`;
+        }
         button.innerHTML = `
             <span class="option-key">${escapeHtml(parsed.key)}</span>
             <span class="option-copy">
@@ -1330,12 +1404,15 @@ async function handleImportFile(eventOrFile) {
         };
 
         const updatedPacks = [importedPack, ...importedPacks];
-        saveImportedPacks(updatedPacks);
+        const persisted = saveImportedPacks(updatedPacks);
         importedPacks = updatedPacks;
         activeSubject = importedPack.subject;
         els.packSearch.value = "";
         rebuildPackList();
-        setImportStatus(`Đã import "${title}" với ${questions.length} câu.`, "success");
+        setImportStatus(
+            `Đã import "${title}" với ${questions.length} câu${persisted ? "." : " trong phiên này (trình duyệt không cho phép lưu lâu dài)."}`,
+            "success"
+        );
         selectPack(importedPack);
     } catch (error) {
         console.error("Import thất bại:", error);
@@ -1352,7 +1429,8 @@ async function handleImportFile(eventOrFile) {
 
 function readImportedPacks() {
     try {
-        const parsed = JSON.parse(localStorage.getItem(STORAGE_IMPORTED_KEY)) || [];
+        const storage = getLocalStorage();
+        const parsed = JSON.parse(storage?.getItem(STORAGE_IMPORTED_KEY) || "[]");
         return parsed.filter(pack => pack.imported && Array.isArray(pack.questions));
     } catch {
         return [];
@@ -1360,7 +1438,17 @@ function readImportedPacks() {
 }
 
 function saveImportedPacks(packs = importedPacks) {
-    localStorage.setItem(STORAGE_IMPORTED_KEY, JSON.stringify(packs));
+    const storage = getLocalStorage();
+    if (!storage) {
+        return false;
+    }
+    try {
+        storage.setItem(STORAGE_IMPORTED_KEY, JSON.stringify(packs));
+        return true;
+    } catch (error) {
+        console.warn("Không thể lưu bộ đề trong trình duyệt:", error);
+        return false;
+    }
 }
 
 function removeImportedPack(packId) {
