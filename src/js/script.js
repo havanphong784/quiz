@@ -166,6 +166,7 @@ const els = {
     sampleDialog: document.getElementById("sample-dialog"),
     importFile: document.getElementById("import-file"),
     importDropzone: document.getElementById("import-dropzone"),
+    importSubject: document.getElementById("import-subject"),
     importStatus: document.getElementById("import-status"),
     packDialog: document.getElementById("pack-dialog"),
     packDialogTitle: document.getElementById("pack-dialog-title"),
@@ -485,6 +486,13 @@ function normalizeQuestions(data) {
             questionsArray = data.data;
         } else if (Array.isArray(data.quiz)) {
             questionsArray = data.quiz;
+        } else if (Array.isArray(data.chapters)) {
+            questionsArray = data.chapters.flatMap(chapter => Array.isArray(chapter.questions) ? chapter.questions : []);
+        } else {
+            const chapterArrays = Object.values(data).filter(value => Array.isArray(value));
+            if (chapterArrays.length > 0) {
+                questionsArray = chapterArrays.flat();
+            }
         }
     }
 
@@ -1397,7 +1405,7 @@ async function handleImportFile(eventOrFile) {
             title,
             desc: `Gói import từ ${file.name}`,
             source: "Import",
-            subject: activeSubject || DEFAULT_SUBJECT,
+            subject: els.importSubject.value.trim() || activeSubject || DEFAULT_SUBJECT,
             imported: true,
             count: questions.length,
             questions

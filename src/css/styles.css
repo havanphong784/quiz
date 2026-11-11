@@ -57,6 +57,8 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgba(28,176,246,.
 .import-dropzone p { margin: 0; color: var(--muted); font-size: .82rem; }
 .import-dropzone .btn { flex: none; }
 .import-dropzone .import-actions { display: flex; flex: 0 1 auto; flex-wrap: wrap; gap: 10px; }
+.import-subject { display: flex; flex: 1 1 100%; align-items: center; gap: 10px; color: var(--muted); font-size: .82rem; font-weight: 800; }
+.import-subject input { flex: 1; min-width: 180px; padding: 9px 11px; color: var(--ink); background: #fff; border: 1px solid var(--faded); border-radius: 8px; font: inherit; }
 .sample-json { padding: 16px; overflow: auto; color: var(--ink); background: #f4fbff; border: 2px solid var(--line); border-radius: var(--radius); font-size: .8rem; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
 .sample-format-help { padding-left: 20px; margin-top: 18px; margin-bottom: 26px; color: var(--muted); font-size: .82rem; }
 .sample-format-help li + li { margin-top: 6px; }
