@@ -1,0 +1,827 @@
+[
+  {
+    "question": "Question 1: The disadvantage of programmed and interrupt I/O is:",
+    "options": [
+      "A. CPU time wasted managing transfers",
+      "B. Low accuracy",
+      "C. High data rate",
+      "D. Complex bus interface"
+    ],
+    "answer": "A",
+    "explanation": "Trong cả Programmed I/O và Interrupt-driven I/O, CPU đều phải trực tiếp xử lý việc truyền từng từ dữ liệu (word), làm tiêu tốn thời gian xử lý của CPU."
+  },
+  {
+    "question": "Question 2: The instruction cycle begins with:",
+    "options": [
+      "A. Interrupt handling",
+      "B. Executing ALU operation",
+      "C. Fetching the instruction from memory",
+      "D. Decoding operation code"
+    ],
+    "answer": "C",
+    "explanation": "Chu kỳ lệnh (Instruction cycle) luôn bắt đầu bằng giai đoạn nhận lệnh (Fetch) từ bộ nhớ chính vào CPU."
+  },
+  {
+    "question": "Question 3: The control bus carries:",
+    "options": [
+      "A. Command and timing information",
+      "B. Interrupt requests only",
+      "C. Memory content",
+      "D. Data and addresses"
+    ],
+    "answer": "A",
+    "explanation": "Bus điều khiển (Control bus) có nhiệm vụ truyền các tín hiệu điều khiển (lệnh) và các tín hiệu định thời (timing) giữa các mô-đun."
+  },
+  {
+    "question": "Question 4: Rotational delay is:",
+    "options": [
+      "A. Time for desired sector to rotate under head",
+      "B. Time for buffer transfer",
+      "C. Time to read all sectors",
+      "D. Average seek time"
+    ],
+    "answer": "A",
+    "explanation": "Độ trễ quay (Rotational delay/latency) là thời gian chờ để đĩa quay đưa cung từ (sector) cần đọc/ghi đến đúng vị trí dưới đầu từ."
+  },
+  {
+    "question": "Question 5: RAID 0 provides:",
+    "options": [
+      "A. Full mirroring",
+      "B. Parity-based recovery",
+      "C. Error correction",
+      "D. High performance, no redundancy"
+    ],
+    "answer": "D",
+    "explanation": "RAID 0 sử dụng kỹ thuật chia nhỏ dữ liệu (striping) trên nhiều ổ đĩa để tăng tốc độ truy xuất (hiệu năng cao) nhưng không có dữ liệu dự phòng (no redundancy)."
+  },
+  {
+    "question": "Question 6: Seek time refers to:",
+    "options": [
+      "A. Access time",
+      "B. Time to position the head over the track",
+      "C. Time to find the sector",
+      "D. Time to transfer data"
+    ],
+    "answer": "B",
+    "explanation": "Thời gian tìm kiếm (Seek time) trên đĩa từ là thời gian cần thiết để di chuyển đầu đọc/ghi đến đúng rãnh từ (track) chứa dữ liệu."
+  },
+  {
+    "question": "Question 7: The DDR standard is managed by:",
+    "options": [
+      "A. ISO",
+      "B. ANSI",
+      "C. JEDEC",
+      "D. IEEE"
+    ],
+    "answer": "C",
+    "explanation": "JEDEC là tổ chức tiêu chuẩn hóa kỹ thuật bán dẫn chịu trách nhiệm phát triển và quản lý các tiêu chuẩn bộ nhớ như DDR SDRAM."
+  },
+  {
+    "question": "Question 8: In a bus interconnection, performance is improved by:",
+    "options": [
+      "A. Adding more processors",
+      "B. Increasing bus width and speed",
+      "C. Using isolated I/O",
+      "D. Reducing memory size"
+    ],
+    "answer": "B",
+    "explanation": "Tăng độ rộng bus (truyền được nhiều bit hơn cùng lúc) và tốc độ xung nhịp bus giúp tăng băng thông và cải thiện hiệu năng truyền dữ liệu."
+  },
+  {
+    "question": "Question 9: In associative mapping, the address tag size equals:",
+    "options": [
+      "A. s bits (number of blocks)",
+      "B. w bits",
+      "C. s - r bits",
+      "D. d bits"
+    ],
+    "answer": "A",
+    "explanation": "Trong ánh xạ liên kết toàn phần (associative mapping), địa chỉ bộ nhớ được chia thành trường Tag (s bits xác định khối nhớ) và trường Word (w bits)."
+  },
+  {
+    "question": "Question 10: Error correction codes (ECC) can:",
+    "options": [
+      "A. Only detect double-bit errors",
+      "B. Ignore parity bits",
+      "C. Detect and correct single-bit errors",
+      "D. Replace DRAM"
+    ],
+    "answer": "C",
+    "explanation": "Mã sửa lỗi (ECC - thường dùng mã Hamming) có khả năng phát hiện lỗi 2 bit và phát hiện đồng thời sửa được lỗi 1 bit (single-bit errors)."
+  },
+  {
+    "question": "Question 11: EEPROM can be erased:",
+    "options": [
+      "A. Electrically",
+      "B. Only once",
+      "C. By UV light",
+      "D. Using laser"
+    ],
+    "answer": "A",
+    "explanation": "EEPROM (Electrically Erasable Programmable Read-Only Memory) là bộ nhớ chỉ đọc có thể xóa và lập trình lại bằng tín hiệu điện."
+  },
+  {
+    "question": "Question 12: Which of the following improves cache performance?",
+    "options": [
+      "A. Smaller block size",
+      "B. Larger block size",
+      "C. Random replacement",
+      "D. Lower associativity"
+    ],
+    "answer": "B",
+    "explanation": "Kích thước khối (block size) lớn hơn giúp tận dụng tốt nguyên lý cục bộ không gian (spatial locality), làm tăng tỷ lệ trúng cache (hit ratio)."
+  },
+  {
+    "question": "Question 13: The fastest memory type is:",
+    "options": [
+      "A. Flash memory",
+      "B. DRAM",
+      "C. L1 cache",
+      "D. CPU registers"
+    ],
+    "answer": "D",
+    "explanation": "Trong tháp phân cấp bộ nhớ, các thanh ghi của CPU (CPU registers) nằm ngay trong bộ xử lý và có tốc độ truy cập nhanh nhất."
+  },
+  {
+    "question": "Question 14: ROM contains:",
+    "options": [
+      "A. Volatile storage",
+      "B. Cache lines",
+      "C. Permanent data pattern",
+      "D. Refresh circuits"
+    ],
+    "answer": "C",
+    "explanation": "ROM (Read-Only Memory) là bộ nhớ không khả biến, lưu trữ các mẫu dữ liệu cố định/vĩnh viễn không bị mất khi tắt nguồn."
+  },
+  {
+    "question": "Question 15: Set-associative mapping combines:",
+    "options": [
+      "A. Write-through and write-back methods",
+      "B. Direct and associative mapping benefits",
+      "C. SRAM and DRAM",
+      "D. Virtual and physical addressing"
+    ],
+    "answer": "B",
+    "explanation": "Ánh xạ liên kết tập hợp (Set-associative mapping) kết hợp ưu điểm mạch đơn giản của ánh xạ trực tiếp (Direct) và tính linh hoạt giảm xung đột của ánh xạ liên kết (Associative)."
+  },
+  {
+    "question": "Question 16: Which memory technology uses both rising and falling edges of the clock?",
+    "options": [
+      "A. SRAM",
+      "B. EPROM",
+      "C. RDRAM",
+      "D. DDR SDRAM"
+    ],
+    "answer": "D",
+    "explanation": "DDR SDRAM (Double Data Rate SDRAM) truyền dữ liệu ở cả sườn lên (rising edge) và sườn xuống (falling edge) của xung nhịp đồng hồ."
+  },
+  {
+    "question": "Question 17: SSD performance may degrade due to:",
+    "options": [
+      "A. Fragmentation",
+      "B. Power failure",
+      "C. Block erase/write cycles",
+      "D. Overheating"
+    ],
+    "answer": "C",
+    "explanation": "Bộ nhớ Flash trong SSD không thể ghi đè trực tiếp mà phải xóa cả khối (block) trước khi ghi lại, làm giảm hiệu năng theo thời gian qua các chu kỳ xóa/ghi."
+  },
+  {
+    "question": "Question 18: The processor register that holds the address of the next instruction is:",
+    "options": [
+      "A. Memory Buffer Register",
+      "B. Program Counter (PC)",
+      "C. Instruction Register",
+      "D. Stack Pointer"
+    ],
+    "answer": "B",
+    "explanation": "Bộ đếm chương trình (Program Counter - PC) luôn giữ địa chỉ của lệnh tiếp theo sẽ được nạp vào CPU."
+  },
+  {
+    "question": "Question 19: The address bus is used for:",
+    "options": [
+      "A. Control signals",
+      "B. Specifying the source or destination of data",
+      "C. Power distribution",
+      "D. Transmitting data bits"
+    ],
+    "answer": "B",
+    "explanation": "Bus địa chỉ (Address bus) được dùng để xác định địa chỉ nguồn hoặc đích của dữ liệu trong bộ nhớ hoặc cổng I/O."
+  },
+  {
+    "question": "Question 20: The main difference between L1 and L2 cache is:",
+    "options": [
+      "A. L2 is faster and smaller",
+      "B. L1 is external, L2 is internal",
+      "C. L1 is faster and smaller",
+      "D. L1 uses disk storage"
+    ],
+    "answer": "C",
+    "explanation": "Cache L1 nằm gần nhân xử lý nhất nên có dung lượng nhỏ hơn nhưng tốc độ truy xuất nhanh hơn so với Cache L2."
+  },
+  {
+    "question": "Question 21: Flash memory erases data:",
+    "options": [
+      "A. Bit by bit",
+      "B. Entire chip",
+      "C. Block by block",
+      "D. Byte by byte"
+    ],
+    "answer": "C",
+    "explanation": "Đặc trưng của bộ nhớ Flash là xóa dữ liệu theo từng khối (block by block), khác với EEPROM xóa theo từng byte."
+  },
+  {
+    "question": "Question 22: The major drawback of SSDs is:",
+    "options": [
+      "A. Slow access time",
+      "B. Limited write endurance",
+      "C. High noise level",
+      "D. High latency"
+    ],
+    "answer": "B",
+    "explanation": "Nhược điểm chính của ổ cứng SSD (dùng bộ nhớ NAND Flash) là số lần ghi/xóa bị giới hạn (limited write endurance) trước khi ô nhớ bị hỏng."
+  },
+  {
+    "question": "Question 23: RAID 1 duplicates data using:",
+    "options": [
+      "A. Error codes",
+      "B. Disk mirroring",
+      "C. Parity disks",
+      "D. Striping only"
+    ],
+    "answer": "B",
+    "explanation": "RAID 1 đảm bảo an toàn dữ liệu bằng cách tạo bản sao y hệt trên ổ đĩa khác, gọi là kỹ thuật soi gương đĩa (Disk mirroring)."
+  },
+  {
+    "question": "Question 24: Power density increases with:",
+    "options": [
+      "A. Memory latency",
+      "B. Cache line width",
+      "C. Logic density and clock speed",
+      "D. Instruction size"
+    ],
+    "answer": "C",
+    "explanation": "Mật độ công suất tỏa nhiệt trên chip tăng lên khi mật độ cổng logic (số bóng bán dẫn trên một đơn vị diện tích) và tốc độ xung nhịp (clock speed) tăng."
+  },
+  {
+    "question": "Question 25: ECC memory can:",
+    "options": [
+      "A. Only detect parity",
+      "B. Ignore soft errors",
+      "C. Detect and correct single-bit errors",
+      "D. Repair DRAM cells"
+    ],
+    "answer": "C",
+    "explanation": "Bộ nhớ ECC (Error-Correcting Code memory) có khả năng phát hiện và tự động sửa các lỗi sai 1 bit (single-bit errors) trong quá trình lưu trữ và truyền dữ liệu."
+  },
+  {
+    "question": "Question 26: Human-readable devices include:",
+    "options": [
+      "A. Hard disks",
+      "B. Modems",
+      "C. Sensors",
+      "D. Monitors and printers"
+    ],
+    "answer": "D",
+    "explanation": "Thiết bị ngoại vi giao tiếp với người dùng (Human-readable devices) bao gồm màn hình (monitors), máy in (printers), bàn phím, chuột."
+  },
+  {
+    "question": "Question 27: Which of the following is volatile memory?",
+    "options": [
+      "A. Flash memory",
+      "B. EEPROM",
+      "C. DRAM",
+      "D. ROM"
+    ],
+    "answer": "C",
+    "explanation": "DRAM là bộ nhớ khả biến (volatile memory), dữ liệu sẽ bị mất ngay khi ngắt nguồn điện cung cấp."
+  },
+  {
+    "question": "Question 28: The four I/O commands include:",
+    "options": [
+      "A. Load, Move, Jump, Halt",
+      "B. Fetch, Decode, Execute, Store",
+      "C. Control, Test, Read, Write",
+      "D. Enable, Disable, Read, Lock"
+    ],
+    "answer": "C",
+    "explanation": "Một mô-đun I/O có thể nhận 4 loại lệnh từ bộ xử lý: Điều khiển (Control), Kiểm tra trạng thái (Test), Đọc (Read), và Ghi (Write)."
+  },
+  {
+    "question": "Question 29: Internal memory includes:",
+    "options": [
+      "A. Registers and cache",
+      "B. Magnetic tapes",
+      "C. USB storage",
+      "D. Hard disks"
+    ],
+    "answer": "A",
+    "explanation": "Bộ nhớ trong (Internal memory) bao gồm các thanh ghi CPU, bộ nhớ đệm (cache) và bộ nhớ chính (RAM); các phương án còn lại là bộ nhớ ngoài."
+  },
+  {
+    "question": "Question 30: Access time for a disk equals:",
+    "options": [
+      "A. Queue waiting time",
+      "B. Seek time + rotational delay",
+      "C. Transfer time",
+      "D. Rotational delay only"
+    ],
+    "answer": "B",
+    "explanation": "Thời gian truy cập đĩa từ (Access time) là tổng của thời gian tìm rãnh từ (Seek time) và độ trễ quay để tìm cung từ (Rotational delay)."
+  },
+  {
+    "question": "Question 31: Both DRAM and SRAM are:",
+    "options": [
+      "A. Nonvolatile memories",
+      "B. Flash-based",
+      "C. Magnetic",
+      "D. Volatile memories"
+    ],
+    "answer": "D",
+    "explanation": "Cả DRAM và SRAM đều là bộ nhớ bán dẫn khả biến (volatile memories), cần nguồn điện duy trì để giữ dữ liệu."
+  },
+  {
+    "question": "Question 32: Many Integrated Core (MIC) architectures are:",
+    "options": [
+      "A. Specialized GPU arrays",
+      "B. Independent I/O processors",
+      "C. Homogeneous collections of cores",
+      "D. Dynamic memory controllers"
+    ],
+    "answer": "C",
+    "explanation": "Kiến trúc tích hợp nhiều lõi (MIC) bao gồm một tập hợp lớn các lõi xử lý đồng nhất (homogeneous cores) đa dụng trên cùng một chip."
+  },
+  {
+    "question": "Question 33: Programmed I/O requires:",
+    "options": [
+      "A. CPU to wait for completion",
+      "B. Cache synchronization",
+      "C. DMA controller",
+      "D. Interrupt mechanism"
+    ],
+    "answer": "A",
+    "explanation": "Trong phương pháp vào/ra bằng chương trình (Programmed I/O), CPU phải liên tục kiểm tra trạng thái và chờ đợi cho đến khi thao tác I/O hoàn tất."
+  },
+  {
+    "question": "Question 34: Moore's Law states that:",
+    "options": [
+      "A. Cost of computing doubles every year",
+      "B. Memory capacity decreases over time",
+      "C. The number of transistors on a chip doubles every 18–24 months",
+      "D. Processor speed doubles every 10 years"
+    ],
+    "answer": "C",
+    "explanation": "Định luật Moore phát biểu rằng số lượng bóng bán dẫn (transistors) trên một vi mạch tích hợp sẽ tăng gấp đôi sau mỗi 18 đến 24 tháng."
+  },
+  {
+    "question": "Question 35: Memory-mapped I/O treats devices as:",
+    "options": [
+      "A. Memory locations",
+      "B. Separate processors",
+      "C. Parallel buses",
+      "D. Cache lines"
+    ],
+    "answer": "A",
+    "explanation": "I/O ánh xạ bộ nhớ (Memory-mapped I/O) coi các thanh ghi của thiết bị ngoại vi như các ô nhớ thông thường và dùng chung không gian địa chỉ với bộ nhớ chính."
+  },
+  {
+    "question": "Question 36: DRAM stores data using:",
+    "options": [
+      "A. Floating gates",
+      "B. Magnetic domains",
+      "C. Charge on capacitors",
+      "D. Flip-flop circuits"
+    ],
+    "answer": "C",
+    "explanation": "DRAM (Dynamic RAM) lưu trữ mỗi bit dữ liệu dưới dạng điện tích trên một tụ điện (capacitor)."
+  },
+  {
+    "question": "Question 37: PROM can be:",
+    "options": [
+      "A. Erased by UV light",
+      "B. Programmed once electrically",
+      "C. Rewritten multiple times",
+      "D. Used as cache"
+    ],
+    "answer": "B",
+    "explanation": "PROM (Programmable ROM) chỉ có thể được người dùng lập trình (ghi) một lần duy nhất bằng điện và không thể xóa đi ghi lại."
+  },
+  {
+    "question": "Question 38: The memory management unit (MMU) translates:",
+    "options": [
+      "A. Process to device IDs",
+      "B. Virtual to physical addresses",
+      "C. Binary to decimal",
+      "D. Logical to cache index"
+    ],
+    "answer": "B",
+    "explanation": "Bộ quản lý bộ nhớ (MMU) là phần cứng chịu trách nhiệm ánh xạ/chuyển đổi địa chỉ ảo (virtual/logical addresses) thành địa chỉ vật lý (physical addresses) trong RAM."
+  },
+  {
+    "question": "Question 39: The IBM System/370 allowed upgrades to faster models without losing software because of:",
+    "options": [
+      "A. New operating systems",
+      "B. Faster control units",
+      "C. Larger main memory",
+      "D. Compatibility of architecture"
+    ],
+    "answer": "D",
+    "explanation": "Dòng máy IBM System/360 và 370 duy trì tính tương thích kiến trúc tập lệnh (backward compatibility), cho phép nâng cấp phần cứng mà vẫn chạy được phần mềm cũ."
+  },
+  {
+    "question": "Question 40: SDRAM operates:",
+    "options": [
+      "A. Synchronously with system clock",
+      "B. On cache clock",
+      "C. Without timing",
+      "D. Asynchronously"
+    ],
+    "answer": "A",
+    "explanation": "SDRAM (Synchronous DRAM) trao đổi dữ liệu với bộ xử lý được đồng bộ hóa theo tín hiệu xung nhịp của bus hệ thống (system clock)."
+  },
+  {
+    "question": "Question 41: Cache line size affects:",
+    "options": [
+      "A. Address decoding",
+      "B. Bus control timing",
+      "C. Virtual memory",
+      "D. Spatial locality and hit rate"
+    ],
+    "answer": "D",
+    "explanation": "Kích thước dòng cache (Cache line size) ảnh hưởng trực tiếp đến khả năng khai thác tính cục bộ không gian (spatial locality) và tỷ lệ truy cập trúng (hit rate)."
+  },
+  {
+    "question": "Question 42: EPROM can be erased using:",
+    "options": [
+      "A. Heat",
+      "B. Ultraviolet light",
+      "C. Electrical signals",
+      "D. Magnetic field"
+    ],
+    "answer": "B",
+    "explanation": "EPROM (Erasable Programmable ROM) được xóa toàn bộ dữ liệu bằng cách chiếu tia cực tím (Ultraviolet light) qua cửa sổ thạch anh trên chip."
+  },
+  {
+    "question": "Question 43: The von Neumann architecture stores:",
+    "options": [
+      "A. Instructions in cache",
+      "B. Data and instructions in the same memory",
+      "C. Inputs in separate buses",
+      "D. Data in ROM only"
+    ],
+    "answer": "B",
+    "explanation": "Nguyên lý cốt lõi của kiến trúc von Neumann là cả dữ liệu (data) và lệnh chương trình (instructions) đều được lưu trữ chung trong một bộ nhớ đọc-ghi duy nhất."
+  },
+  {
+    "question": "Question 44: The second generation of computers used:",
+    "options": [
+      "A. Vacuum tubes",
+      "B. Microprocessors",
+      "C. Integrated circuits",
+      "D. Transistors"
+    ],
+    "answer": "D",
+    "explanation": "Máy tính thế hệ thứ hai (khoảng cuối thập niên 1950 - 1960) sử dụng bóng bán dẫn (Transistors) thay thế cho đèn điện tử chân không của thế hệ thứ nhất."
+  },
+  {
+    "question": "Question 45: In programmed I/O, the CPU:",
+    "options": [
+      "A. Continues executing other instructions",
+      "B. Ignores I/O devices",
+      "C. Transfers data directly to memory",
+      "D. Waits for I/O operation to complete"
+    ],
+    "answer": "D",
+    "explanation": "Trong Programmed I/O, sau khi phát lệnh I/O, CPU phải ở trạng thái bận chờ (busy-waiting) cho đến khi mô-đun I/O hoàn thành thao tác."
+  },
+  {
+    "question": "Question 46: The role of an I/O controller is to:",
+    "options": [
+      "A. Execute arithmetic operations",
+      "B. Store cache data",
+      "C. Manage data exchange between CPU and peripherals",
+      "D. Manage ROM refresh"
+    ],
+    "answer": "C",
+    "explanation": "Bộ điều khiển vào/ra (I/O controller/module) đóng vai trò trung gian quản lý việc giao tiếp và trao đổi dữ liệu giữa CPU/bộ nhớ với các thiết bị ngoại vi."
+  },
+  {
+    "question": "Question 47: A balanced computer system should:",
+    "options": [
+      "A. Limit bus width",
+      "B. Match processor, memory, and I/O speeds",
+      "C. Use maximum cache",
+      "D. Focus on CPU performance only"
+    ],
+    "answer": "B",
+    "explanation": "Một hệ thống máy tính cân bằng (performance balance) cần điều chỉnh tốc độ truyền dữ liệu giữa bộ xử lý, bộ nhớ và thiết bị I/O tương xứng nhau để tránh nghẽn cổ chai."
+  },
+  {
+    "question": "Question 48: Transfer time is the period:",
+    "options": [
+      "A. Power is supplied",
+      "B. Cache refresh occurs",
+      "C. CPU fetches instructions",
+      "D. Data are read/written as the disk rotates"
+    ],
+    "answer": "D",
+    "explanation": "Trên đĩa từ, thời gian truyền (Transfer time) là khoảng thời gian dữ liệu thực sự được đọc từ đĩa hoặc ghi lên đĩa khi cung từ đi qua dưới đầu từ."
+  },
+  {
+    "question": "Question 49: Interrupt-driven I/O allows:",
+    "options": [
+      "A. Continuous polling",
+      "B. CPU to continue until device signals completion",
+      "C. Manual operation",
+      "D. Direct memory transfers"
+    ],
+    "answer": "B",
+    "explanation": "Vào/ra điều khiển bằng ngắt (Interrupt-driven I/O) cho phép CPU phát lệnh I/O rồi tiếp tục làm việc khác cho đến khi thiết bị gửi tín hiệu ngắt báo hoàn tất."
+  },
+  {
+    "question": "Question 50: Optical disks store data as:",
+    "options": [
+      "A. Magnetic domains",
+      "B. Pits and lands on the surface",
+      "C. Binary voltage",
+      "D. Electrical charge"
+    ],
+    "answer": "B",
+    "explanation": "Đĩa quang (CD, DVD, Blu-ray) lưu trữ thông tin nhị phân dưới dạng các vết lõm (pits) và bề mặt phẳng (lands) trên rãnh xoắn ốc."
+  },
+  {
+    "question": "Question 51: GPU cores are mainly optimized for:",
+    "options": [
+      "A. Parallel processing of graphics data",
+      "B. Sequential CPU tasks",
+      "C. Floating point arithmetic only",
+      "D. Memory management"
+    ],
+    "answer": "A",
+    "explanation": "Các nhân GPU được thiết kế tối ưu cho việc xử lý song song khối lượng lớn dữ liệu đồ họa và các phép toán mảng/vector lặp đi lặp lại."
+  },
+  {
+    "question": "Question 52: The first general-purpose microprocessor was the:",
+    "options": [
+      "A. PDP-8",
+      "B. IBM 360",
+      "C. Intel 8008",
+      "D. Intel 8080"
+    ],
+    "answer": "D",
+    "explanation": "Theo giáo trình của William Stallings, Intel 8080 (ra mắt năm 1974) được công nhận là bộ vi xử lý đa năng (general-purpose microprocessor) đầu tiên trên thế giới."
+  },
+  {
+    "question": "Question 53: SSDs are faster than HDDs because:",
+    "options": [
+      "A. No mechanical movement",
+      "B. Use magnetic storage",
+      "C. Contain rotating disks",
+      "D. Use tape-based heads"
+    ],
+    "answer": "A",
+    "explanation": "SSD truy xuất dữ liệu hoàn toàn bằng mạch điện tử bán dẫn mà không có bộ phận chuyển động cơ học (quay đĩa, di chuyển đầu từ) như HDD."
+  },
+  {
+    "question": "Question 54: SSDs are superior to HDDs in:",
+    "options": [
+      "A. Cost per GB",
+      "B. Access time and durability",
+      "C. Data retention",
+      "D. Sequential throughput"
+    ],
+    "answer": "B",
+    "explanation": "SSD vượt trội hơn hẳn HDD về thời gian truy cập cực nhanh (access time), tốc độ IOPS và độ bền vật lý chống sốc (durability)."
+  },
+  {
+    "question": "Question 55: RAID 6 can tolerate:",
+    "options": [
+      "A. Unlimited faults",
+      "B. Only one disk failure",
+      "C. No disk failures",
+      "D. Failure of two disks"
+    ],
+    "answer": "D",
+    "explanation": "RAID 6 sử dụng 2 khối kiểm tra chẵn lẻ (dual parity) độc lập phân tán trên các ổ đĩa, cho phép hệ thống chịu lỗi tối đa 2 ổ đĩa hỏng cùng lúc mà không mất dữ liệu."
+  },
+  {
+    "question": "Question 56: The four basic functions of a computer are:",
+    "options": [
+      "A. Input, Output, Memory, Logic",
+      "B. Fetch, Decode, Execute, Store",
+      "C. ALU, CU, Registers, I/O",
+      "D. Data processing, Data storage, Data movement, Control"
+    ],
+    "answer": "D",
+    "explanation": "Bốn chức năng cơ bản nhất của mọi máy tính là: Xử lý dữ liệu (Data processing), Lưu trữ dữ liệu (Data storage), Di chuyển dữ liệu (Data movement) và Điều khiển (Control)."
+  },
+  {
+    "question": "Question 57: DDR SDRAM transfers data:",
+    "options": [
+      "A. On both rising and falling edges of clock",
+      "B. Randomly",
+      "C. On rising edge only",
+      "D. On request"
+    ],
+    "answer": "A",
+    "explanation": "Công nghệ DDR (Double Data Rate) cho phép truyền dữ liệu hai lần trong một chu kỳ xung nhịp: ở cả sườn lên (rising edge) và sườn xuống (falling edge)."
+  },
+  {
+    "question": "Question 58: The main advantage of cache memory is:",
+    "options": [
+      "A. Larger storage capacity",
+      "B. Faster access to frequently used data",
+      "C. Reduced I/O load",
+      "D. Permanent data retention"
+    ],
+    "answer": "B",
+    "explanation": "Ưu điểm chính của bộ nhớ đệm (Cache) là cung cấp tốc độ truy cập cực nhanh đối với các lệnh và dữ liệu đang được CPU sử dụng thường xuyên."
+  },
+  {
+    "question": "Question 59: DMA transfers occur:",
+    "options": [
+      "A. Using cache",
+      "B. Without address bus",
+      "C. Directly between memory and device",
+      "D. Through CPU only"
+    ],
+    "answer": "C",
+    "explanation": "Truy cập bộ nhớ trực tiếp (DMA) cho phép thiết bị ngoại vi và bộ nhớ chính truyền dữ liệu trực tiếp với nhau thông qua DMA controller mà không cần đi qua CPU."
+  },
+  {
+    "question": "Question 60: Optical disks store data using:",
+    "options": [
+      "A. Magnetic domains",
+      "B. Pits and lands read by laser",
+      "C. Electrical charges",
+      "D. Transistor gates"
+    ],
+    "answer": "B",
+    "explanation": "Đĩa quang lưu trữ dữ liệu bằng các điểm lõm (pits) và phẳng (lands), được đọc thông qua sự phản xạ của tia laser."
+  },
+  {
+    "question": "Question 61: RAID 5 distributes:",
+    "options": [
+      "A. Parity blocks across all disks",
+      "B. Separate ECC chips",
+      "C. Mirrored copies",
+      "D. Redundant servers"
+    ],
+    "answer": "A",
+    "explanation": "RAID 5 chia nhỏ dữ liệu theo khối và phân tán các khối kiểm tra chẵn lẻ (parity blocks) đều khắp tất cả các ổ đĩa trong mảng để tránh nghẽn cổ chai tại một ổ đĩa parity."
+  },
+  {
+    "question": "Question 62: The performance of computers has improved mainly due to:",
+    "options": [
+      "A. Decreased transistor density",
+      "B. Reduced instruction sets",
+      "C. Larger disk drives",
+      "D. Increased clock rates and parallelism"
+    ],
+    "answer": "D",
+    "explanation": "Hiệu năng máy tính tăng trưởng vượt bậc chủ yếu nhờ việc tăng tần số xung nhịp (clock rates), mật độ bóng bán dẫn và các kỹ thuật xử lý song song (parallelism)."
+  },
+  {
+    "question": "Question 63: The main advantage of interrupt-driven I/O is:",
+    "options": [
+      "A. CPU can perform other tasks",
+      "B. Faster than DMA",
+      "C. Uses cache memory",
+      "D. Eliminates hardware interrupts"
+    ],
+    "answer": "A",
+    "explanation": "Ưu điểm lớn nhất của Interrupt-driven I/O so với Programmed I/O là CPU không phải chờ đợi thiết bị ngoại vi mà có thể thực hiện các tác vụ khác trong lúc chờ."
+  },
+  {
+    "question": "Question 64: A microprocessor was first developed by:",
+    "options": [
+      "A. IBM",
+      "B. Intel",
+      "C. Motorola",
+      "D. DEC"
+    ],
+    "answer": "B",
+    "explanation": "Bộ vi xử lý thương mại đầu tiên trên một vi mạch đơn là Intel 4004, được phát triển bởi tập đoàn Intel vào năm 1971."
+  },
+  {
+    "question": "Question 65: External devices communicate with the computer through:",
+    "options": [
+      "A. I/O modules",
+      "B. Main memory",
+      "C. CPU registers",
+      "D. Cache"
+    ],
+    "answer": "A",
+    "explanation": "Các thiết bị ngoại vi không kết nối trực tiếp với bus hệ thống mà luôn giao tiếp với CPU và bộ nhớ thông qua các mô-đun vào/ra (I/O modules)."
+  },
+  {
+    "question": "Question 66: DMA stands for:",
+    "options": [
+      "A. Device Memory Allocation",
+      "B. Data Management Adapter",
+      "C. Direct Memory Access",
+      "D. Disk Module Addressing"
+    ],
+    "answer": "C",
+    "explanation": "DMA là viết tắt của cụm từ Direct Memory Access (Truy cập bộ nhớ trực tiếp)."
+  },
+  {
+    "question": "Question 67: Direct Memory Access (DMA) allows:",
+    "options": [
+      "A. Direct CPU-memory access only",
+      "B. Software-driven I/O",
+      "C. CPU-controlled I/O exclusively",
+      "D. Data transfer between I/O and memory without CPU"
+    ],
+    "answer": "D",
+    "explanation": "DMA cho phép trao đổi những khối dữ liệu lớn trực tiếp giữa mô-đun I/O và bộ nhớ chính mà không cần sự can thiệp liên tục của CPU."
+  },
+  {
+    "question": "Question 68: Increasing cache size generally:",
+    "options": [
+      "A. Causes more I/O traffic",
+      "B. Reduces system performance",
+      "C. Increases hit ratio",
+      "D. Reduces average memory access time"
+    ],
+    "answer": "C",
+    "explanation": "Tăng kích thước bộ nhớ cache giúp lưu trữ được nhiều khối dữ liệu hơn, từ đó làm tăng tỷ lệ truy cập trúng (hit ratio) và giảm thời gian truy cập bộ nhớ trung bình."
+  },
+  {
+    "question": "Question 69: In direct mapping, each block maps to:",
+    "options": [
+      "A. Randomly chosen slot",
+      "B. Any cache line",
+      "C. Exactly one cache line",
+      "D. Multiple lines per set"
+    ],
+    "answer": "C",
+    "explanation": "Trong kỹ thuật ánh xạ trực tiếp (Direct mapping), mỗi khối của bộ nhớ chính chỉ có thể được ánh xạ vào duy nhất một dòng cache (cache line) cố định theo công thức modulo."
+  },
+  {
+    "question": "Question 70: The data bus width determines:",
+    "options": [
+      "A. The maximum address space",
+      "B. The number of bits transferred at a time",
+      "C. The control signal count",
+      "D. The instruction length"
+    ],
+    "answer": "B",
+    "explanation": "Độ rộng của bus dữ liệu (Data bus width) bằng số đường dây dữ liệu và quyết định số lượng bit có thể được truyền song song cùng một lúc."
+  },
+  {
+    "question": "Question 71: SRAM stores data using:",
+    "options": [
+      "A. Flip-flop circuits",
+      "B. Optical cells",
+      "C. Capacitors",
+      "D. Magnetic cores"
+    ],
+    "answer": "A",
+    "explanation": "SRAM (Static RAM) lưu trữ dữ liệu bằng cách sử dụng cấu trúc mạch chốt lật (flip-flop circuits) gồm các bóng bán dẫn, không cần làm tươi định kỳ như tụ điện của DRAM."
+  },
+  {
+    "question": "Question 72: A multicore processor:",
+    "options": [
+      "A. Works only in parallel systems",
+      "B. Uses multiple I/O buses",
+      "C. Has multiple cache levels",
+      "D. Has multiple processing units on one chip"
+    ],
+    "answer": "D",
+    "explanation": "Bộ xử lý đa nhân (Multicore processor) là vi mạch tích hợp nhiều đơn vị xử lý độc lập (gọi là các nhân/cores) trên cùng một mảnh chip bán dẫn."
+  },
+  {
+    "question": "Question 73: In a computer system, the CPU is responsible for:",
+    "options": [
+      "A. Controlling operation and data processing",
+      "B. Storing programs",
+      "C. Managing peripherals",
+      "D. Data communication"
+    ],
+    "answer": "A",
+    "explanation": "Đơn vị xử lý trung tâm (CPU) chịu trách nhiệm điều khiển hoạt động của toàn bộ máy tính và thực hiện các chức năng xử lý dữ liệu."
+  },
+  {
+    "question": "Question 74: The advantage of multilevel cache is:",
+    "options": [
+      "A. Reducing average access time",
+      "B. Eliminating tag bits",
+      "C. Increasing instruction fetch latency",
+      "D. Reducing cache size"
+    ],
+    "answer": "A",
+    "explanation": "Sử dụng bộ nhớ đệm nhiều mức (L1, L2, L3) kết hợp tốc độ cực nhanh của L1 và dung lượng lớn của L2/L3 giúp giảm đáng kể thời gian truy cập bộ nhớ trung bình."
+  },
+  {
+    "question": "Question 75: The substrate in a magnetic disk is usually:",
+    "options": [
+      "A. Silicon",
+      "B. Carbon",
+      "C. Plastic",
+      "D. Aluminum or glass"
+    ],
+    "answer": "D",
+    "explanation": "Lớp nền (substrate) của đĩa cứng từ tính hiện đại thường được chế tạo từ hợp kim nhôm (aluminum) hoặc thủy tinh/gốm (glass) trước khi phủ lớp vật liệu từ tính lên trên."
+  }
+]

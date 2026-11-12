@@ -170,6 +170,16 @@ const builtInPacks = [
         subject: "Kiến trúc máy tính",
         count: 20,
         tags: ["KTMT", "Chương 6"]
+    },
+    {
+        id: "architecture_review",
+        title: "Kiến trúc máy tính - Ôn tập tổng hợp",
+        desc: "Bộ 75 câu ôn tập tổng hợp về I/O, bus, bộ nhớ, cache, đĩa, RAID và CPU.",
+        file: "./src/data/architecture_review.json",
+        source: "Import sẵn",
+        subject: "Kiến trúc máy tính",
+        count: 75,
+        tags: ["KTMT", "Ôn tập tổng hợp"]
     }
 ];
 
